@@ -1,0 +1,6 @@
+#no compiled file
+*.pyc
+
+#no platform dependent file
+settings.py
+wsgi.py
