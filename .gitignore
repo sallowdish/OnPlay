@@ -4,3 +4,6 @@
 #no platform dependent file
 settings.py
 wsgi.py
+
+#no database migration file
+migrations
