@@ -1,0 +1,22 @@
+{%if rank_list%}
+<h2>{{game.gamename}}</h2>
+<table style="width:450px">
+	<tr>
+		<th>#</th>
+		<th>Figure</th>
+		<th>Score</th>
+		<th>Achieve Time</th>
+	</tr>
+	{%for rank in rank_list%}
+	<tr>
+		<td>{{rank.rank}}</td>
+		<td>{{rank.Figure_id.name}}</td>
+		<td>{{rank.score}}</td>
+		<td>{{rank.achieveTime}}</td>
+	</tr>
+	{%endfor%}
+</table> 
+{%else%}
+<h2>{{game.gamename}}</h2>
+<p>No rank record for this game now.</p>
+{%endif%}
