@@ -7,3 +7,6 @@ wsgi.py
 
 #no database migration file
 migrations
+
+#no static
+static
