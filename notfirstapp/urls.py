@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url, include
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.conf.urls.static import static
 from django.conf import settings
@@ -13,7 +14,7 @@ urlpatterns = patterns('',
 	url(r'^signup/$',views.SignUpView.as_view(),name='SignUpPage'),
 	url(r'^profile/$',views.ProfileView.as_view(),name='ProfilePage'),
 	#index page
-	url(r'^$', views.IndexView.as_view(), name='index'),
+	url(r'^$', views.IndexView.as_view(), name="indexPage"),
 	# url(r'^(?P<game_id>\d+)/$', views.DetailPageController, name='DetailPage'),
 	#game part
 	url(r'^game/upload/$',login_required(views.GameCreateView.as_view()),name='GameFormPage'),
