@@ -22,18 +22,19 @@
     <!-- <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,600' rel='stylesheet' type='text/css'> -->
     
 
-    <script type="text/javascript" src={% static "notfirstapp/js/jquery.min.js"%}></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/JavaScript" src={% static "notfirstapp/js/slimbox2.js"%}></script>
 
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src={% static "notfirstapp/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src={% static "notfirstapp/notfirstapp/https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
     <link rel="stylesheet" type="text/css" href={% static "notfirstapp/css/ddsmoothmenu.css"%} />
-  <script type="text/javascript" src={% static "notfirstapp/js/ddsmoothmenu.js"%}></script>
+    <script type="text/javascript" src={% static "notfirstapp/js/ddsmoothmenu.js"%}></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src={% static "notfirstapp/js/jquery.cycle2.min.js"%}></script>
+    <script src={% static "notfirstapp/js/jquery.cycle2.carousel.min.js"%}></script>
+    <script src={% static "notfirstapp/js/jquery.nivo.slider.pack.js"%}></script>
+    <script>$.fn.cycle.defaults.autoSelector = '.slideshow';</script>
 
 <!--/***********************************************
 * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
@@ -169,79 +170,75 @@ ddsmoothmenu.init({
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src={% static "notfirstapp/https://code.jquery.com/jquery.js"></script> -->
-    <script src={% static "notfirstapp/js/jquery-1.10.2.min.js"%}></script>
-    <script src={% static "notfirstapp/js/bootstrap.min.js"%}></script>
-    <script src={% static "notfirstapp/js/jquery.cycle2.min.js"%}></script>
-    <script src={% static "notfirstapp/js/jquery.cycle2.carousel.min.js"%}></script>
-    <script src={% static "notfirstapp/js/jquery.nivo.slider.pack.js"%}></script>
-    <script>$.fn.cycle.defaults.autoSelector = '.slideshow';</script>
+    <!--<script src={% static "notfirstapp/js/bootstrap.min.js"%}></script>-->
+
     <script type="text/javascript">
-      // $(function(){
-      //     var default_view = 'grid';
-      //     if($.cookie('view') !== 'undefined'){
-      //         $.cookie('view', default_view, { expires: 7, path: '/' });
-      //     }
-      //     function get_grid(){
-      //         $('.list').removeClass('list-active');
-      //         $('.grid').addClass('grid-active');
-      //         $('.prod-cnt').animate({opacity:0},function(){
-      //             $('.prod-cnt').removeClass('dbox-list');
-      //             $('.prod-cnt').addClass('dbox');
-      //             $('.prod-cnt').stop().animate({opacity:1});
-      //         });
-      //     }
-      //     function get_list(){
-      //         $('.grid').removeClass('grid-active');
-      //         $('.list').addClass('list-active');
-      //         $('.prod-cnt').animate({opacity:0},function(){
-      //             $('.prod-cnt').removeClass('dbox');
-      //             $('.prod-cnt').addClass('dbox-list');
-      //             $('.prod-cnt').stop().animate({opacity:1});
-      //         });
-      //     }
-      //     if($.cookie('view') == 'list'){
-      //         $('.grid').removeClass('grid-active');
-      //         $('.list').addClass('list-active');
-      //         $('.prod-cnt').animate({opacity:0});
-      //         $('.prod-cnt').removeClass('dbox');
-      //         $('.prod-cnt').addClass('dbox-list');
-      //         $('.prod-cnt').stop().animate({opacity:1});
-      //     }
+      $(function(){
+          var default_view = 'grid';
+          if($.cookie('view') !== 'undefined'){
+              $.cookie('view', default_view, { expires: 7, path: '/' });
+          }
+          function get_grid(){
+              $('.list').removeClass('list-active');
+              $('.grid').addClass('grid-active');
+              $('.prod-cnt').animate({opacity:0},function(){
+                  $('.prod-cnt').removeClass('dbox-list');
+                  $('.prod-cnt').addClass('dbox');
+                  $('.prod-cnt').stop().animate({opacity:1});
+              });
+          }
+          function get_list(){
+              $('.grid').removeClass('grid-active');
+              $('.list').addClass('list-active');
+              $('.prod-cnt').animate({opacity:0},function(){
+                  $('.prod-cnt').removeClass('dbox');
+                  $('.prod-cnt').addClass('dbox-list');
+                  $('.prod-cnt').stop().animate({opacity:1});
+              });
+          }
+          if($.cookie('view') == 'list'){
+              $('.grid').removeClass('grid-active');
+              $('.list').addClass('list-active');
+              $('.prod-cnt').animate({opacity:0});
+              $('.prod-cnt').removeClass('dbox');
+              $('.prod-cnt').addClass('dbox-list');
+              $('.prod-cnt').stop().animate({opacity:1});
+          }
 
-      //     if($.cookie('view') == 'grid'){
-      //         $('.list').removeClass('list-active');
-      //         $('.grid').addClass('grid-active');
-      //         $('.prod-cnt').animate({opacity:0});
-      //             $('.prod-cnt').removeClass('dboxlist');
-      //             $('.prod-cnt').addClass('dbox');
-      //             $('.prod-cnt').stop().animate({opacity:1});
-      //     }
+          if($.cookie('view') == 'grid'){
+              $('.list').removeClass('list-active');
+              $('.grid').addClass('grid-active');
+              $('.prod-cnt').animate({opacity:0});
+                  $('.prod-cnt').removeClass('dboxlist');
+                  $('.prod-cnt').addClass('dbox');
+                  $('.prod-cnt').stop().animate({opacity:1});
+          }
 
-      //     $('#list').click(function(){
-      //         $.cookie('view', 'list');
-      //         get_list()
-      //     });
+          $('#list').click(function(){
+              $.cookie('view', 'list');
+              get_list()
+          });
 
-      //     $('#grid').click(function(){
-      //         $.cookie('view', 'grid');
-      //         get_grid();
-      //     });
+          $('#grid').click(function(){
+              $.cookie('view', 'grid');
+              get_grid();
+          });
 
-      //     /* filter */
-      //     $('.menuSwitch ul li').click(function(){
-      //         var CategoryID = $(this).attr('category');
-      //         $('.menuSwitch ul li').removeClass('cat-active');
-      //         $(this).addClass('cat-active');
+          /* filter */
+          $('.menuSwitch ul li').click(function(){
+              var CategoryID = $(this).attr('category');
+              $('.menuSwitch ul li').removeClass('cat-active');
+              $(this).addClass('cat-active');
 
-      //         $('.prod-cnt').each(function(){
-      //             if(($(this).hasClass(CategoryID)) == false){
-      //                $(this).css({'display':'none'});
-      //             };
-      //         });
-      //         $('.'+CategoryID).fadeIn();
+              $('.prod-cnt').each(function(){
+                  if(($(this).hasClass(CategoryID)) == false){
+                     $(this).css({'display':'none'});
+                  };
+              });
+              $('.'+CategoryID).fadeIn();
 
-      //     });
-      // });
+          });
+      });
     </script>
   <script src={% static "notfirstapp/js/jquery.singlePageNav.js"%}></script>
 
