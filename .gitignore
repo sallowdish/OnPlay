@@ -10,3 +10,7 @@ migrations
 
 #no static
 static
+!notfirstapp/static
+
+#no DS_Store
+.DS_Store
