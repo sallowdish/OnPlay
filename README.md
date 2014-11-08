@@ -4,10 +4,10 @@
 
 # ![logo](logo.png)Game Hosting System  
 <b>Game Hosting System</b> is a cloud-enabled, online-storage, Django powered Web-based Infomation System. Developers and game players are empowered with following features:
- - Online game hosting
- - Global leading board
- - Game-side chatroom
- - etc. 
+     - Online game hosting
+     - Global leading board
+     - Game-side chatroom
+     - etc. 
 
 # Version
     Current 1.0.0
