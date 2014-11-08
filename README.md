@@ -1,13 +1,13 @@
-CMPT470 Web-based Information System
-Group 3 Cryptonite 
-Final Project: Game Hosting System
+# CMPT470 Web-based Information System
+## Group 3 Cryptonite 
+## Final Project: ![logo](logo.png)Game Hosting System
 
-# Game Hosting System  
+# ![logo](logo.png)Game Hosting System  
 <b>Game Hosting System</b> is a cloud-enabled, online-storage, Django powered Web-based Infomation System. Developers and game players are empowered with following features:
  - Online game hosting
  - Global leading board
  - Game-side chatroom
- - etc. ![logo](logo.png)
+ - etc. 
 
 # Version
     Current 1.0.0
