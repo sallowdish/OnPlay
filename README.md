@@ -7,7 +7,7 @@ Final Project: Game Hosting System
  - Online game hosting
  - Global leading board
  - Game-side chatroom
- - etc. <img src="https://csil-git1.cs.surrey.sfu.ca/uploads/group/avatar/226/niceegg.png" alt="logo"/style="size:30px"/>
+ - etc. ![logo](logo.png)
 
 # Version
     Current 1.0.0
