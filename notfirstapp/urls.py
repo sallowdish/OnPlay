@@ -8,7 +8,7 @@ from notfirstapp import views
 
 urlpatterns = patterns('',
 	#login
-	url(r'^login/$','django.contrib.auth.views.login', {'template_name': 'notfirstapp/loginframe.html'},name="LoginPage"),
+	url(r'^login/$',views.login_user, name="LoginPage"),
 	url(r'^logout/$','django.contrib.auth.views.logout', {'template_name': 'notfirstapp/logout.html'},name="LogoutPage"),
 	#signup
 	url(r'^signup/$',views.SignUpView.as_view(),name='SignUpPage'),
@@ -36,7 +36,7 @@ urlpatterns = patterns('',
 	# url(r'^(?P<contact_id>\d+)/edit/done$', views.EditDoneController, name='EditDone'),
 	# url(r'^create/$', views.CreatePageController, name='CreatePage'),
 	# url(r'^create/done$', views.CreateDoneController, name='CreateDone'),
-)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
 
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)

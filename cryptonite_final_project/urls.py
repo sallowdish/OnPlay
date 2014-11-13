@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^game/', include('notfirstapp.urls')),
-)
+    url(r'^game/', include('notfirstapp.urls',namespace='game')),
+)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
