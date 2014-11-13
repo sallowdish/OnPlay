@@ -296,6 +296,7 @@ def login_user(request):
     logout(request)
     template_name='notfirstapp/loginframe.html'
     username = password = ''
+    context_dict={}
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
@@ -305,5 +306,9 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 return HttpResponseRedirect(reverse('game:ProfilePage'))
-    return render_to_response('notfirstapp/loginframe.html', context_instance=RequestContext(request))
+            else:
+                context_dict['error']='account: '+username+" is not active."
+        else:
+            context_dict['error']='Invalid username or password' 
+    return render_to_response('notfirstapp/loginframe.html', context_dict,context_instance=RequestContext(request))
 
