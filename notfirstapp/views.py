@@ -1,4 +1,5 @@
 from django.shortcuts import render,render_to_response,get_object_or_404,get_list_or_404
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -9,6 +10,7 @@ from django.views import generic
 from django.contrib.auth.models import User
 from notfirstapp.models import *
 from .forms import *
+from .urls import *
 import json
 # Create your views here.
 class IndexView(ListView):
@@ -94,7 +96,7 @@ class FigureFormView(CreateView):
     #     return form
 
         def get_success_url(self):
-                return reverse('FigureDetailPage',kwargs={'pk': self.id})
+                return reverse('game:FigureDetailPage',kwargs={'pk': self.id})
 
 class ScoreRankView(ListView):
     template_name='notfirstapp/ranklist.html'
@@ -186,7 +188,7 @@ class GameCreateView(CreateView):
         return context
 
     def get_success_url(self):
-    	return reverse('GameDetailPage',kwargs={'pk': self.id})
+    	return reverse('game:GameDetailPage',kwargs={'pk': self.id})
 
 class GameDetailView(DetailView):
     model = Game
@@ -198,7 +200,7 @@ class GameDetailView(DetailView):
         context = super(GameDetailView, self).get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['appname'] = 'notfirstapp'
-        context['back_url']=reverse('GameListPage')
+        context['back_url']=reverse('game:GameListPage')
         return context
 
 
@@ -221,7 +223,7 @@ class ImageView(FormView):
     	return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-    	return reverse('ImageFormPage')
+    	return reverse('game:ImageFormPage')
 
 class ImageDetailView(DetailView):
     model = Image
@@ -289,4 +291,19 @@ def ScoreRankApiView(request,pk):
             return HttpResponse('Bad Request', status=400)
     else:
         return HttpResponse('Forbiden.',status=403)
+
+def login_user(request):
+    logout(request)
+    template_name='notfirstapp/loginframe.html'
+    username = password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('game:ProfilePage'))
+    return render_to_response('notfirstapp/loginframe.html', context_instance=RequestContext(request))
 

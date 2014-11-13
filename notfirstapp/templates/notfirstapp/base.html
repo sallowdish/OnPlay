@@ -72,7 +72,7 @@
         <div class="row">
           <div class="col-sm-3 col-md-3">
             <div class="logo">
-              <a rel="nofollow" href= "{%url 'indexPage' %}" >
+              <a rel="nofollow" href= "{%url 'game:indexPage' %}" >
                 <img src="{% static "notfirstapp/images/templatemo_logo.png"%}" alt="logo">
               </a>
             </div>
@@ -86,20 +86,20 @@
                 <li><a class="menu"%}>Hi, {{user.username}}</a></li>
                 {%endif%}
                 {%block home%}
-                <li><a class="menu" href= "{% url 'indexPage' %}">Home</a></li>
+                <li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
                 {%endblock home%}
                 {%block about%}
                 <li><a class="menu" href= "#templatemo_about">About</a></li>
                 {%endblock about%}
                 {%block game%}
-                <li><a class="menu" href= "{% url 'GameListPage' %}">Games</a></li>
+                <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
                 {%endblock game%}
-                <li><a class="menu" href= "{% url 'GameDemoPage' %}">2048</a></li>
+                <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
 
                 {%if user.is_authenticated%}
-                  <li><a class="menu" href= "{% url 'LogoutPage' %}">Logout</a></li>
+                  <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
                 {%else%}
-                  <li><a class="menu" href= "{% url 'LoginPage' %}">Login</a></li>
+                  <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
                 {%endif%}
               </ul>
               </nav>

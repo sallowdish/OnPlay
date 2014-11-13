@@ -15,12 +15,12 @@
                             <div class="portfolio-item">
                                     <div class="portfolio-thumb">
                                         {%if game.fk_image%}
-                                        <img id='gameicon' src="/notfirstapp{{game.fk_image.imagefile.url}}" alt="portfolio 1">
+                                        <img id='gameicon' src="{{game.fk_image.imagefile.url}}" alt="portfolio 1">
                                         {%else%}
                                         <img src='{% static "notfirstapp/images/portfolio/1.jpg"%} alt="portfolio 1"'>
                                         {%endif%}
                                         <div class="overlay-p" >
-                                            <a data-rel={% url 'ScoreRankPage' game.id%} class='colorbox-rank'>
+                                            <a data-rel={% url 'game:ScoreRankPage' game.id%} class='colorbox-rank'>
                                                 <ul>
                                                     <li>{{game.gamename}}</li>
                                                     <li class="fa fa-circle"></li>
@@ -42,7 +42,7 @@
 
         </div>
         <div>
-            <a href={%url 'GameFormPage'%}>Create a new game rank</a>
+            <a href={%url 'game:GameFormPage'%}>Create a new game rank</a>
         </div>
   </div>
 
@@ -57,7 +57,7 @@
 </style>
 
         <!-- Upload form. Note enctype attribute! -->
-        <!-- <form action="{% url 'ImageListPage' %}" method="post" enctype="multipart/form-data">
+        <!-- <form action="{% url 'game:ImageListPage' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <p>{{ form.non_field_errors }}</p>
             <p>{{ form.imagefile.label_tag }} {{ form.imagefile.help_text }}</p>

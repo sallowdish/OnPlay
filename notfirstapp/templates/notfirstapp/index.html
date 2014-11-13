@@ -1,6 +1,7 @@
 {%extends 'notfirstapp/base.html'%}
 {%load staticfiles%}
 
+
 {%block content%}
 <div>
   <div  id="slider"  class="nivoSlider templatemo_slider">
@@ -441,7 +442,7 @@
 
       {%block game%}
       {%if user.is_authenticated%}
-      <li><a class="menu" href= "{% url 'GameListPage' %}">Games</a></li>
+      <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
       {%else%}
       <li><a class="menu" href= "#gamelistarea">Games</a></li>
       {%endif%}

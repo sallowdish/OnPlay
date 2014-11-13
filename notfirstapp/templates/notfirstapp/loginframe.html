@@ -32,10 +32,10 @@
 		<div id="container">
 
 		{% if form.errors %}
-		<p>Your username and password didn't match. Please try again. {{form.errors}}</p>
+			<p>{{form.errors}}</p>
 		{% endif %}
 			
-			<form action={% url 'django.contrib.auth.views.login' %} method="post">
+			<form action="{% url 'game:LoginPage' %}" method="post">
 				{% csrf_token %}
 			
 			<label for="name">Username:</label>
@@ -52,9 +52,11 @@
 			
 			<input type="checkbox"><label class="check" for="checkbox">Keep me logged in</label>
 			
-			<input type='button' value='SignUp' onclick="location.href='{%url 'SignUpPage'%}'">
+			<input type='button' value='SignUp' onclick="location.href='{%url 'game:SignUpPage'%}'">
 			<input type="submit" value="LogIn">
-			<input type="hidden" name="next" value="{{ next }}" />
+			{% if next %}
+            	<input type="hidden" name="next" value="{{ next }}" />
+        	{% endif %}
 			
 			</div>
 			
