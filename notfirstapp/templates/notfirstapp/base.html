@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>Cloud Ranking API</title>
-    {%block head%}{%endblock head%}
+    
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,17 +49,9 @@
     * This notice MUST stay intact for legal use
     * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
     ***********************************************/-->
+    {%block head%}{%endblock head%}
 
 
-    <script type="text/javascript">
-        ddsmoothmenu.init({
-          mainmenuid: "templatemo_flicker", //menu DIV id
-          orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
-          classname: 'ddsmoothmenu', //class added to menu's outer DIV
-          //customtheme: ["#1c5a80", "#18374a"],
-          contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
-        })
-    </script>
 
 </head>
   
@@ -69,45 +61,50 @@
     <header>
     <!-- start menu -->
     <div id="templatemo_home">
-      <div class="templatemo_top">
+      <div class="templatemo_top navbar navbar-static-top" style="height:auto">
         <div class="container templatemo_container">
-        <div class="row">
-          <div class="col-sm-3 col-md-3">
-            <div class="logo">
-              <a rel="nofollow" href= "{%url 'game:indexPage' %}" >
-                <img src="{% static "notfirstapp/images/templatemo_logo.png"%}" alt="logo">
-              </a>
+          <div class="row">
+            <div class="col-sm-3 col-md-3">
+              <div class="logo navbar-brand">
+                <a rel="nofollow" href= "{%url 'game:indexPage' %}" class="" >
+                  <img src="{% static "notfirstapp/images/templatemo_logo.png"%}" alt="logo" \>
+                </a>
+              </div>
+            </div>
+            <div class="col-sm-9 col-md-9 templatemo_col9">
+              <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                <span class="icon-bar" style='background:black'></span>
+                <span class="icon-bar" style='background:black'></span>
+                <span class="icon-bar" style='background:black'></span>
+              </button>
+
+              <div id="top-menu" class="collapse navbar-collapse navHeaderCollapse">
+                <nav class="mainMenu">
+                  <ul class="nav navbar-nav navbar-right">
+                    {%if user.is_authenticated%}
+                    <li><a class="menu"> Hi, {{user.username}}</a></li>
+                    {%endif%}
+                    {%block home%}
+                    <li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
+                    {%endblock home%}
+                    {%block about%}
+                    <li><a class="menu" href= "#templatemo_about">About</a></li>
+                    {%endblock about%}
+                    {%block game%}
+                    <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
+                    {%endblock game%}
+                    <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
+
+                    {%if user.is_authenticated%}
+                      <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
+                    {%else%}
+                      <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
+                    {%endif%}
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
-          <div class="col-sm-9 col-md-9 templatemo_col9">
-            <div id="top-menu">
-              <nav class="mainMenu">
-
-              <ul class="nav">
-                {%if user.is_authenticated%}
-                <li><a class="menu"%}>Hi, {{user.username}}</a></li>
-                {%endif%}
-                {%block home%}
-                <li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
-                {%endblock home%}
-                {%block about%}
-                <li><a class="menu" href= "#templatemo_about">About</a></li>
-                {%endblock about%}
-                {%block game%}
-                <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
-                {%endblock game%}
-                <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
-
-                {%if user.is_authenticated%}
-                  <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
-                {%else%}
-                  <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
-                {%endif%}
-              </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
         </div>
         <div id='headerbar'></div>
       </div>
