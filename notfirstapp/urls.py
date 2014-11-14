@@ -8,7 +8,7 @@ from notfirstapp import views
 
 urlpatterns = patterns('',
 	#login
-	url(r'^login/$',views.login_user, name="LoginPage"),
+	url(r'^login/',views.login_user, name="LoginPage"),
 	url(r'^logout/$','django.contrib.auth.views.logout', {'template_name': 'notfirstapp/logout.html'},name="LogoutPage"),
 	#signup
 	url(r'^signup/$',views.SignUpView.as_view(),name='SignUpPage'),
@@ -17,11 +17,11 @@ urlpatterns = patterns('',
 	url(r'^$', views.IndexView.as_view(), name="indexPage"),
 	# url(r'^(?P<game_id>\d+)/$', views.DetailPageController, name='DetailPage'),
 	#game part
-	url(r'^game/upload/$',login_required(views.GameCreateView.as_view()),name='GameFormPage'),
-	url(r'^game/(?P<pk>\d+)/$',login_required(views.GameDetailView.as_view()),name='GameDetailPage'),
-	url(r'^game/$',login_required(views.GameListView.as_view()),name='GameListPage'),
-	url(r'^game/(?P<pk>\d+)/rank/$',login_required(views.ScoreRankView.as_view()),name='ScoreRankPage'),
-	url(r'^game/simplelist/$',TemplateView.as_view(template_name='game.html'),name='SimpleGameListPage'),
+	url(r'^gallery/upload/$',login_required(views.GameCreateView.as_view()),name='GameFormPage'),
+	url(r'^gallery/(?P<pk>\d+)/$',login_required(views.GameDetailView.as_view()),name='GameDetailPage'),
+	url(r'^gallery/$',login_required(views.GameListView.as_view()),name='GameListPage'),
+	url(r'^gallery/(?P<pk>\d+)/rank/$',login_required(views.ScoreRankView.as_view()),name='ScoreRankPage'),
+	url(r'^gallery/simplelist/$',TemplateView.as_view(template_name='game.html'),name='SimpleGameListPage'),
 	#image part
 	url(r'^image/upload/$',login_required(views.ImageView.as_view()),name='ImageFormPage'),
 	url(r'^image/(?P<pk>\d+)/$',views.ImageDetailView.as_view(),name='ImageDetailPage'),

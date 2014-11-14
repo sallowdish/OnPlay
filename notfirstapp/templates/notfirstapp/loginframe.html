@@ -3,10 +3,7 @@
 
 
 {%if user.is_anonymous%}
-	{%block content%}}
-	<!DOCTYPE html>
-	<div id="loginView">
-	<head>
+	{%block head%}
 
 		<!-- Basics -->
 		
@@ -21,18 +18,18 @@
 		<link rel="stylesheet" href={%static 'notfirstapp/css/animate.css'%}>
 		<link rel="stylesheet" href={%static 'notfirstapp/css/styles.css'%}>
 		
-	</head>
+	{%endblock head%}
 
 		<!-- Main HTML -->
 		
-	<body>
+	{%block content%}
 		
 		<!-- Begin Page Content -->
-		
-		<div id="container">
 
-		{% if form.errors %}
-			<p>{{form.errors}}</p>
+		<div id="container">
+		
+		{% if error %}
+			<p>{{error}}</p>
 		{% endif %}
 			
 			<form action="{% url 'game:LoginPage' %}" method="post">
@@ -54,9 +51,8 @@
 			
 			<input type='button' value='SignUp' onclick="location.href='{%url 'game:SignUpPage'%}'">
 			<input type="submit" value="LogIn">
-			{% if next %}
-            	<input type="hidden" name="next" value="{{ next }}" />
-        	{% endif %}
+            
+            <input type="hidden" name="next" value="{{ next }}" />
 			
 			</div>
 			
@@ -66,9 +62,7 @@
 		
 		
 		<!-- End Page Content -->
-		
-	</body>
-	</div>
+
 	<style type="text/css">
 		#loginView{
 
@@ -83,6 +77,9 @@
 	{%endif%}
 	{%endblock content%}
 
+	{%block tail%}
+		<!-- <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
+	{%endblock tail%}
 {%else%}
 
 {%endif%}

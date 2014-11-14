@@ -1,6 +1,17 @@
 {%extends 'notfirstapp/base.html'%}
 {%load staticfiles%}
 
+{%block head%}
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+          mainmenuid: "templatemo_flicker", //menu DIV id
+          orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+          classname: 'ddsmoothmenu', //class added to menu's outer DIV
+          //customtheme: ["#1c5a80", "#18374a"],
+          contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+    </script>
+{%endblock head%}
 
 {%block content%}
 <div>
@@ -113,7 +124,7 @@
                 <div class="portfolio-item">
                   <div class="portfolio-thumb">
                     {%if game.fk_image%}
-                    <img class='gameIcon' src="/notfirstapp{{game.fk_image.imagefile.url}}" alt='gameIcon'>
+                    <img class='gameIcon' src="{{game.fk_image.imagefile.url}}" alt='gameIcon'>
                     <div class="overlay-p">
                       <a >
                         <ul>
@@ -396,9 +407,9 @@
                 <li><a href={% static "notfirstapp/images/flicker/7.jpg" %}data-rel="lightbox[gallery]"><img src={% static "notfirstapp/images/flicker/s7.jpg"%} alt="image 7" /></a></li>
                 <li><a href={% static "notfirstapp/images/flicker/8.jpg" %}data-rel="lightbox[gallery]"><img src={% static "notfirstapp/images/flicker/s8.jpg"%} alt="image 8" /></a></li>
               </ul> -->
-              <br style="clear: left" />
-            </div>
-          </div>
+          <br style="clear: left" />
+        </div>
+    </div>
           <div class="col-xs-6 col-sm-6 col-md-3 templatemo_col12">
             <h2>Contact</h2>
             <span class="left col-xs-1 fa fa-map-marker"></span>
@@ -433,17 +444,8 @@
         </div>
       </div>
       <!-- Bottom End -->
+{%endblock content%}
 
-      {%endblock content%}
-
-      {%block home%}
-      <li><a class="menu" href= "#">Home</a></li>
-      {%endblock home%}
-
-      {%block game%}
-      {%if user.is_authenticated%}
-      <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
-      {%else%}
-      <li><a class="menu" href= "#gamelistarea">Games</a></li>
-      {%endif%}
-      {%endblock game%}
+{%block home%}
+  <li><a class="menu" href= "#">Home</a></li> 
+{%endblock home%}

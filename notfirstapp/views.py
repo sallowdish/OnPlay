@@ -33,21 +33,15 @@ class SignUpView(FormView):
 
 
     def form_valid(self,form):
-        # form_class=get_form_class
-        # import pdb; pdb.set_trace()
         
         
-
         form.save()
         
-        # import pdb; pdb.set_trace()
-        # user.save()
         return self.get_success_url();
 
 
     def form_invalid(self,form):
         # formWithError = AccountForm(data=form.data)
-        # import pdb; pdb.set_trace()
         return render(self.request,'notfirstapp/signup.html',{'form':form});
 
     def get_success_url(self):
@@ -106,15 +100,12 @@ class ScoreRankView(ListView):
 
     # def post(self, request, *args, **kwargs):
     #     postdata=self.request.POST
-    #     import pdb
-    #     pdb.set_trace();
+
     #     jsondata=json.load(postdata)
     #     data['Game_id']=get_object_or_404(Game,id=self.kwargs['pk'])
     #     data['Figure_id']=Figure_id(name=jsondata['figure'],User_id=get_object_or_404(User,username=jsondata['username']))
     #     date['score']=jsondata['score']
-    #     pdb.set_trace();
     #     form=ScoreRankForm(data)
-    #     pdb.set_trace();
 
     #     if form.is_valid():
     #     # newGame=Game(gamename=form.data[''])
@@ -124,7 +115,6 @@ class ScoreRankView(ListView):
 
 
     def form_valid(self,form):
-        pdb.set_trace();
         form.save();
 
     def get_context_data(self, **kwargs):
@@ -133,8 +123,6 @@ class ScoreRankView(ListView):
 
         context=super(ScoreRankView,self).get_context_data(**kwargs)
         rank_list=ScoreRank.objects.filter(Game_id=gameid).order_by('-score')
-        # import pdb
-        # pdb.set_trace()
         context['rank_list']=rank_list
         context['game']=game
         # context['user']=self.request.user
@@ -180,11 +168,8 @@ class GameCreateView(CreateView):
         return form
 
     def get_context_data(self, **kwargs):
-        # import pdb
-        # pdb.set_trace();
         context = super(GameCreateView, self).get_context_data(**kwargs)
         context['current_path'] = self.request.get_full_path()
-#        import pdb;pdb.set_trace()
         return context
 
     def get_success_url(self):
@@ -257,10 +242,8 @@ def ScoreRankApiView(request,pk):
         figure=figure.id;
         data['Figure_id']=figure
         data['score']=jsondata['score']
-        # pdb.set_trace();
         form=ScoreRankForm(data)
-        # import pdb
-        # pdb.set_trace();
+
 
         if form.is_valid():
         # newGame=Game(gamename=form.data[''])
@@ -293,17 +276,38 @@ def ScoreRankApiView(request,pk):
         return HttpResponse('Forbiden.',status=403)
 
 def login_user(request):
-    logout(request)
-    template_name='notfirstapp/loginframe.html'
-    username = password = ''
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
+    if request.method=='POST':
+        logout(request)
+        template_name='notfirstapp/loginframe.html'
+        username = password = ''
+        context_dict={}
+        if request.POST:
+            username = request.POST['username']
+            password = request.POST['password']
 
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('game:ProfilePage'))
-    return render_to_response('notfirstapp/loginframe.html', context_instance=RequestContext(request))
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    nextURL=reverse('game:ProfilePage')
+                    try:
+                        nextURL=request.POST['next']
+                    except Exception, e:
+                        print 'fail to get next'
+                        pass
+                    return HttpResponseRedirect(nextURL)
 
+                else:
+                    context_dict['error']='account: '+username+" is not active."
+            else:
+                context_dict['error']='Invalid username or password' 
+        return render_to_response('notfirstapp/loginframe.html', context_dict,context_instance=RequestContext(request))
+    elif request.method=='GET':
+        dic={}
+        try:
+            dic['next']=request.GET['next']
+        except Exception, e:
+            dic={}
+        return render_to_response('notfirstapp/loginframe.html',dic,context_instance=RequestContext(request))
+    else:
+        return HttpResponseRedirect(reverse('game:LoginPage'))
