@@ -444,17 +444,8 @@
         </div>
       </div>
       <!-- Bottom End -->
+{%endblock content%}
 
-      {%endblock content%}
-
-      {%block home%}
-      <li><a class="menu" href= "#">Home</a></li>
-      {%endblock home%}
-
-      {%block game%}
-      {%if user.is_authenticated%}
-      <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
-      {%else%}
-      <li><a class="menu" href= "#gamelistarea">Games</a></li>
-      {%endif%}
-      {%endblock game%}
+{%block home%}
+  <li><a class="menu" href= "#">Home</a></li> 
+{%endblock home%}

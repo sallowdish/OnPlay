@@ -8,7 +8,7 @@ from notfirstapp import views
 
 urlpatterns = patterns('',
 	#login
-	url(r'^login/$',views.login_user, name="LoginPage"),
+	url(r'^login/',views.login_user, name="LoginPage"),
 	url(r'^logout/$','django.contrib.auth.views.logout', {'template_name': 'notfirstapp/logout.html'},name="LogoutPage"),
 	#signup
 	url(r'^signup/$',views.SignUpView.as_view(),name='SignUpPage'),

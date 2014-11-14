@@ -51,9 +51,8 @@
 			
 			<input type='button' value='SignUp' onclick="location.href='{%url 'game:SignUpPage'%}'">
 			<input type="submit" value="LogIn">
-			{% if next %}
-            	<input type="hidden" name="next" value="{{ next }}" />
-        	{% endif %}
+            
+            <input type="hidden" name="next" value="{{ next }}" />
 			
 			</div>
 			
@@ -79,7 +78,7 @@
 	{%endblock content%}
 
 	{%block tail%}
-		<!-- <p> {% filter force_escape %} {% debug %} {% endfilter %} </p> -->
+		<!-- <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
 	{%endblock tail%}
 {%else%}
 
