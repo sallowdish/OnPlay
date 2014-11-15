@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cloud Ranking API</title>
+    <title>Game Hosting System</title>
     
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Global variables -->
-    <script language="javascript">var STATIC_URL = "{{ STATIC_URL|escapejs }}"; var APP_NAME="notfirstapp/";</script>
+    <script  type="text/JavaScript">var STATIC_URL = "{{ STATIC_URL|escapejs }}"; var APP_NAME="notfirstapp/";</script>
     <!-- Jquery -->
     <script type="text/JavaScript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/JavaScript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -50,94 +50,77 @@
     * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
     ***********************************************/-->
     {%block head%}{%endblock head%}
-
-
-
-</head>
+  </head>
   
 
 
 <body>
-    <header>
-    <!-- start menu -->
-    <div id="templatemo_home">
-      <div class="templatemo_top navbar navbar-static-top" style="height:auto">
-        <div class="container templatemo_container">
-          <div class="row">
-            <div class="col-sm-3 col-md-3">
-              <div class="logo navbar-brand">
-                <a rel="nofollow" href= "{%url 'game:indexPage' %}" class="" >
-                  <img src="{% static "notfirstapp/images/templatemo_logo.png"%}" alt="logo" \>
-                </a>
+  <style type="text/css" scoped >
+    div.templatemo_top{
+      border-bottom: 5px solid rgb(114,184,66);
+    }
+  </style>
+  <div class='container-fluid'>
+    <div class='row'>
+      <header>
+      <!-- start menu -->
+        <div id="templatemo_home">
+          <div class="templatemo_top navbar navbar-static-top" style="height:auto">
+            <div class="templatemo_container">
+              <div>
+                <div class="col-sm-3 col-md-3">
+                  <div class="logo navbar-brand">
+                    <a rel="nofollow" href= "{%url 'game:indexPage' %}" class="" >
+                      <img src="{% static "notfirstapp/images/templatemo_logo.png"%}" alt="logo"/>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-9 col-md-9 templatemo_col9">
+                  <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                    <span class="icon-bar" style='background:black'></span>
+                    <span class="icon-bar" style='background:black'></span>
+                    <span class="icon-bar" style='background:black'></span>
+                  </button>
+
+                  <div id="top-menu" class="collapse navbar-collapse navHeaderCollapse">
+                    <nav class="mainMenu">
+                      <ul class="nav navbar-nav navbar-right">
+                        {%if user.is_authenticated%}
+                        <li><a class="menu"> Hi, {{user.username}}</a></li>
+                        {%endif%}
+                        {%block home%}
+                        <li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
+                        {%endblock home%}
+                        {%block about%}
+                        <li><a class="menu" href= "#templatemo_about">About</a></li>
+                        {%endblock about%}
+                        {%block game%}
+                        <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
+                        {%endblock game%}
+                        <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
+
+                        {%if user.is_authenticated%}
+                          <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
+                        {%else%}
+                          <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
+                        {%endif%}
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-sm-9 col-md-9 templatemo_col9">
-              <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-                <span class="icon-bar" style='background:black'></span>
-                <span class="icon-bar" style='background:black'></span>
-                <span class="icon-bar" style='background:black'></span>
-              </button>
-
-              <div id="top-menu" class="collapse navbar-collapse navHeaderCollapse">
-                <nav class="mainMenu">
-                  <ul class="nav navbar-nav navbar-right">
-                    {%if user.is_authenticated%}
-                    <li><a class="menu"> Hi, {{user.username}}</a></li>
-                    {%endif%}
-                    {%block home%}
-                    <li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
-                    {%endblock home%}
-                    {%block about%}
-                    <li><a class="menu" href= "#templatemo_about">About</a></li>
-                    {%endblock about%}
-                    {%block game%}
-                    <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
-                    {%endblock game%}
-                    <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
-
-                    {%if user.is_authenticated%}
-                      <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
-                    {%else%}
-                      <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
-                    {%endif%}
-                  </ul>
-                </nav>
-              </div>
-            </div>
+            <div id='headerbar'></div>
           </div>
         </div>
-        <div id='headerbar'></div>
-      </div>
-
+        <div class="clear"></div>
+      </header>
     </div>
-      <div class="clear"></div>
-	 </header>
+  </div>
 
 
-<style type="text/css" >
-  div.templatemo_top{
-    border-bottom: 5px solid rgb(114,184,66);
-  }
-</style>
+  {%block content%}{%endblock content%}
 
-
-
-
-{%block content%}{%endblock content%}
-
-
-
-
-
-
-
- 
-
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- <script src={% static "notfirstapp/https://code.jquery.com/jquery.js"></script> -->
-    <!--<script src={% static "notfirstapp/js/bootstrap.min.js"%}></script>-->
 
   <script type="text/javascript">
     $(function(){
@@ -204,16 +187,6 @@
             });
             $('.'+CategoryID).fadeIn();
 
-        });
-    });
-  </script>
-
-  <script type="text/javascript">
-    $(window).load(function() {
-        $('#slider').nivoSlider({
-          prevText: '',
-          nextText: '',
-          controlNav: false,
         });
     });
   </script>
@@ -291,74 +264,10 @@
         });
       });
     </script>
-    <script>
-     $('a.menu').click(function(){
-      $('a.menu').removeClass("active");
-      $(this).addClass("active");
-      });
-    </script>
 
-    <script> 
-            //scroll to specific id when click on menu -->
-           // Cache selectors
-        var lastId,
-        topMenu = $("#top-menu"),
-        topMenuHeight = topMenu.outerHeight()+15,
-        // All list items
-        menuItems = topMenu.find("a"),
-        // Anchors corresponding to menu items
-        scrollItems = menuItems.map(function(){
-          var selector=$(this).attr("href");
-          try{
-            var item = $(selector);
-            if (item.length) { return item; }
-          }catch(error){
-            return null;
-          }
-          
-        });
+    
 
-        // Bind click handler to menu items
-        // so we can get a fancy scroll animation
-        menuItems.click(function(e){
-          var href = $(this).attr("href"),
-              offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
-          $('html, body').stop().animate({
-              scrollTop: offsetTop
-          }, 300);
-          e.preventDefault();
-        });
-
-        // Bind to scroll
-        $(window).scroll(function(){
-           // Get container scroll position
-           var fromTop = $(this).scrollTop()+topMenuHeight;
-
-           // Get id of current scroll item
-           var cur = scrollItems.map(function(){
-             if ($(this).offset().top < fromTop)
-               return this;
-           });
-           // Get the id of the current element
-           cur = cur[cur.length-1];
-           var id = cur && cur.length ? cur[0].id : "";
-
-           if (lastId !== id) {
-               lastId = id;
-               // Set/remove active class
-               menuItems
-                 .parent().removeClass("active")
-                 .end().filter("[href=#"+id+"]").parent().addClass("active");
-           }
-        });
-    </script>
-
-
-
-
-
-{%block endscript%}
-{%endblock%}
+{%block endscript%}{%endblock%}
 
 {%block tail%}{%endblock tail%}
 </body>

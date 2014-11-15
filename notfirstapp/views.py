@@ -184,8 +184,11 @@ class GameDetailView(DetailView):
         # Call the base implementation first to get a context
         context = super(GameDetailView, self).get_context_data(**kwargs)
         # Add in a QuerySet of all the books
+        game=context['game']
         context['appname'] = 'notfirstapp'
         context['back_url']=reverse('game:GameListPage')
+        context['available_archives']=GameArchive.objects.filter(fk_game=game)
+        context['form']=GameArchiveUploadForm(initial={'name':game.gamename,'fk_game':game})
         return context
 
 
@@ -311,3 +314,17 @@ def login_user(request):
         return render_to_response('notfirstapp/loginframe.html',dic,context_instance=RequestContext(request))
     else:
         return HttpResponseRedirect(reverse('game:LoginPage'))
+
+class GameUploadView(FormView):
+    """docstring for GameUploadView"""
+    """ the view handle the upload file"""
+    template_name='notfirstapp/gamedetail.html'
+    form_class = GameArchiveUploadForm
+    
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('game:GameDetailPage', kwargs={'pk': self.request.POST['fk_game']})
+        
