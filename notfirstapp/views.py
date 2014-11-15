@@ -1,5 +1,6 @@
 from django.shortcuts import render,render_to_response,get_object_or_404,get_list_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -28,7 +29,7 @@ class IndexView(ListView):
 	# return HttpResponse(template.render(context))
 
 class SignUpView(FormView):
-    form_class=AccountForm
+    form_class=UserCreationForm
     template_name='notfirstapp/signup.html'
 
 

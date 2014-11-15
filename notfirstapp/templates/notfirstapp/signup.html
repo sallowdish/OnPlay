@@ -2,9 +2,8 @@
 {%load staticfiles%}
 
 
-	{%block content%}
-
-	<header>
+{%if user.is_anonymous%}
+	{%block head%}
 
 		<!-- Basics -->
 		
@@ -19,78 +18,62 @@
 		<link rel="stylesheet" href={%static 'notfirstapp/css/animate.css'%}>
 		<link rel="stylesheet" href={%static 'notfirstapp/css/styles.css'%}>
 		
-	</header>
+	{%endblock head%}
 
 		<!-- Main HTML -->
 		
-
+	{%block content%}
 		
 		<!-- Begin Page Content -->
+
+		<div class="container-fluid">
 		
-		<div id="container">
-
-		{% if form.errors %}
-		{%for error, info in form.errors.items%}
-			<p>{{error}} -- {{info}}</p>
-		{%endfor%}
-
-		{% endif %}
-			
-			<form action={% url 'SignUpPage' %} method="post">
-				{% csrf_token %}
-			
-			<label for="name">Username*:</label>
-			
-			<input type="name" id='id_username' name='username' value='{{form.data.username}}'>
-			
-			<label for="username">Password*:</label>
-			
-			<input type="password" id='id_password' name='password' value=''>
-
-			<label for="email">Email:</label>
-			
-			<input type="email" id='id_email' name='email' value='{{form.data.email}}'>
-
-			<label for="firstname">Firstname:</label>
-			
-			<input type="text" id='id_firstname' name='firstname' value='{{form.data.firstname}}'>
-
-			<label for="lastname">Lastname:</label>
-			
-			<input type="text" id='id_lastname' name='lastname' value='{{form.data.lastname}}'>
-			
-			<div id="lower">
-			
-			<!-- <input type="checkbox"><label class="check" for="checkbox">Keep me logged in</label> -->
-			
-			<input type='reset'>
-			<input type="submit" value="Register">
-			<!-- <input type="hidden" name="next" value="{{ next }}" /> -->
-			
+			<div class='row'>
+				{{ form.name_of_field.errors }}
 			</div>
 			
-			</form>
+			<div class='row'>
+				<div class='col-xs-4 col-xs-offset-4'>
+					<form role="form">
+						{% csrf_token %}
+						<div class='form-group'>
+							<table >
+	        					{{ form.as_table }}
+	 					   	</table>
+						</div>
+
+						
+					</form>
+				</div>
+				
+			</div>	
+			
+			
 		</div>
 		
 		
 		<!-- End Page Content -->
-		
 
 	<style type="text/css">
-		#loginView{
+/*		#loginView{
 
 			padding-top: 10em;
-		}
+		}*/
 	</style>
 
-	<style type="text/css">
-		#container{
-
-			height: auto;
-		}
-	</style>
+	{%if alert%}
+	<script type="text/javascript">
+		alert('{{alert}}');
+	</script>
+	{%endif%}
 	{%endblock content%}
 
+	{%block tail%}
+		<!-- <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
+	{%endblock tail%}
+{%else%}
+
+{%endif%}
 
 	
 	
