@@ -1,6 +1,7 @@
 from django import forms
 from .models import *
 from django.contrib.auth.models import User
+from django.forms.widgets import HiddenInput
 
 class AccountForm(forms.ModelForm):
     password= models.CharField(max_length=50)
@@ -75,3 +76,15 @@ class ScoreRankForm(forms.ModelForm):
     class Meta:
         model=ScoreRank
         exclude=['rank']
+
+class GameArchiveUploadForm(forms.ModelForm):
+
+    class Meta:
+        model=GameArchive
+        widgets={
+            'name': HiddenInput(),
+            'fk_game': HiddenInput(),
+        }
+        # exclude=['name','fk_game']
+    # name = forms.CharField(max_length=50)
+    # game = forms.FileField(label='Select a .zip file containing your game')

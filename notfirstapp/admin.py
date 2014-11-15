@@ -9,7 +9,11 @@ class GameAdminConfig(admin.ModelAdmin):
 class AccountAdminConfig(admin.ModelAdmin):
 	list_display=('username','firstname','lastname','isGameDeveloper')
 
-				
+@admin.register(GameArchive)
+class GameArchiveAdmin(admin.ModelAdmin):
+	"""docstring for GameArchiveAdmin"""
+	list_display=('name','gamefile','upload_time')
+		
 
 admin.site.register(Game,GameAdminConfig)
 admin.site.register(Account,AccountAdminConfig)

@@ -70,5 +70,14 @@ class Image(models.Model):
 
     def __unicode__(self):
 		return self.imagefile.url
+
+class GameArchive(models.Model):
+	name = models.CharField(max_length=50)
+	gamefile = models.FileField(upload_to='temp/game/%Y/%m')
+	fk_game= models.ForeignKey('Game')
+	upload_time=models.DateTimeField(auto_now_add=1)
+	def __unicode__(self):
+		return self.name
+
 		
 	
