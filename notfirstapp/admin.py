@@ -6,8 +6,8 @@ class GameAdminConfig(admin.ModelAdmin):
 	"""docstring for GameAdmin"""
 	list_display=('gamename','createTime')
 
-class AccountAdminConfig(admin.ModelAdmin):
-	list_display=('username','firstname','lastname','isGameDeveloper')
+# class AccountAdminConfig(admin.ModelAdmin):
+# 	list_display=('username','firstname','lastname','isGameDeveloper')
 
 @admin.register(GameArchive)
 class GameArchiveAdmin(admin.ModelAdmin):
@@ -16,7 +16,7 @@ class GameArchiveAdmin(admin.ModelAdmin):
 		
 
 admin.site.register(Game,GameAdminConfig)
-admin.site.register(Account,AccountAdminConfig)
+# admin.site.register(Account,AccountAdminConfig)
 admin.site.register(Play)
 admin.site.register(Own)
 admin.site.register(ScoreRank)

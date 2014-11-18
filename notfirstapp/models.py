@@ -1,16 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
-class Account(models.Model):
-	firstname = models.CharField(max_length=50,blank=1,null=1)
-	lastname = models.CharField(max_length=50,blank=1,null=1)
-	username = models.CharField(max_length=50)
-	def __unicode__(self):
-		return self.username
-	def isGameDeveloper(self):
-		return len(Own.objects.filter(Account_id=self))>0
-	isGameDeveloper.boolean=1
-	isGameDeveloper.short_description='Game Developer?'
+# class Account(models.Model):
+# 	firstname = models.CharField(max_length=50,blank=1,null=1)
+# 	lastname = models.CharField(max_length=50,blank=1,null=1)
+# 	username = models.CharField(max_length=50)
+# 	def __unicode__(self):
+# 		return self.username
+# 	def isGameDeveloper(self):
+# 		return len(Own.objects.filter(Account_id=self))>0
+# 	isGameDeveloper.boolean=1
+# 	isGameDeveloper.short_description='Game Developer?'
 
 class Game(models.Model):
 	gamename=models.CharField(max_length=100,default="Game")
@@ -78,6 +78,25 @@ class GameArchive(models.Model):
 	upload_time=models.DateTimeField(auto_now_add=1)
 	def __unicode__(self):
 		return self.name
+
+class GameComment(models.Model):
+	fk_game= models.ForeignKey('Game')
+	fk_comment_poster=models.ForeignKey(User)
+	comment=models.CharField(max_length=250)
+	comment_time=models.DateTimeField(auto_now_add=1)
+
+class GameRate(models.Model):
+	"""docstring for GameRateing"""
+	fk_game= models.ForeignKey('Game')
+	fk_comment_poster=models.ForeignKey(User)
+	rate=models.IntegerField(default=5)
+	rate_time=models.DateTimeField(auto_now_add=1)
+
+class GameVisit(models.Model):
+	"""docstring for GameRateing"""
+	fk_game= models.ForeignKey('Game')
+	fk_visiter=models.ForeignKey(User, null=True)
+	visit_time=models.DateTimeField(auto_now_add=1)
 
 		
 	
