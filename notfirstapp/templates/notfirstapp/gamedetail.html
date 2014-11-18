@@ -1,0 +1,77 @@
+{%extends "notfirstapp/base.html"%}
+{%load staticfiles%}
+{%block content%}
+	{% if game %}
+	<div class='container-fluid' style="margin-top: 12%;">
+		<div class='row'>
+			<div class='col-xs-2'></div>
+			<div id="gameinfo" class='jumbotron col-xs-8' style='padding-top:2%;'>
+				<table class='table table-hover' style='vertical-align:center;'>
+					<thead>
+						<tr>
+							<th class='col-xs-1'>Game Icon</th>
+							<th class='col-xs-3'>Game Name</th>
+							<th class='col-xs-3'>Create Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class='col-xs-1'>
+								<img id="gameposter" src="{{game.fk_image.imagefile.url}}" alt={{game.fk_image.imagefile.name}} style="max-width:80px;">
+							</td>
+							<td class='col-xs-3' >{{game.gamename}}</td>
+							<td>{{game.createTime}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- archives list -->
+				<table class='table table-hover'>
+					<thead>
+						<tr>
+							<th>Available_Archives</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for archive in available_archives%}
+							<tr>
+								<td class='col-xs-6'>{{archive.gamefile}}</td>
+								<td class='col-xs-2'>{{archive.upload_time}}</td>
+							</tr>
+						{%endfor%}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class='col-xs-2'></div>
+			<div class='col-xs-2'>
+				<a href="{{back_url}}">Upload Game</a>
+			</div>
+		</div>
+
+		<!-- Upload form -->
+		<div class='row'>
+			<div class='col-xs-2'></div>
+			<div class='col-xs-8'>
+				<form action="{% url 'game:GameArchiveUploadPage'%}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+    				{{ form.as_p }}
+					<!-- <input type="hidden" name='fk_game' value='{{game}}'> -->
+					<!-- <input type='hidden' name='name' value='{{game.gamename}}'> -->
+					<input type="submit" value="submit" />
+				</form>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-xs-2'></div>
+			<div class='col-xs-2'>
+				<a href="{{back_url}}">BACK</a>
+			</div>
+		</div>
+	</div>
+	
+    {% else %}
+		<p>Error. Cannot find the game.</p>
+	{% endif %}
+{%endblock%}
