@@ -32,7 +32,6 @@ class SignUpView(FormView):
     form_class=UserCreationForm
     template_name='notfirstapp/signup.html'
 
-
     def form_valid(self,form):
         
         

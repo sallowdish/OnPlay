@@ -1,5 +1,6 @@
 {%extends 'notfirstapp/base.html'%}
 {%load staticfiles%}
+{% load pdbDebug %}
 
 
 {%if user.is_anonymous%}
@@ -25,9 +26,12 @@
 	{%block content%}
 		
 		<!-- Begin Page Content -->
-
-		<div class="container-fluid">
-		
+		<div class="container-fluid" id='signupForm'>
+			<style type="text/css" scoped>
+				div#signupForm{
+					margin-top: 15%;
+				}
+			</style>
 			<div class='row'>
 				{{ form.name_of_field.errors }}
 			</div>
@@ -54,13 +58,6 @@
 		
 		<!-- End Page Content -->
 
-	<style type="text/css">
-/*		#loginView{
-
-			padding-top: 10em;
-		}*/
-	</style>
-
 	{%if alert%}
 	<script type="text/javascript">
 		alert('{{alert}}');
@@ -69,7 +66,6 @@
 	{%endblock content%}
 
 	{%block tail%}
-		<!-- <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
 	{%endblock tail%}
 {%else%}
 
