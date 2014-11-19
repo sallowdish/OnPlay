@@ -37,6 +37,9 @@ urlpatterns = patterns('',
 	# url(r'^(?P<contact_id>\d+)/edit/done$', views.EditDoneController, name='EditDone'),
 	# url(r'^create/$', views.CreatePageController, name='CreatePage'),
 	# url(r'^create/done$', views.CreateDoneController, name='CreateDone'),
+	
+	#asteroids game
+	url(r'^asteroids/$',TemplateView.as_view(template_name='notfirstapp/asteroids.html'),name='Asteroids'),
 )
 
 if settings.DEBUG:
