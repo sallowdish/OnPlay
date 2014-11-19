@@ -95,6 +95,7 @@
                         {%endblock game%}
                         <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
 						<li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
+						<li><a class="menu" href= "{% url 'game:Snake' %}">Snake</a></li>
 						<li><a class="menu" href= "{% url 'game:Alien' %}">Alien</a></li>
                         {%if user.is_authenticated%}
                           <li><a class="menu" href= "{% url 'game:GameManagePage' %}">MyGames</a></li>
