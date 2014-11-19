@@ -29,12 +29,11 @@ class IndexView(ListView):
 	# return HttpResponse(template.render(context))
 
 class SignUpView(FormView):
-    form_class=UserCreationForm
+    # form_class=UserCreationForm
+    form_class=UserCreateForm
     template_name='notfirstapp/signup.html'
 
     def form_valid(self,form):
-        
-        
         form.save()
         
         return self.get_success_url();
@@ -42,13 +41,16 @@ class SignUpView(FormView):
 
     def form_invalid(self,form):
         # formWithError = AccountForm(data=form.data)
+
         return render(self.request,'notfirstapp/signup.html',{'form':form});
 
     def get_success_url(self):
+
         return HttpResponse(render(self.request,'notfirstapp/loginframe.html',{'alert':'SignUp Successd!'}))
 
-    # def get_fail_url(self):
-    #     return render(self.request,'notfirstapp/signup.html',{'form':form});
+    def get_fail_url(self):
+
+        return render(self.request,'notfirstapp/signup.html',{'form':form});
 
 class ProfileView(TemplateView):
 	"""docstring for ClassName"""
@@ -292,12 +294,10 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    nextURL=reverse('game:ProfilePage')
-                    try:
+                    nextURL=reverse('game:indexPage')
+                    if request.POST['next'] != '':
                         nextURL=request.POST['next']
-                    except Exception, e:
-                        print 'fail to get next'
-                        pass
+                        # print 'fail to get next'
                     return HttpResponseRedirect(nextURL)
 
                 else:

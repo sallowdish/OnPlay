@@ -91,7 +91,7 @@ img {
 #top-menu ul { float: right;}
 #top-menu li {
     float: left;
-	line-height: 50px;
+	/*line-height: 50px;*/
 	display: inline-block;
 }
 
@@ -113,7 +113,7 @@ img {
 #top-menu li.active a {
     color: #ffffff;
 	background: #72b842;
-	line-height: 50px;
+	/*line-height: 50px;*/
 	font-size: 14px;
 }
 
