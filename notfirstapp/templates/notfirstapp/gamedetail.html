@@ -2,12 +2,15 @@
 {%load staticfiles%}
 {%block content%}
 	{% if game %}
-	<div class='container-fluid' style="margin-top: 12%;">
-		<div class='row'>
+	<div class='container-fluid'>
+		<div class='row '>
 			<div class='col-xs-2'></div>
-			<div id="gameinfo" class='jumbotron col-xs-8' style='padding-top:2%;'>
+			<div id="gameinfo" class=' col-xs-8 jumbotron' style='margin-top:12%;'>
 				<table class='table table-hover' style='vertical-align:center;'>
 					<thead>
+						<tr>
+							<th>Game Info</th>
+						</tr>
 						<tr>
 							<th class='col-xs-1'>Game Icon</th>
 							<th class='col-xs-3'>Game Name</th>
@@ -40,38 +43,61 @@
 						{%endfor%}
 					</tbody>
 				</table>
-			</div>
-		</div>
 
-		<div class='row'>
-			<div class='col-xs-2'></div>
-			<div class='col-xs-2'>
-				<a href="{{back_url}}">Upload Game</a>
-			</div>
-		</div>
-
-		<!-- Upload form -->
-		<div class='row'>
-			<div class='col-xs-2'></div>
-			<div class='col-xs-8'>
-				<form action="{% url 'game:GameArchiveUploadPage'%}" method="post" enctype="multipart/form-data">
+				<table class='table table-hover'>
+					<tr>
+						<th>Actions</th>
+					</tr>
+					<tr>
+						<td class='col-xs-2'>
+							<a href="#Upload_Form" id='Upload_Button'>Upload Game</a>
+						</td>
+						<td class='col-xs-2'>
+							<a href="{{back_url}}">BACK</a>
+						</td>
+					</tr>
+				</table>
+				<form action="{% url 'game:GameArchiveUploadPage'%}" method="post" enctype="multipart/form-data" hidden='1' id='Upload_Form'>
 					{% csrf_token %}
-    				{{ form.as_p }}
-					<!-- <input type="hidden" name='fk_game' value='{{game}}'> -->
-					<!-- <input type='hidden' name='name' value='{{game.gamename}}'> -->
-					<input type="submit" value="submit" />
+					<table class='table'>
+						<thead>
+							<th>Game Upload Form</th>
+						</thead>
+						<tbody>
+							{{ form.as_table }}
+							<tr>
+								<td></td>
+								<td></td>
+								<td><input type="submit" value="submit" /></td>
+							</tr>
+						</tbody>
+    				
+					</table>
 				</form>
 			</div>
 		</div>
-		<div class='row'>
-			<div class='col-xs-2'></div>
-			<div class='col-xs-2'>
-				<a href="{{back_url}}">BACK</a>
-			</div>
+
+
+
+			
+
+
 		</div>
-	</div>
 	
     {% else %}
 		<p>Error. Cannot find the game.</p>
 	{% endif %}
-{%endblock%}
+{%endblock content%}
+
+
+{%block endscript%}
+	<script type="text/javascript">
+		$(document).ready(function(){
+				$('a#Upload_Button').click(function(){
+					$('form#Upload_Form').removeAttr('hidden');
+			});
+		});
+	</script>
+{%endblock endscript%}
+
+{%block about%}{%endblock about%}
