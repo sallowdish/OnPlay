@@ -91,11 +91,12 @@
                         <li><a class="menu" href= "#templatemo_about">About</a></li>
                         {%endblock about%}
                         {%block game%}
-                        <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
+                        <li><a class="menu" href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
                         {%endblock game%}
                         <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
-						<li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
+						            <li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
                         {%if user.is_authenticated%}
+                          <li><a class="menu" href= "{% url 'game:GameManagePage' %}">MyGames</a></li>
                           <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
                         {%else%}
                           <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>

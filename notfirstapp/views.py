@@ -130,12 +130,21 @@ class ScoreRankView(ListView):
         # context['user']=self.request.user
         return context
 
+class GameGalleryView(ListView):
+    # form_class=GameForm
+    template_name = "notfirstapp/gamegallery.html"
+    context_object_name = 'game_list'
+    queryset=Game.objects.order_by('-createTime')
+
 class GameListView(ListView):
 	# form_class=GameForm
 	template_name = "notfirstapp/gamelist.html"
 	context_object_name = 'game_list'
-	queryset=Game.objects.order_by('-createTime')
 
+	def get_queryset(self):
+        	return Game.objects.filter(own__User_id=self.request.user).order_by('-createTime')
+
+    
 
 class GameCreateView(CreateView):
     # Handle file upload
@@ -160,14 +169,16 @@ class GameCreateView(CreateView):
     	self.object = form.save()
     	# self.object=obj
     	# self.object.save()
+        ownership=Own(Game_id=self.object,User_id=self.request.user)
+        ownership.save()
     	self.id=self.object.id
     	return HttpResponseRedirect(self.get_success_url())
 
-    def get_form(self, form_class):
-        form = (super(GameCreateView, self)).get_form(form_class)
-        current_images = Image.objects.all()
-        form.fields['fk_image'].queryset = current_images 
-        return form
+    # def get_form(self, form_class):
+    #     form = (super(GameCreateView, self)).get_form(form_class)
+    #     current_images = Image.objects.all()
+    #     form.fields['fk_image'].queryset = current_images 
+    #     return form
 
     def get_context_data(self, **kwargs):
         context = super(GameCreateView, self).get_context_data(**kwargs)
@@ -188,7 +199,7 @@ class GameDetailView(DetailView):
         # Add in a QuerySet of all the books
         game=context['game']
         context['appname'] = 'notfirstapp'
-        context['back_url']=reverse('game:GameListPage')
+        context['back_url']=reverse('game:GameManagePage')
         context['available_archives']=GameArchive.objects.filter(fk_game=game)
         context['form']=GameArchiveUploadForm(initial={'name':game.gamename,'fk_game':game})
         return context
@@ -327,4 +338,15 @@ class GameUploadView(FormView):
 
     def get_success_url(self):
         return reverse('game:GameDetailPage', kwargs={'pk': self.request.POST['fk_game']})
+
+class GamePlayView(TemplateView):
+    template_name='notfirstapp/gameplay.html'
+
+    def get_context_data(self):
+        context=super(GamePlayView,self).get_context_data();
+        # import pdb
+        # pdb.set_trace()
+        context['game_path']=self.request.GET['game_path']
+        return context
+
         
