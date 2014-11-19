@@ -86,7 +86,6 @@ class GameArchiveUploadForm(forms.ModelForm):
             'name': HiddenInput(),
             'fk_game': HiddenInput(),
         }
-        # exclude=['name','fk_game']
     # name = forms.CharField(max_length=50)
     # game = forms.FileField(label='Select a .zip file containing your game')
 
