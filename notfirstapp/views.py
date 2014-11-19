@@ -338,4 +338,15 @@ class GameUploadView(FormView):
 
     def get_success_url(self):
         return reverse('game:GameDetailPage', kwargs={'pk': self.request.POST['fk_game']})
+
+class GamePlayView(TemplateView):
+    template_name='notfirstapp/gameplay.html'
+
+    def get_context_data(self):
+        context=super(GamePlayView,self).get_context_data();
+        # import pdb
+        # pdb.set_trace()
+        context['game_path']=self.request.GET['game_path']
+        return context
+
         

@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 	#index page
 	url(r'^$', views.IndexView.as_view(), name="indexPage"),
 	# url(r'^(?P<game_id>\d+)/$', views.DetailPageController, name='DetailPage'),
-	#mygame part
+	#manager part
 	url(r'^manager/upload/$',login_required(views.GameCreateView.as_view()),name='GameFormPage'),
 	url(r'^manager/gamearchive/upload/$',login_required(views.GameUploadView.as_view()),name='GameArchiveUploadPage'),
 	url(r'^manager/(?P<pk>\d+)/$',login_required(views.GameDetailView.as_view()),name='GameDetailPage'),
@@ -32,6 +32,11 @@ urlpatterns = patterns('',
 
 	#Gallery part
 	url(r'^gallery/$',views.GameGalleryView.as_view(),name='GameGalleryPage'),
+
+	#PlayGame part
+
+	url(r'^playgame/',views.GamePlayView.as_view(),name='GamePlayPage'),
+
 	#api part ScoreRankApiView
 	url(r'^rank/(?P<pk>\d+)/$',views.ScoreRankApiView,name='ScoreRankApi'),
 
