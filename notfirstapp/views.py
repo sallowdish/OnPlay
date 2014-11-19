@@ -130,12 +130,21 @@ class ScoreRankView(ListView):
         # context['user']=self.request.user
         return context
 
+class GameGalleryView(ListView):
+    # form_class=GameForm
+    template_name = "notfirstapp/gamelist.html"
+    context_object_name = 'game_list'
+    queryset=Game.objects.order_by('-createTime')
+
 class GameListView(ListView):
 	# form_class=GameForm
 	template_name = "notfirstapp/gamelist.html"
 	context_object_name = 'game_list'
-	queryset=Game.objects.order_by('-createTime')
 
+	def get_queryset(self):
+        	return Game.objects.filter(own__User_id=self.request.user).order_by('-createTime')
+
+    
 
 class GameCreateView(CreateView):
     # Handle file upload
@@ -188,7 +197,7 @@ class GameDetailView(DetailView):
         # Add in a QuerySet of all the books
         game=context['game']
         context['appname'] = 'notfirstapp'
-        context['back_url']=reverse('game:GameListPage')
+        context['back_url']=reverse('game:GameManagePage')
         context['available_archives']=GameArchive.objects.filter(fk_game=game)
         context['form']=GameArchiveUploadForm(initial={'name':game.gamename,'fk_game':game})
         return context
