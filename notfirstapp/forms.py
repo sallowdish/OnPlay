@@ -2,6 +2,7 @@ from django import forms
 from .models import *
 from django.contrib.auth.models import User
 from django.forms.widgets import HiddenInput
+from django.contrib.auth.forms import UserCreationForm
 
 # class AccountForm(forms.ModelForm):
 #     password= models.CharField(max_length=50)
@@ -88,3 +89,24 @@ class GameArchiveUploadForm(forms.ModelForm):
         # exclude=['name','fk_game']
     # name = forms.CharField(max_length=50)
     # game = forms.FileField(label='Select a .zip file containing your game')
+
+class UserCreateForm(UserCreationForm):
+    """docstring for UserCreateForm"""
+    firstname=forms.CharField(max_length=30,required=0)
+    lastname=forms.CharField(max_length=30,required=0)
+    email=forms.EmailField(max_length=50)
+
+    def save(self, commit=True):
+        # import pdb
+        # pdb.set_trace()
+        user=super(UserCreationForm,self).save(commit=True);
+        user.set_password(self.cleaned_data["password1"])
+        user.email=self.cleaned_data["email"]
+        user.first_name=self.cleaned_data["firstname"]
+        user.last_name=self.cleaned_data["lastname"]
+
+        if commit:
+            user.save()
+        return user
+
+        

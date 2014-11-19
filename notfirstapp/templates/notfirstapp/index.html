@@ -2,6 +2,8 @@
 {%load staticfiles%}
 
 {%block head%}
+    <script src="{% static "notfirstapp/js/jquery.cycle2.min.js"%}"></script>
+    <script src="{% static "notfirstapp/js/jquery.cycle2.carousel.min.js"%}"></script>
     <script type="text/javascript">
         ddsmoothmenu.init({
           mainmenuid: "templatemo_flicker", //menu DIV id
@@ -11,6 +13,7 @@
           contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
         })
     </script>
+    <script>$.fn.cycle.defaults.autoSelector = '.slideshow';</script>
 {%endblock head%}
 
 {%block content%}
