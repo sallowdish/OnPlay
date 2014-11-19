@@ -94,7 +94,7 @@
                         <li><a class="menu" href= "{% url 'game:GameListPage' %}">Games</a></li>
                         {%endblock game%}
                         <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
-
+						<li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
                         {%if user.is_authenticated%}
                           <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
                         {%else%}
