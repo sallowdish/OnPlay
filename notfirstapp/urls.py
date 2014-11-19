@@ -53,7 +53,10 @@ urlpatterns = patterns('',
 	#snake game
 	url(r'^snake/$',TemplateView.as_view(template_name='notfirstapp/snake.html'),name='Snake'),
 	
-	#asteroids game
+	#snake game
+	url(r'^starship/$',TemplateView.as_view(template_name='notfirstapp/starship.html'),name='Starship'),
+	
+	#alien game
 	url(r'^alien/$',TemplateView.as_view(template_name='notfirstapp/alien.html'),name='Alien'),
 )
 
