@@ -50,10 +50,8 @@ class GameForm(forms.ModelForm):
     class Meta:
     	model= Game
         field=['gamename','fk_image']
+        exclude=['depolyed_path']
 
-    # def send_email(self):
-    #     # send email using the self.cleaned_data dictionary
-    #     pass
 
 class ImageForm(forms.Form):
     imagefile = forms.ImageField(

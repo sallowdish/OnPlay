@@ -1,0 +1,15 @@
+{%extends "notfirstapp/base.html"%}
+{%load staticfiles%}
+{%block content%}
+	{% if game_path %}
+	<iframe src="{{game_path}}" frameborder="0"></iframe>
+    {% else %}
+		<p>Error. Cannot find the game.</p>
+	{% endif %}
+{%endblock content%}
+
+
+{%block endscript%}
+{%endblock endscript%}
+
+{%block about%}{%endblock about%}

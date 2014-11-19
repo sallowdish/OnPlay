@@ -1,0 +1,80 @@
+{%extends 'notfirstapp/base.html'%}
+{%load staticfiles%}
+    <!-- List of uploaded documents -->
+
+
+{%block content%}
+<div class="templatemo_portfolio" id="templatemo_portfolio">
+        <h2>Our Game Library</h2>
+        <p>Here is a list of the most popular games powered by Cloud Game Ranking System.<API class=""></API> </p>
+
+        <div class="container">
+            {% if game_list %}
+                {% for game in game_list %}
+                    {% if game %}
+                        <div class="col-xs-6 col-sm-6 col-md-3 templatemo_col12" style="height:400px;width:300px;">
+                            <div class="portfolio-item">
+                                    <div class="portfolio-thumb">
+                                        {%if game.fk_image%}
+                                            <img id='gameicon' src="{{game.fk_image.imagefile.url}}" alt="portfolio 1">
+                                        {%else%}
+                                            <img src='{% static "notfirstapp/images/portfolio/1.jpg"%} alt="portfolio 1"'>
+                                        {%endif%}
+                                        <div class="overlay-p" >
+                                            {%if game.depolyed_path%}
+                                            <a href="{{game.depolyed_path}}">
+                                            {%else%}
+                                            <a href="javascript:alert('This game is not ready yet');">
+                                            {%endif%}
+                                                <ul>
+                                                    <li>{{game.gamename}}</li>
+                                                    <li class="fa fa-circle"></li>
+                                                    <li class="fa fa-circle fsmall"></li>
+                                                    <li class="fa fa-circle"></li>
+                                                    <li class="fa fa-circle fsmall"></li>
+                                                    <li class="fa fa-search fa-2x"></li>
+                                                </ul>
+                                            </a>
+                                        </div>
+                                    </div> <!-- /.portfolio-thumb -->
+                                </div>
+                          </div>
+                    {%endif%}
+                {% endfor %}
+            {% else %}
+                <li>Sorry, no game in this list.</li>
+            {% endif %}
+
+        </div>
+<!--         <div>
+            <a href="{{game.depolyed_path}}">Let's Play</a>
+        </div> -->
+  </div>
+
+<style type="text/css">
+    #gameicon{
+        max-width:100%;
+        /*width: auto;*/
+        /*width: 65px;*/
+
+    }
+</style>
+
+        <!-- Upload form. Note enctype attribute! -->
+        <!-- <form action="{% url 'game:ImageListPage' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.non_field_errors }}</p>
+            <p>{{ form.imagefile.label_tag }} {{ form.imagefile.help_text }}</p>
+            <p>
+                {{ form.imagefile.errors }}
+                {{ form.imagefile }}
+            </p>
+            <p><input type="submit" value="Upload" /></p>
+        </form> -->
+{%endblock content%}
+
+{%block endscript%}
+
+{%endblock endscript%}
+
+{%block about%}{%endblock about%}

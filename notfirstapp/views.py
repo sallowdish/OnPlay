@@ -132,7 +132,7 @@ class ScoreRankView(ListView):
 
 class GameGalleryView(ListView):
     # form_class=GameForm
-    template_name = "notfirstapp/gamelist.html"
+    template_name = "notfirstapp/gamegallery.html"
     context_object_name = 'game_list'
     queryset=Game.objects.order_by('-createTime')
 
@@ -169,14 +169,16 @@ class GameCreateView(CreateView):
     	self.object = form.save()
     	# self.object=obj
     	# self.object.save()
+        ownership=Own(Game_id=self.object,User_id=self.request.user)
+        ownership.save()
     	self.id=self.object.id
     	return HttpResponseRedirect(self.get_success_url())
 
-    def get_form(self, form_class):
-        form = (super(GameCreateView, self)).get_form(form_class)
-        current_images = Image.objects.all()
-        form.fields['fk_image'].queryset = current_images 
-        return form
+    # def get_form(self, form_class):
+    #     form = (super(GameCreateView, self)).get_form(form_class)
+    #     current_images = Image.objects.all()
+    #     form.fields['fk_image'].queryset = current_images 
+    #     return form
 
     def get_context_data(self, **kwargs):
         context = super(GameCreateView, self).get_context_data(**kwargs)

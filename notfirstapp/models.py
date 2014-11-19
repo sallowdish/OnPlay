@@ -16,7 +16,7 @@ class Game(models.Model):
 	gamename=models.CharField(max_length=100,default="Game")
 	createTime=models.DateTimeField(auto_now_add=1)
 	fk_image=models.ForeignKey('Image',null=True)
-	depolyed_path=models.URLField(null=1)
+	depolyed_path=models.TextField(max_length=200,null=1)
 	"""docstring for Game"""
 	def __unicode__(self):
 		return self.gamename
