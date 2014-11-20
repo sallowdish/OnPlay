@@ -1,0 +1,18 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+       <head>
+              <title>my-gdx-game</title>
+              <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+              <link rel="stylesheet" type="text/css" href={% static 'notfirstapp/css/style.css' %} />	
+
+			  
+       </head>
+       
+       <body>              
+              <div align="center" id="embed-html"></div>
+			  <script src={% static "notfirstapp/testLibgdxGame/html/html.nocache.js"%}></script>
+			  <script src={% static "notfirstapp/testLibgdxGame/mousemanager.js"%}></script>
+       </body>
+</html>

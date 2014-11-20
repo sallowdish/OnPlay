@@ -58,6 +58,8 @@ urlpatterns = patterns('',
 	
 	#alien game
 	url(r'^alien/$',TemplateView.as_view(template_name='notfirstapp/alien.html'),name='Alien'),
+	
+	url(r'^libgdx/$',TemplateView.as_view(template_name='notfirstapp/gamelibgdx.html'),name='libgdx'),
 
 	#gameview
 	url(r'^game/(?P<gameid>\d+)/$',views.GameView.as_view(),name='game'),
