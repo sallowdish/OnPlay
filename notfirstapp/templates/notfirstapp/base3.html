@@ -55,6 +55,7 @@
     div.templatemo_top{
       border-bottom: 5px solid rgb(114,184,66);
     }
+	
   </style>
   <div class=''>
     <div class=''>
@@ -81,29 +82,33 @@
                   <div id="top-menu" class="collapse navbar-collapse navHeaderCollapse">
                     <nav class="mainMenu">
                       <ul class="nav navbar-nav navbar-right">
+					  
                         {%if user.is_authenticated%}
                         <li><a class="menu"> Hi, {{user.username}}</a></li>
                         {%endif%}
+						
                         {%block home%}
                         <li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
                         {%endblock home%}
+						
                         {%block about%}
                         <li><a class="menu" href= "#templatemo_about">About</a></li>
                         {%endblock about%}
+						
                         {%block game%}
                         <li><a class="menu" href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
                         {%endblock game%}
-                        <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
-						<li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
-						<li><a class="menu" href= "{% url 'game:Snake' %}">Snake</a></li>
-						<li><a class="menu" href= "{% url 'game:Starship' %}">Starship</a></li>
-						<li><a class="menu" href= "{% url 'game:Alien' %}">Alien</a></li>
+
+						
+						
                         {%if user.is_authenticated%}
                           <li><a class="menu" href= "{% url 'game:GameManagePage' %}">MyGames</a></li>
                           <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
                         {%else%}
                           <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
                         {%endif%}
+						
+						
                       </ul>
                     </nav>
                   </div>
@@ -122,152 +127,10 @@
   {%block content%}{%endblock content%}
 
 
-  <script type="text/javascript">
-    $(function(){
-        var default_view = 'grid';
-        if($.cookie('view') !== 'undefined'){
-            $.cookie('view', default_view, { expires: 7, path: '/' });
-        }
-        function get_grid(){
-            $('.list').removeClass('list-active');
-            $('.grid').addClass('grid-active');
-            $('.prod-cnt').animate({opacity:0},function(){
-                $('.prod-cnt').removeClass('dbox-list');
-                $('.prod-cnt').addClass('dbox');
-                $('.prod-cnt').stop().animate({opacity:1});
-            });
-        }
-        function get_list(){
-            $('.grid').removeClass('grid-active');
-            $('.list').addClass('list-active');
-            $('.prod-cnt').animate({opacity:0},function(){
-                $('.prod-cnt').removeClass('dbox');
-                $('.prod-cnt').addClass('dbox-list');
-                $('.prod-cnt').stop().animate({opacity:1});
-            });
-        }
-        if($.cookie('view') == 'list'){
-            $('.grid').removeClass('grid-active');
-            $('.list').addClass('list-active');
-            $('.prod-cnt').animate({opacity:0});
-            $('.prod-cnt').removeClass('dbox');
-            $('.prod-cnt').addClass('dbox-list');
-            $('.prod-cnt').stop().animate({opacity:1});
-        }
-
-        if($.cookie('view') == 'grid'){
-            $('.list').removeClass('list-active');
-            $('.grid').addClass('grid-active');
-            $('.prod-cnt').animate({opacity:0});
-                $('.prod-cnt').removeClass('dboxlist');
-                $('.prod-cnt').addClass('dbox');
-                $('.prod-cnt').stop().animate({opacity:1});
-        }
-
-        $('#list').click(function(){
-            $.cookie('view', 'list');
-            get_list()
-        });
-
-        $('#grid').click(function(){
-            $.cookie('view', 'grid');
-            get_grid();
-        });
-
-        /* filter */
-        $('.menuSwitch ul li').click(function(){
-            var CategoryID = $(this).attr('category');
-            $('.menuSwitch ul li').removeClass('cat-active');
-            $(this).addClass('cat-active');
-
-            $('.prod-cnt').each(function(){
-                if(($(this).hasClass(CategoryID)) == false){
-                   $(this).css({'display':'none'});
-                };
-            });
-            $('.'+CategoryID).fadeIn();
-
-        });
-    });
-  </script>
-  <script>
-    $(document).ready(function(){
-
-      // hide #back-top first
-      $("#back-top").hide();
-
-      // fade in #back-top
-      $(function () {
-        $(window).scroll(function () {
-          if ($(this).scrollTop() > 100) {
-            $('#back-top').fadeIn();
-          } else {
-            $('#back-top').fadeOut();
-          }
-        });
-
-        // scroll body to 0px on click
-        $('#back-top a').click(function () {
-          $('body,html').animate({
-            scrollTop: 0
-          }, 800);
-          return false;
-        });
-      });
-
-    });
-    </script>
-    <script type="text/javascript">
-    <!--
-        function toggle_visibility(id) {
-           var e = document.getElementById(id);
-           if(e.style.display == 'block'){
-              e.style.display = 'none';
-              $('#togg').text('show footer');
-          }
-           else {
-              e.style.display = 'block';
-              $('#togg').text('hide footer');
-          }
-        }
-    //-->
-    </script>
-    <script type="text/javascript" src={% static "notfirstapp/js/jquery.mousewheel.js"%}></script>
-
-    <script type="text/javascript">
-    $(function() {
-      $('a[href*=#]:not([href=#])').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-          if (target.length) {
-            $('html,body').animate({
-              scrollTop: target.offset().top
-            }, 1000);
-            return false;
-          }
-        }
-      });
-    });
-    </script>
-    <script src={% static "notfirstapp/js/stickUp.min.js"%} type="text/javascript"></script>
-    <script src={% static "notfirstapp/js/stickUp.js"%} type="text/javascript"></script>
-    <script type="text/javascript">
-      //initiating jQuery
-      jQuery(function($) {
-        $(document).ready( 
-          function() {
-          //enabling stickUp on the '.navbar-wrapper' class
-          if ($('.templatemo_top').length>0) {
-            $('.templatemo_top').stickUp();
-          };  
-        });
-      });
-    </script>
 
     
 
-{%block endscript%}{%endblock%}
+{%block endscript%}{%endblock endscript%}
 
 {%block tail%}{%endblock tail%}
 </body>
