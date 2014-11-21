@@ -12,6 +12,9 @@
         </div>
     </div>
     <div class='row'>
+        <div class="bb-alert alert alert-info" style="display:none;">
+            <span>The examples populate this alert with dummy content</span>
+        </div>
         {% if game_list %}
             <table class='table table-hover'>
                 <thead>
@@ -46,13 +49,14 @@
                                   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     Actions <span class="caret"></span>
                                   </button>
-                                  <ul class="dropdown-menu" role="menu" style='padding-bottom:0'>
+                                  <ul class="dropdown-menu" role="menu" style='padding-bottom:0; width:20px;'>
                                     <li><a href="#">Update</a></li>
                                     <li><a href="#">Depoly</a></li>
-                                    <!-- <li><a href="#">Something else here</a></li> -->
-                                    <li class="divider" style="margin:5px 0;"></li>
-                                    <li style='background:red;color:white'> 
-                                        <a href="#" >Delete</a>
+                                  <!--   <li>
+                                        <a href=javascript:toComfirmDel('{{game.gamename}}',{{game.id}}) class='btn btn-danger' role='btn' style='text-align:left'> Delete</a>
+                                    </li> -->
+                                    <li>
+                                        <a href=javascript:toComfirmDel_v2('{{game.gamename}}',{{game.id}}) class='btn btn-danger' id="delete_link" role='btn' style='text-align:left'> Delete</a>
                                     </li>
                                   </ul>
                                 </div>
@@ -65,7 +69,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <a href={%url 'game:GameFormPage'%} class='btn btn-primary'>New game</a>
+                            <a href={%url 'game:GameFormPage'%} class='btn btn-success'>New game</a>
                         </td>
                     </tr>
                 </tbody>
@@ -84,18 +88,59 @@
 {%endblock content%}
 
 {%block endscript%}
-
-<link href={% static "notfirstapp/css/colorbox.css"%} rel="stylesheet">
-<script type="text/javascript" src={% static "notfirstapp/js/jquery.colorbox-min.js"%}></script>
+<script src={% static 'notfirstapp/Bootbox/Notification.js'%}></script>
+<script src={% static 'notfirstapp/Bootbox/bootbox.min.js'%}></script>
 <script type="text/javascript">
-    $('.colorbox-rank').bind('click',function(){
-        var tile=$(this)
-        var url=tile.data("rel");
-        $.colorbox({href:url});    
+    $(function() {
+        Notification.init({
+            "selector": ".bb-alert"
+        });
     });
+</script>
+<script type="text/javascript">
+    function toComfirmDel(gamename,game_id){
+        var rval = confirm("Are you sure to delete '"+gamename+"'?");
+        if (rval == true) {
+            alert("Deleted");
+        } else {
+            alert("Nothing is changed");
+        } 
+    }
+
+    function toComfirmDel_v2(gamename,game_id){
+        bootbox.dialog({
+            message: "Are you sure to delete "+ gamename + " ?",
+            title: "Dangerous",
+            buttons: {
+                success: {
+                    label: "Cancel!",
+                    className: "btn-success",
+                    callback: function() {
+                        $(this).modal('hide');
+                        Notification.show('Nothing changed.')
+                    }
+                },
+                danger: {
+                    label: "Delete!",
+                    className: "btn-danger",
+                    callback: function() {
+                        Notification.show("uh oh, look out!");
+                    }
+                },
+            }
+        });         
+    }
 
 </script>
 {%endblock endscript%}
 
+{%block tail%}
+    <style>
+        #delete_link:hover{
+            background-color: #d9534f;
+            margin: 2px;
+        }
+    </style>
+{%endblock tail%}
 
 {%block about%}{%endblock about%}
