@@ -49,6 +49,9 @@
   	{%block head%}
 		
   	{%endblock head%}
+  	<style>
+	    body { padding-top: 70px; }
+	</style>
 
   </head>
   
@@ -58,48 +61,55 @@
   <body>
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{% url 'game:indexPage' %}"><b>OnPlay</b></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">	
-			{%block home%}
-				<li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
-			{%endblock home%}
+    <div class='container-fluid'>
+    	<div class='row'>
+    		<div class='xs-col-12'>
+    			<nav class="navbar navbar-default navbar-fixed-top">
+			      <div class="container">
+			        <div class="navbar-header">
+			          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			            <span class="sr-only">Toggle navigation</span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			          </button>
+			          <a class="navbar-brand" href="{% url 'game:indexPage' %}"><b>OnPlay</b></a>
+			        </div>
+			        <div id="navbar" class="navbar-collapse collapse">
+			          <ul class="nav navbar-nav navbar-left">	
+						{%block home%}
+							<li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
+						{%endblock home%}
 
-			{%block about%}
-				<li><a class="menu" href= "#templatemo_about">About</a></li>
-			{%endblock about%}
+						{%block about%}
+							<li><a class="menu" href= "#templatemo_about">About</a></li>
+						{%endblock about%}
 
-			{%block game%}
-				<li><a class="menu" href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
-			{%endblock game%}
-		</ul>
-			
-		<ul class="nav navbar-nav navbar-right">	
-			{%if user.is_authenticated%}
-                 <li><a class="menu"> Hi, {{user.username}}</a></li>
-            {%endif%}
-			
-			{%if user.is_authenticated%}
-				<li><a class="menu" href= "{% url 'game:GameManagePage' %}">MyGames</a></li>
-				<li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
-			{%else%}
-				<li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
-			{%endif%}
-          </ul>
+						{%block game%}
+							<li><a class="menu" href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
+						{%endblock game%}
+					</ul>
+						
+					<ul class="nav navbar-nav navbar-right">	
+						{%if user.is_authenticated%}
+			                 <li><a class="menu"> Hi, {{user.username}}</a></li>
+			            {%endif%}
+						
+						{%if user.is_authenticated%}
+							<li><a class="menu" href= "{% url 'game:GameManagePage' %}">MyGames</a></li>
+							<li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
+						{%else%}
+							<li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
+						{%endif%}
+			          </ul>
 
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+			        </div><!--/.nav-collapse -->
+			      </div>
+			    </nav>
+    		</div>
+    	</div>
+    </div>
+    
 
 	
 	
