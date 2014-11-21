@@ -22,7 +22,7 @@
                                         {%endif%}
                                         <div class="overlay-p" >
                                             {%if game.depolyed_path%}
-                                            <a href="{% url 'game:GamePlayPage'%}?game_path={{game.depolyed_path}}">
+                                            <a href={% url 'game:GamePlayPage' game.slug%} >
                                             {%else%}
                                             <a href="javascript:alert('This game is not ready yet');">
                                             {%endif%}
@@ -42,7 +42,14 @@
                     {%endif%}
                 {% endfor %}
             {% else %}
-                <li>Sorry, no game in this list.</li>
+            <div class='container-fluid'>
+                <div class='row'>
+                    <div class='col-xs-8 col-xs-offset-2'>
+                        <p>Sorry, no game in this list.</p>
+                    </div>
+                </div>
+            </div>
+                
             {% endif %}
 
         </div>

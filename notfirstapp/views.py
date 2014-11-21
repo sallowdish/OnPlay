@@ -343,11 +343,10 @@ class GameUploadView(FormView):
 class GamePlayView(TemplateView):
     template_name='notfirstapp/gameplay.html'
 
-    def get_context_data(self):
-        context=super(GamePlayView,self).get_context_data();
-        # import pdb
-        # pdb.set_trace()
-        context['game_path']=self.request.GET['game_path']
+    def get_context_data(self,**kwargs):
+        context=super(GamePlayView,self).get_context_data(**kwargs);
+        game=Game.objects.get(slug=context['game_slug'])
+        context['game']=game
         return context
 
  
