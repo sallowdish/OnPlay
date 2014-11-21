@@ -18,7 +18,7 @@
                                         {%if game.fk_image%}
                                             <img id='gameicon' src="{{game.fk_image.imagefile.url}}" alt="portfolio 1">
                                         {%else%}
-                                            <img src='{% static "notfirstapp/images/portfolio/1.jpg"%} alt="portfolio 1"'>
+                                            <img src={% static "notfirstapp/images/portfolio/1.jpg"%} alt="portfolio 1">
                                         {%endif%}
                                         <div class="overlay-p" >
                                             {%if game.depolyed_path%}

@@ -4,69 +4,83 @@
 
 
 {%block content%}
-<div class="templatemo_portfolio" id="templatemo_portfolio">
-        <h2>Our Game Library</h2>
-        <p>Here is a list of the most popular games powered by Cloud Game Ranking System.<API class=""></API> </p>
-
-        <div class="container">
-            {% if game_list %}
-                {% for game in game_list %}
-                    {% if game %}
-                        <div class="col-xs-6 col-sm-6 col-md-3 templatemo_col12" style="height:400px;width:300px;">
-                            <div class="portfolio-item">
-                                    <div class="portfolio-thumb">
-                                        {%if game.fk_image%}
-                                        <img id='gameicon' src="{{game.fk_image.imagefile.url}}" alt="portfolio 1">
-                                        {%else%}
-                                        <img src='{% static "notfirstapp/images/portfolio/1.jpg"%} alt="portfolio 1"'>
-                                        {%endif%}
-                                        <div class="overlay-p" >
-                                            <a href={% url 'game:GameDetailPage' game.id%} >
-                                                <ul>
-                                                    <li>{{game.gamename}}</li>
-                                                    <li class="fa fa-circle"></li>
-                                                    <li class="fa fa-circle fsmall"></li>
-                                                    <li class="fa fa-circle"></li>
-                                                    <li class="fa fa-circle fsmall"></li>
-                                                    <li class="fa fa-search fa-2x"></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-                                    </div> <!-- /.portfolio-thumb -->
+<div class="container">
+    <div class='row ' >
+        <div class='col-xs-12 page-header' style='margin-top:0'>
+                <h2>Our Game Library</h2>
+                <small>You can manage all your games here</small>
+        </div>
+    </div>
+    <div class='row'>
+        {% if game_list %}
+            <table class='table table-hover'>
+                <thead>
+                    <tr>
+                        <th class='col-xs-1'>Game Logo</th>
+                        <th class='col-xs-2'>Game Name</th>
+                        <th>Path</th>
+                        <th>Upload Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in game_list %}
+                        <tr>
+                            <td>
+                                <a href="" class='thumbnail' style='margin-bottom:0;background:lightgrey'>
+                                    <img src={{game.fk_image}} alt="Logo here" class='img-rounded'>
+                                </a>
+                            </td>
+                            <td style='vertical-align:middle'>
+                                {{game.gamename}}
+                            </td>
+                            <td style='vertical-align:middle'>
+                                {{game.depolyed_path}}
+                            </td>
+                            <td style='vertical-align:middle'>
+                                {{game.createTime}}
+                            </td style='vertical-align:middle'>
+                            <td style='vertical-align:middle'>
+                                <!-- Single button -->
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    Actions <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu" style='padding-bottom:0'>
+                                    <li><a href="#">Update</a></li>
+                                    <li><a href="#">Depoly</a></li>
+                                    <!-- <li><a href="#">Something else here</a></li> -->
+                                    <li class="divider" style="margin:5px 0;"></li>
+                                    <li style='background:red;color:white'> 
+                                        <a href="#" >Delete</a>
+                                    </li>
+                                  </ul>
                                 </div>
-                          </div>
-                    {%endif%}
-                {% endfor %}
-            {% else %}
-                <li>Sorry, no game in this list.</li>
-            {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a href={%url 'game:GameFormPage'%} class='btn btn-primary'>New game</a>
+                        </td>
+                    </tr>
+                </tbody>
 
-        </div>
-        <div>
-            <a href={%url 'game:GameFormPage'%}>Create a new game rank</a>
-        </div>
-  </div>
+            </table>
+        {% else %}
+            <li>Sorry, no game in this list.</li>
+        {% endif %}
+    </div>
+</div>
 
-<style type="text/css">
-    #gameicon{
-        max-width:100%;
-        /*width: auto;*/
-        /*width: 65px;*/
+<div>
+    
+</div>
 
-    }
-</style>
-
-        <!-- Upload form. Note enctype attribute! -->
-        <!-- <form action="{% url 'game:ImageListPage' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <p>{{ form.non_field_errors }}</p>
-            <p>{{ form.imagefile.label_tag }} {{ form.imagefile.help_text }}</p>
-            <p>
-                {{ form.imagefile.errors }}
-                {{ form.imagefile }}
-            </p>
-            <p><input type="submit" value="Upload" /></p>
-        </form> -->
 {%endblock content%}
 
 {%block endscript%}
@@ -82,5 +96,6 @@
 
 </script>
 {%endblock endscript%}
+
 
 {%block about%}{%endblock about%}
