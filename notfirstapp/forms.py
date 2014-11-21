@@ -106,4 +106,10 @@ class UserCreateForm(UserCreationForm):
             user.save()
         return user
 
-        
+ 
+class CommentForm(forms.ModelForm):
+	comment = forms.CharField(label='Comment', max_length=250, widget=forms.Textarea)
+	fk_game = forms.CharField(max_length=50)
+	fk_comment_poster = forms.CharField(max_length=50)	
+	class Meta:
+		model=GameComment       

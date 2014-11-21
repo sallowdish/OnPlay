@@ -1,8 +1,103 @@
-{% if game_list %}
-    {% for game in game_list %}
-    	<!-- {% if game %} -->
-            <li>{{game.gamename}}</li>
-            <li>{{game.createTime}}</li>
-    {%endfor%}
-{%endif%}
+{%extends 'notfirstapp/base2.html'%}
+{%load staticfiles%}
+    <!-- List of uploaded documents -->
 
+		<!-- Main HTML -->
+		
+	{%block content%}
+	
+	
+	
+	
+	
+	
+	
+	<div style="margin-top: 12%;">
+		<div class='row'>
+			<div class='col-xs-2'></div>
+				
+					<p> {{played }} times played </p>
+		</div>
+	</div>
+
+	
+<style type="text/css">
+.comment {
+    content: '\A';
+    white-space: pre;
+
+}
+
+.comment label{
+display:block;clear:both;
+
+
+}
+</style>
+
+<!--       
+
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
+
+<script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+
+---->
+
+
+<script type="text/javascript" language="javascript">
+$(function(){
+
+    var currentValue = $('#currentValue');
+    var rating = $('#rating');
+
+
+    $('#defaultSlider').change(function(){
+        currentValue.html(this.value);
+        rating.val(this.value);    
+        
+    });
+
+    $('#defaultSlider').change();
+
+});
+</script> 
+
+  <div data-role="main" class="ui-content">
+    <form action="./" method="post">
+       {% csrf_token %}
+      <label for="points">Rating:</label>
+		<input id="defaultSlider" type="range" min="0" max="10" />
+		<p class="note">Current value: <span id="currentValue">0</span></p>
+		<input type="hidden" id="rating" name="rating" value="-1">
+		<input type="submit" data-inline="true" value="Submit">
+    </form>
+  </div>
+
+<p>Rating: {{rating}}</p>
+
+
+<h4>Comments: </h4>
+
+	{% for comment in comments %}		
+	
+	
+			<div>{{ comment.fk_comment_poster}}: {{comment.comment }}  </div>
+		{% endfor %}	
+		
+<form class="comment" action="./" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>	
+			
+			
+		</div>
+		
+
+	{%endblock content%}
+
+	
+	
+	
+		
+	

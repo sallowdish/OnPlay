@@ -18,6 +18,8 @@ urlpatterns = patterns('',
 	#index page
 	url(r'^$', views.IndexView.as_view(), name="indexPage"),
 	# url(r'^(?P<game_id>\d+)/$', views.DetailPageController, name='DetailPage'),
+	
+	
 	#manager part
 	url(r'^manager/upload/$',login_required(views.GameCreateView.as_view()),name='GameFormPage'),
 	url(r'^manager/gamearchive/upload/$',login_required(views.GameUploadView.as_view()),name='GameArchiveUploadPage'),
@@ -25,6 +27,8 @@ urlpatterns = patterns('',
 	url(r'^manager/$',login_required(views.GameListView.as_view()),name='GameManagePage'),
 	url(r'^manager/(?P<pk>\d+)/rank/$',login_required(views.ScoreRankView.as_view()),name='ScoreRankPage'),
 	url(r'^manager/simplelist/$',TemplateView.as_view(template_name='game.html'),name='SimpleGameListPage'),
+	
+	
 	#image part
 	url(r'^image/upload/$',login_required(views.ImageView.as_view()),name='ImageFormPage'),
 	url(r'^image/(?P<pk>\d+)/$',views.ImageDetailView.as_view(),name='ImageDetailPage'),
@@ -34,21 +38,31 @@ urlpatterns = patterns('',
 	url(r'^gallery/$',views.GameGalleryView.as_view(),name='GameGalleryPage'),
 
 	#PlayGame part
-
 	url(r'^playgame/',views.GamePlayView.as_view(),name='GamePlayPage'),
+	
+	#gameview
+	url(r'^game/(?P<gameid>\d+)/$',views.GameView.as_view(),name='game'),
+	
 
 	#api part ScoreRankApiView
 	url(r'^rank/(?P<pk>\d+)/$',views.ScoreRankApiView,name='ScoreRankApi'),
 
-	#2048 game demo
-	url(r'^2048/$',TemplateView.as_view(template_name='notfirstapp/2048.html'),name='GameDemoPage'),
 	# url(r'^(?P<contact_id>\d+)/edit/$', views.EditPageController, name='EditPage'),
 	# url(r'^(?P<contact_id>\d+)/edit/done$', views.EditDoneController, name='EditDone'),
 	# url(r'^create/$', views.CreatePageController, name='CreatePage'),
 	# url(r'^create/done$', views.CreateDoneController, name='CreateDone'),
 	
-	#asteroids game
+	#Games html files.
+	url(r'^2048/$',TemplateView.as_view(template_name='notfirstapp/2048.html'),name='GameDemoPage'),
 	url(r'^asteroids/$',TemplateView.as_view(template_name='notfirstapp/asteroids.html'),name='Asteroids'),
+	url(r'^snake/$',TemplateView.as_view(template_name='notfirstapp/snake.html'),name='Snake'),
+	url(r'^starship/$',TemplateView.as_view(template_name='notfirstapp/starship.html'),name='Starship'),
+	url(r'^alien/$',TemplateView.as_view(template_name='notfirstapp/alien.html'),name='Alien'),
+	url(r'^libgdx/$',TemplateView.as_view(template_name='notfirstapp/gamelibgdx.html'),name='libgdx'),
+	
+	
+	
+	
 )
 
 if settings.DEBUG:
@@ -56,3 +70,14 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT}))
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

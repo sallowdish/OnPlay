@@ -1,0 +1,20 @@
+{% load staticfiles%}
+<html>
+	<head>
+		<title>Snake</title>
+		<h1 align="center">Snake</h1>
+		<link href={%static "notfirstapp/css/main.css"%} rel="stylesheet" type="text/css">
+		<link href={% static "notfirstapp/css/colorbox.css"%} rel="stylesheet">
+		<script type="text/javascript" src={% static "notfirstapp/js/snake/jquery-1.8.2.js" %}></script>
+		<script type="text/javascript" src={% static "notfirstapp/js/snake/lib.js" %}></script>
+		<script type="text/javascript" src={% static "notfirstapp/js/snake/game.js" %}></script>
+	</head>
+	<body style="text-align:center">
+	<canvas id="canvas" width="400" height="400" onclick="gamerun()" style="background-color:black"></canvas>
+	<p>Click the black square to begin. Use arrow keys to move.</p>
+	<p>Try to eat as many food pellets as possible without hitting the square walls or yourself.</p>
+	
+	<br><br>
+	<p align="center">Special thanks for this open source project: <a href="https://github.com/jrgdiz/snake">Snake</a></p>
+	</body>
+</html>

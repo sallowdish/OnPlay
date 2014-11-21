@@ -1,8 +1,10 @@
 {% load staticfiles%}
 <!DOCTYPE html>
 <html>
+
+
   <head>
-    <title>Game Hosting System</title>
+    <title>Game Hosting Site</title>
     
 
     <meta charset="UTF-8">
@@ -39,14 +41,12 @@
 
     <script src="{% static "notfirstapp/js/jquery.nivo.slider.pack.js"%}"></script>
     <script src="{% static "notfirstapp/js/jquery.singlePageNav.js"%}"></script>
-
-    <!--/***********************************************
-    * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-    * This notice MUST stay intact for legal use
-    * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-    ***********************************************/-->
     {%block head%}{%endblock head%}
   </head>
+
+  
+  
+  
   
 
 
@@ -94,7 +94,10 @@
                         <li><a class="menu" href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
                         {%endblock game%}
                         <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
-						            <li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
+						<li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
+						<li><a class="menu" href= "{% url 'game:Snake' %}">Snake</a></li>
+						<li><a class="menu" href= "{% url 'game:Starship' %}">Starship</a></li>
+						<li><a class="menu" href= "{% url 'game:Alien' %}">Alien</a></li>
                         {%if user.is_authenticated%}
                           <li><a class="menu" href= "{% url 'game:GameManagePage' %}">MyGames</a></li>
                           <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>

@@ -1,0 +1,141 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <title>Game Hosting Site</title>
+    
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Global variables -->
+    <script  type="text/JavaScript">var STATIC_URL = "{{ STATIC_URL|escapejs }}"; var APP_NAME="notfirstapp/";</script>
+    <!-- Jquery -->
+    <script type="text/JavaScript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/JavaScript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <script type="text/JavaScript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <link href="{% static "notfirstapp/css/font-awesome.min.css"%}" rel="stylesheet"/>
+    <link href="{% static "notfirstapp/css/templatemo_style.css"%}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static "notfirstapp/css/templatemo_misc.css"%}"/>
+
+    <!-- <link href={% static "notfirstapp/css/circle.css"%} rel="stylesheet"> -->
+    <link href="{% static "notfirstapp/css/jquery.bxslider.css"%}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static "notfirstapp/css/nivo-slider.css"%}"/>
+    <link rel="stylesheet" href="{% static "notfirstapp/css/slimbox2.css"%}" type="text/css" media="screen"/>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,600' rel='stylesheet' type='text/css'> -->
+    
+
+    
+
+    <script type="text/JavaScript" src="{% static "notfirstapp/js/slimbox2.js"%}"></script>
+
+    <!-- ddsmoothmenu -->
+    <link rel="stylesheet" type="text/css" href="{% static "notfirstapp/css/ddsmoothmenu.css"%}"/>
+    <script type="text/javascript" src="{% static "notfirstapp/js/ddsmoothmenu.js"%}"></script>
+
+    <script src="{% static "notfirstapp/js/jquery.nivo.slider.pack.js"%}"></script>
+    <script src="{% static "notfirstapp/js/jquery.singlePageNav.js"%}"></script>
+    
+  </head>
+  {%block head%}{%endblock head%}
+  
+  
+  
+  
+
+
+<body>
+  <style type="text/css" scoped >
+    div.templatemo_top{
+      border-bottom: 5px solid rgb(114,184,66);
+    }
+	
+  </style>
+  <div class=''>
+    <div class=''>
+      <header>
+      <!-- start menu -->
+        <div id="templatemo_home">
+          <div class="templatemo_top container-fluid" style="height:auto">
+            <div class="templatemo_container">
+              <div class='row'>
+                <div class="col-sm-3 col-md-3">
+                  <div class="logo navbar-brand">
+                    <a rel="nofollow" href= "{%url 'game:indexPage' %}" class="" >
+                      <img src="{% static "notfirstapp/images/templatemo_logo.png"%}" alt="logo"/>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-sm-9 col-md-9 templatemo_col9">
+                  <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                    <span class="icon-bar" style='background:black'></span>
+                    <span class="icon-bar" style='background:black'></span>
+                    <span class="icon-bar" style='background:black'></span>
+                  </button>
+
+                  <div id="top-menu" class="collapse navbar-collapse navHeaderCollapse">
+                    <nav class="mainMenu">
+                      <ul class="nav navbar-nav navbar-right">
+					  
+                        {%if user.is_authenticated%}
+                        <li><a class="menu"> Hi, {{user.username}}</a></li>
+                        {%endif%}
+						
+                        {%block home%}
+                        <li><a class="menu" href= "{% url 'game:indexPage' %}">Home</a></li>
+                        {%endblock home%}
+						
+                        {%block about%}
+                        <li><a class="menu" href= "#templatemo_about">About</a></li>
+                        {%endblock about%}
+						
+                        {%block game%}
+                        <li><a class="menu" href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
+                        {%endblock game%}
+
+						
+						
+                        {%if user.is_authenticated%}
+                          <li><a class="menu" href= "{% url 'game:GameManagePage' %}">MyGames</a></li>
+                          <li><a class="menu" href= "{% url 'game:LogoutPage' %}">Logout</a></li>
+                        {%else%}
+                          <li><a class="menu" href= "{% url 'game:LoginPage' %}">Login</a></li>
+                        {%endif%}
+						
+						
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id='headerbar'></div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </header>
+    </div>
+  </div>
+
+
+  {%block content%}{%endblock content%}
+
+
+
+    
+
+{%block endscript%}{%endblock endscript%}
+
+{%block tail%}{%endblock tail%}
+</body>
+</html>
+<!--
+    Free Template by templatemo
+    http://www.templatemo.com
+-->
