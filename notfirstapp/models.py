@@ -7,6 +7,8 @@ class OnPlayUser(models.Model):
 	user = models.OneToOneField(User,null=1)
 	profileimage=models.ImageField(upload_to='Avatar',null=1)
 	nickname = models.CharField(max_length=50,null=1)
+	def __unicode__(self):
+		return self.user.username
 
 
 class Game(models.Model):
