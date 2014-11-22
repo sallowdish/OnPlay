@@ -15,7 +15,7 @@ urlpatterns = patterns('',
 	url(r'^signup/',views.SignUpView.as_view(),name='SignUpPage'),
 
 	#User
-	url(r'^onplayuser/profile/$',views.ProfileView.as_view(),name='ProfilePage'),
+	url(r'^profile/$',views.ProfileView.as_view(),name='ProfilePage'),
 
 	#index page
 	url(r'^$', views.IndexView.as_view(), name="indexPage"),

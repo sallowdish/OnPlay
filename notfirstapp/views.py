@@ -62,7 +62,7 @@ class ProfileView(View):
         if not request.user.is_authenticated():
             return HttpResponseForbidden()
         user=OnPlayUser.objects.get(user__id=request.POST['user_id'])
-        return render_to_response(template_name,{'user':user})
+        return render_to_response('notfirstapp/profile.html',{'player':user},context_instance=RequestContext(request))
 
     def get(self, request, *args, **kwargs):
         raise PermissionDenied()
