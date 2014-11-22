@@ -1,24 +1,42 @@
 {%if comment_list%}
+<style type="text/css">
+img {
+	width:150px;
+	height:100px;
+    max-width: 150px;
+	max-height:100px;
+}
+</style>
+
 <div class='container-fluid'>
 	{% for comment in comment_list%}
 	<div class='row'>
-		<div class='col-xs-8 col-xs-offset-2 media'>
+		<div class='col-xs-8 col-xs-offset-2 media' style='background-color:#F2FAFF;margin-bottom:15px;'>
 			<a href="#" class='media-left'>
-				<img src="{{comment.fk_comment_poster.onplayuser.profileimage.url}}" alt="profile_image">
+				<img src="{{comment.fk_comment_poster.onplayuser.avatar_url}}" alt="profile_image"'>
 			</a>
 			<div class='media-body'>
-				<h4 class='media-heading'>
-					{{comment.fk_comment_poster.username}}
-				</h4>
-				<p>
+				<p style="color:#3B3B3B">
 					{{comment.comment}}
 				</p>
-			</div>
-			<div class='media-right'>
-				<p>{{comment.comment|date:"D d M Y"}}</p>
+				<h5 class='media-heading' >
+					by <a href=javascript:toProfilePage({{comment.fk_comment_poster.id}})>{{comment.fk_comment_poster.username}}</a> on {{comment.comment_time}}
+				</h5>
 			</div>
 		</div>
 	</div>
 	{%endfor%}
 </div>
+<form action="{% url 'game:ProfilePage'%}" hidden method='POST' id='form_to_profilepage'>
+	{%csrf_token%}
+	<input type="hidden" name="user_id" id="input_user_id">
+</form>
+
+<script type="text/javascript">
+	function toProfilePage(fk_comment_poster_id){
+		$("form#form_to_profilepage>input#input_user_id").attr('value',fk_comment_poster_id);
+		$("form#form_to_profilepage").submit();
+
+	}
+</script>
 {% endif%}

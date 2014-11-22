@@ -1,12 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
+from django.templatetags.static import static
 
 # Create your models here.
 class OnPlayUser(models.Model):
 	user = models.OneToOneField(User,null=1)
 	profileimage=models.ImageField(upload_to='Avatar',null=1)
 	nickname = models.CharField(max_length=50,null=1)
+	def __unicode__(self):
+		return self.user.username
+	def avatar_url(self):
+		if self.profileimage:
+			return self.profileimage.url
+		else:
+			return static('notfirstapp/images/Avatar/tx_unknown.png')
 
 
 class Game(models.Model):
