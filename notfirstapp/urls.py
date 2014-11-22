@@ -44,8 +44,6 @@ urlpatterns = patterns('',
 
 	#Comment Part
 	url(r'comment/',views.CommentListView.as_view(),name='CommentListPage'),
-	#gameview
-	url(r'^game/(?P<gameid>\d+)/$',views.GameView.as_view(),name='game'),
 	
 
 	#api part ScoreRankApiView
