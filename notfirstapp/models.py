@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 
 # Create your models here.
-class OnPlayUser(User):
-	nickname = models.CharField(max_length=50,blank=1,null=1)
-	profileimage=models.ImageField(null=1)
+class OnPlayUser(models.Model):
+	user = models.OneToOneField(User,null=1)
+	profileimage=models.ImageField(upload_to='Avatar',null=1)
+	nickname = models.CharField(max_length=50,null=1)
 
 
 class Game(models.Model):
