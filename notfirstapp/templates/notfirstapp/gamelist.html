@@ -7,7 +7,7 @@
 <div class="container">
     <div class='row ' >
         <div class='col-xs-12 page-header' style='margin-top:0'>
-                <h2>Our Game Library</h2>
+                <h2>My Game Library</h2>
                 <small>You can manage all your games here</small>
         </div>
     </div>
@@ -76,7 +76,11 @@
 
             </table>
         {% else %}
-            <li>Sorry, no game in this list.</li>
+        <ul>
+            <li>Sorry, we cannot find any game for you.</li>
+            <li>Why don't you create a <a href={%url 'game:GameFormPage'%} class='btn btn-success'>New Game</a>.</li>
+        </ul>
+            
         {% endif %}
     </div>
 </div>
