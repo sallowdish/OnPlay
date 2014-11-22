@@ -19,7 +19,7 @@ import json
 class IndexView(ListView):
 	# current_game=Game.objects.all()
 	model=Game
-	template_name='notfirstapp/index.html'
+	template_name='notfirstapp/index2.html'
 	context_object_name='game_list'
 
 	def get_context_data(self, **kwargs):
