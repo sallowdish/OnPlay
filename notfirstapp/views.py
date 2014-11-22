@@ -36,8 +36,10 @@ class SignUpView(FormView):
     template_name='notfirstapp/signup.html'
 
     def form_valid(self,form):
-        form.save()
-        
+        user=form.save()
+        # import pdb
+        # pdb.set_trace()
+        OnPlayUser(user=user).save()
         return self.get_success_url();
 
 
@@ -60,7 +62,7 @@ class ProfileView(View):
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
-            return HttpResponseForbidden()
+            raise PermissionDenied("You have to login to see other's profile")
         user=OnPlayUser.objects.get(user__id=request.POST['user_id'])
         return render_to_response('notfirstapp/profile.html',{'player':user},context_instance=RequestContext(request))
 
