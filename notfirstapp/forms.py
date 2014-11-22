@@ -49,9 +49,12 @@ from django.contrib.auth.forms import UserCreationForm
 class GameForm(forms.ModelForm):
     class Meta:
     	model= Game
-        field=['gamename','fk_image']
-        exclude=['depolyed_path']
+        exclude=['depolyed_path','fk_image']
 
+class GameCreateForm(forms.Form):
+    gamename = forms.CharField(required=0)
+    image = forms.ImageField(label='Select a image',
+        help_text='max. 42 megabytes')
 
 class ImageForm(forms.Form):
     imagefile = forms.ImageField(

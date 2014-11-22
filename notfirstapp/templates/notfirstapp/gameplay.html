@@ -3,14 +3,21 @@
 {%block content%}
 	{% if game %}
 	<div class='container-fluid'>
-		<div class='r	ow'>
+		<div class='row'>
 			<div class='col-xs-8 col-xs-offset-2 embed-responsive embed-responsive-16by9'>
 				<iframe class='embed-responsive-item' src={{game.depolyed_path}} scrolling="no" frameborder="0"></iframe>
 			</div>
 		</div>
-
-		{%include 'notfirstapp/commentlist.html'%}
 	</div>
+	<div class='container-fluid'>
+		<div class='row'>
+			<div class='col-xs-8 col-xs-offset-2'>
+				<h3>Comments:</h3>
+			</div>
+		</div>
+	</div>
+	{%include 'notfirstapp/commentlist.html'%}
+
     {% else %}
 	    <div class='container-fluid' style='margin-top:10%;'>
             <div class='row'>
