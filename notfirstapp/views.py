@@ -425,5 +425,10 @@ class CommentCreateView(CreateView):
         return render_to_response('notfirstapp/commentcreate.html',{'form':form})
 
         
+<<<<<<< HEAD
+ 
+class GameView(TemplateView):
+=======
 
+>>>>>>> master
 
