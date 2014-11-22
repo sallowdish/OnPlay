@@ -3,16 +3,10 @@ from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 
 # Create your models here.
-# class Account(models.Model):
-# 	firstname = models.CharField(max_length=50,blank=1,null=1)
-# 	lastname = models.CharField(max_length=50,blank=1,null=1)
-# 	username = models.CharField(max_length=50)
-# 	def __unicode__(self):
-# 		return self.username
-# 	def isGameDeveloper(self):
-# 		return len(Own.objects.filter(Account_id=self))>0
-# 	isGameDeveloper.boolean=1
-# 	isGameDeveloper.short_description='Game Developer?'
+class OnPlayUser(User):
+	nickname = models.CharField(max_length=50,blank=1,null=1)
+	profileimage=models.ImageField(null=1)
+
 
 class Game(models.Model):
 	gamename=models.CharField(max_length=100,default="Game")
