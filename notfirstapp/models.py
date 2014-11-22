@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 from django.templatetags.static import static
 
-# Create your models here.
+# Create your models here:
+
+
 class OnPlayUser(models.Model):
 	user = models.OneToOneField(User,null=1)
 	profileimage=models.ImageField(upload_to='Avatar',null=1)
@@ -18,19 +20,28 @@ class OnPlayUser(models.Model):
 
 
 class Game(models.Model):
+	fk_image=models.ForeignKey('Image',null=True)
 	gamename=models.CharField(max_length=100,default="Game")
 	createTime=models.DateTimeField(auto_now_add=1)
-	fk_image=models.ForeignKey('Image',null=True)
-	depolyed_path=models.TextField(max_length=200,null=1)
+	depolyed_path=models.TextField(max_length=200,null=True)
+	game_description=models.TextField(max_length=500,null=True)
+	game_instructions=models.TextField(max_length=500,null=True)
 	slug = AutoSlugField(populate_from='gamename',unique=1,null=1)
 	"""docstring for Game"""
 	def __unicode__(self):
 		return self.gamename
+		
+""" All the games that are being put in the spotlight by the admins. 
+	 It is up to the Admins to not have duplicate games in this table."""
+class SpotlightGame(models.Model):
+	fk_game=models.ForeignKey(Game) 
+	def __unicode__(self):
+		return self.fk_game.gamename
 	
 class Figure(models.Model):
+	User_id=models.ForeignKey(User)
 	name=models.CharField(max_length=50,default="Player")
 	tag=models.CharField(max_length=50,default="Player#0000")
-	User_id=models.ForeignKey(User)
 	def __unicode__(self):
 		return self.name+"\t tag: "+self.tag
 				
@@ -55,6 +66,7 @@ class Own(models.Model):
 class ScoreRank(models.Model):
 	Figure_id=models.ForeignKey(Figure)
 	Game_id=models.ForeignKey(Game)
+	
 	score=models.IntegerField(default=0)
 	rank=models.IntegerField(default=0)
 	achieveTime=models.DateTimeField(auto_now_add=1)
@@ -65,6 +77,7 @@ class ScoreRank(models.Model):
 class TimeRank(models.Model):
 	Figure_id=models.ForeignKey(Figure)
 	Game_id=models.ForeignKey(Game)
+	
 	finishTime=models.TimeField(auto_now_add=0)
 	rank=models.IntegerField(default=0)
 	achieveTime=models.DateTimeField(auto_now_add=1)
@@ -79,9 +92,9 @@ class Image(models.Model):
 		return self.imagefile.url
 
 class GameArchive(models.Model):
+	fk_game= models.ForeignKey('Game')
 	name = models.CharField(max_length=50)
 	gamefile = models.FileField(upload_to='temp/game/%Y/%m')
-	fk_game= models.ForeignKey('Game')
 	upload_time=models.DateTimeField(auto_now_add=1)
 	def __unicode__(self):
 		return self.name
@@ -99,6 +112,7 @@ class GameRate(models.Model):
 	rate=models.IntegerField(default=5)
 	rate_time=models.DateTimeField(auto_now_add=1)
 
+"""Keeps track of every game page loaded """
 class GameVisit(models.Model):
 	"""docstring for GameRateing"""
 	fk_game= models.ForeignKey('Game')
