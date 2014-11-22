@@ -1,22 +1,19 @@
 {%extends 'notfirstapp/base2.html'%}
 {%block content%}
 
-<div id='formblock'>
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-xs-10 col-xs-offset-1 jumbotron'>
+            <form action="" method="post">
+                <h3>Create New Game Record</h3>
+                {% csrf_token %}
+                <table class='table'>
+                    {{ form.as_table }}
+                </table>
 
-        <input type="submit" value="Create" />
-        <a class='alpha two columns' 
-            href='{% url 'game:ImageFormPage' %}?back={{ current_path }}'>Upload New Image</a>
-    </form>
+                <input type="submit" value="Create" />
+            </form>
+        </div>
+    </div>
 <div>
-<style type="text/css">
-	#formblock{
-		padding-top: 10em;
-		padding-left: 3em;
-	}
-
-</style>
-
 {%endblock%}

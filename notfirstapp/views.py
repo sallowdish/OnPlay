@@ -152,19 +152,14 @@ class GameListView(ListView):
 
     
 
-class GameCreateView(CreateView):
+class GameCreateView(FormView):
     # Handle file upload
     template_name="notfirstapp/gameform.html"
-    form_class=GameForm
+    form_class=GameCreateForm
 
     def post(self, request, *args, **kwargs):
-    	# data=form.data
-    	# self.object = None
-     #    form = self.get_form(self.form_class)
-     #    targetID=request.POST['fk_image']
-     #    form.instance.fk_image=Image.objects.get(id=targetID)
         form=self.form_class(request.POST)
-
+        import pdb;pdb.set_trace()
         if form.is_valid():
         	# newGame=Game(gamename=form.data[''])
             return self.form_valid(form)
@@ -172,24 +167,19 @@ class GameCreateView(CreateView):
             return self.form_invalid(form)
 
     def form_valid(self,form):
-    	self.object = form.save()
-    	# self.object=obj
-    	# self.object.save()
+        img=Image(imagefile=form.cleaned_data['file'])
+
         ownership=Own(Game_id=self.object,User_id=self.request.user)
         ownership.save()
     	self.id=self.object.id
     	return HttpResponseRedirect(self.get_success_url())
+
 
     # def get_form(self, form_class):
     #     form = (super(GameCreateView, self)).get_form(form_class)
     #     current_images = Image.objects.all()
     #     form.fields['fk_image'].queryset = current_images 
     #     return form
-
-    def get_context_data(self, **kwargs):
-        context = super(GameCreateView, self).get_context_data(**kwargs)
-        context['current_path'] = self.request.get_full_path()
-        return context
 
     def get_success_url(self):
     	return reverse('game:GameDetailPage',kwargs={'pk': self.id})
