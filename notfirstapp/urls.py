@@ -44,12 +44,9 @@ urlpatterns = patterns('',
 
 	#Comment Part
 	url(r'comment/',views.CommentListView.as_view(),name='CommentListPage'),
-<<<<<<< HEAD
-=======
+
 	url(r'comment/create',views.CommentCreateView.as_view(),name='CommentCreatePage'),
-	#gameview
-	url(r'^game/(?P<gameid>\d+)/$',views.GameView.as_view(),name='game'),
->>>>>>> rayworkingbranch
+
 	
 
 	#api part ScoreRankApiView
