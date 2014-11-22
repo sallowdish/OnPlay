@@ -332,16 +332,6 @@ class GameUploadView(FormView):
 class GamePlayView(TemplateView):
 	template_name='notfirstapp/gameplay.html'
 
-<<<<<<< HEAD
-    def get_context_data(self,**kwargs):
-        context=super(GamePlayView,self).get_context_data(**kwargs);
-        game=Game.objects.get(slug=context['game_slug'])
-        form=CommentCreateForm()
-        context['form']=form
-        context['game']=game
-        context['comment_list']=GameComment.objects.filter(fk_game=game)
-        return context
-=======
 	def get_context_data(self,**kwargs):
 		context=super(GamePlayView,self).get_context_data(**kwargs);
 		game=Game.objects.get(slug=context['game_slug'])
@@ -405,7 +395,6 @@ class GamePlayView(TemplateView):
 		
 		return render_to_response("notfirstapp/gameplay.html", context, context_instance = RequestContext(request));
 			
->>>>>>> master
 
 class CommentListView(ListView):
     model=GameComment
