@@ -118,4 +118,11 @@ class CommentForm(forms.ModelForm):
 	fk_comment_poster = forms.CharField(max_length=50)	
 	class Meta:
 		model=GameComment
-        exclude=[]       
+        exclude=[]
+
+class CommentCreateForm(forms.Form):
+    """docstring for CommentCreateForm"""
+    comment=forms.CharField(max_length=300,widget=forms.Textarea)
+    def __init__(self):
+        super(CommentCreateForm, self).__init__()
+        
