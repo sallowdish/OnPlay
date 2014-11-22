@@ -83,11 +83,11 @@ display:block;clear:both;
 		<div  class='row'>
 			<div class='col-xs-8 col-xs-offset-2'>
 			
-			
-				<p> {{played }} times played </p>
+				<br>
+				<p style="float:right;"><b>Number of times played:</b> {{played }}</p>
 				
 				{% if ratings %}
-				<p>Current Rating: {{rating}} by ratings {{ ratings }} users</p>	
+				<p><b>Current Rating:</b> {{rating}} by ratings {{ ratings }} users</p>	
 				
 				{% else  %}
 				<p>Currently not rated yet</p>	
@@ -111,7 +111,7 @@ display:block;clear:both;
 			      <label for="points">Rating: <span id="currentValue">0</span></label>
 					<input class="slider" id="defaultSlider" type="range" min="0" max="10" />
 					<input type="hidden" id="rating" name="rating" value="-3">
-					<input type="submit" data-inline="true" name="action"  value="Rate">
+					<input style="margin-top:6px;margin-bottom:15px;" type="submit" data-inline="true" name="action"  value="Rate">
 				
 				
 					

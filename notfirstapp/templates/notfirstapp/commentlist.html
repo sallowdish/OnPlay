@@ -1,21 +1,27 @@
 {%if comment_list%}
+<style type="text/css">
+img {
+	width:150px;
+	height:100px;
+    max-width: 150px;
+	max-height:100px;
+}
+</style>
+
 <div class='container-fluid'>
 	{% for comment in comment_list%}
 	<div class='row'>
-		<div class='col-xs-8 col-xs-offset-2 media' style='background-color:lightgrey;'>
+		<div class='col-xs-8 col-xs-offset-2 media' style='background-color:#F2FAFF;margin-bottom:15px;'>
 			<a href="#" class='media-left'>
-				<img src="{{comment.fk_comment_poster.onplayuser.avatar_url}}" alt="profile_image" style='max-width:64px;'>
+				<img src="{{comment.fk_comment_poster.onplayuser.avatar_url}}" alt="profile_image"'>
 			</a>
 			<div class='media-body'>
-				<h3 class='media-heading'>
-					<a href=javascript:toProfilePage({{comment.fk_comment_poster.id}})>{{comment.fk_comment_poster.username}}:</a>
-				</h3>
-				<p>
+				<p style="color:#3B3B3B">
 					{{comment.comment}}
 				</p>
-			</div>
-			<div class='media-right'>
-				<p>{{comment.comment|date:"D d M Y"}}</p>
+				<h5 class='media-heading' >
+					by <a href=javascript:toProfilePage({{comment.fk_comment_poster.id}})>{{comment.fk_comment_poster.username}}</a> on {{comment.comment_time}}
+				</h5>
 			</div>
 		</div>
 	</div>
