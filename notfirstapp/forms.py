@@ -49,7 +49,7 @@ from django.contrib.auth.forms import UserCreationForm
 class GameForm(forms.ModelForm):
     class Meta:
     	model= Game
-        exclude=['depolyed_path','fk_image']
+        exclude=['depolyed_path']
 
 class GameCreateForm(forms.Form):
     gamename = forms.CharField(required=0)

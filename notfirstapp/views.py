@@ -158,8 +158,7 @@ class GameCreateView(FormView):
     form_class=GameCreateForm
 
     def post(self, request, *args, **kwargs):
-        form=self.form_class(request.POST)
-        import pdb;pdb.set_trace()
+        form=self.form_class(request.POST,request.FILES)
         if form.is_valid():
         	# newGame=Game(gamename=form.data[''])
             return self.form_valid(form)
@@ -167,19 +166,14 @@ class GameCreateView(FormView):
             return self.form_invalid(form)
 
     def form_valid(self,form):
-        img=Image(imagefile=form.cleaned_data['file'])
-
-        ownership=Own(Game_id=self.object,User_id=self.request.user)
+        img=Image(imagefile=form.cleaned_data['image'])
+        img.save()
+        game=Game(gamename=form.cleaned_data['gamename'],fk_image=img)
+        game.save()
+        ownership=Own(Game_id=game,User_id=self.request.user)
         ownership.save()
-    	self.id=self.object.id
+    	self.id=game.id
     	return HttpResponseRedirect(self.get_success_url())
-
-
-    # def get_form(self, form_class):
-    #     form = (super(GameCreateView, self)).get_form(form_class)
-    #     current_images = Image.objects.all()
-    #     form.fields['fk_image'].queryset = current_images 
-    #     return form
 
     def get_success_url(self):
     	return reverse('game:GameDetailPage',kwargs={'pk': self.id})
