@@ -39,7 +39,9 @@ urlpatterns = patterns('',
 
 	#PlayGame part
 	url(r'^playgame/(?P<game_slug>\w+)',views.GamePlayView.as_view(),name='GamePlayPage'),
-	
+
+	#Comment Part
+	url(r'comment/',views.CommentListView.as_view(),name='CommentListPage'),
 	#gameview
 	url(r'^game/(?P<gameid>\d+)/$',views.GameView.as_view(),name='game'),
 	

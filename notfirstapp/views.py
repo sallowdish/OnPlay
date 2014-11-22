@@ -347,7 +347,25 @@ class GamePlayView(TemplateView):
         context=super(GamePlayView,self).get_context_data(**kwargs);
         game=Game.objects.get(slug=context['game_slug'])
         context['game']=game
+        context['comment_list']=GameComment.objects.filter(fk_game=game)
         return context
+
+class CommentListView(ListView):
+    model=GameComment
+    template_name='notfirstapp/commentlist.html'
+
+    def get_context_data(self,**kwargs):
+        # import pdb
+        context=super(CommentListView,self).get_context_data(**kwargs);
+        if 'game_slug' in self.request.GET.keys():
+            
+            # pdb.set_trace()
+            context['comment_list']=GameComment.objects.filter(fk_game__slug=self.request.GET['game_slug']);
+        else:
+            context['comment_list']=GameComment.objects.all();
+        # pdb.set_trace()
+        return context
+
 
  
 class GameView(TemplateView):
