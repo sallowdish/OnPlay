@@ -330,8 +330,9 @@ class GameUploadView(FormView):
         return reverse('game:GameDetailPage', kwargs={'pk': self.request.POST['fk_game']})
 
 class GamePlayView(TemplateView):
-    template_name='notfirstapp/gameplay.html'
+	template_name='notfirstapp/gameplay.html'
 
+<<<<<<< HEAD
     def get_context_data(self,**kwargs):
         context=super(GamePlayView,self).get_context_data(**kwargs);
         game=Game.objects.get(slug=context['game_slug'])
@@ -340,6 +341,71 @@ class GamePlayView(TemplateView):
         context['game']=game
         context['comment_list']=GameComment.objects.filter(fk_game=game)
         return context
+=======
+	def get_context_data(self,**kwargs):
+		context=super(GamePlayView,self).get_context_data(**kwargs);
+		game=Game.objects.get(slug=context['game_slug'])
+		context['game']=game
+		context['comment_list']=GameComment.objects.filter(fk_game=game)
+		
+		
+		ratings = GameRate.objects.filter(fk_game=game)
+		context['rating'] = ratings.aggregate(Avg('rate')).values()[0]	      
+		  
+		GameVisit.objects.create(fk_game=game)
+		context['played']=GameVisit.objects.filter(fk_game=game).count()	
+		
+		
+	
+		form = CommentForm(initial={'fk_game': game, 'fk_comment_poster': 0})
+		form.fields['fk_game'].widget = forms.HiddenInput()		
+		form.fields['fk_comment_poster'].widget = forms.HiddenInput()			
+		context['form'] = form
+		
+		return context
+
+    #should seprate
+	def post(self, request, **kwargs):
+		context=super(GamePlayView,self).get_context_data(**kwargs);
+		game=Game.objects.get(slug=context['game_slug'])
+		context['game']=game	
+
+		
+		model=OnPlayUser
+		if request.user.is_authenticated():
+				
+				
+			if request.POST['action'] == 'Rate':
+				user =User.objects.get(id=request.user.id)
+				obj = GameRate.objects.get_or_create(fk_game=game, fk_comment_poster=user )
+				GameRate.objects.filter(fk_game=game, fk_comment_poster=user ).update(rate=request.POST.get("rating", ""))
+				
+			if request.POST['action'] == 'Comment':
+				user = User.objects.get(id=request.user.id)
+				obj = GameComment.objects.create(fk_game=game, fk_comment_poster=user, comment=request.POST.get("comment", "") )	
+		
+		else:
+			if request.POST['action'] == 'Rate':
+				context['rate_warning'] = 'warning'
+			
+			if request.POST['action'] == 'Comment':
+				context['comment_warning'] = 'warning'
+	
+		ratings = GameRate.objects.filter(fk_game=game)
+		context['ratings'] = ratings.count()
+		context['rating'] = ratings.aggregate(Avg('rate')).values()[0]	  	
+		
+		context['played']=GameVisit.objects.filter(fk_game=game).count()	
+		context['comment_list']=GameComment.objects.filter(fk_game=game)
+		
+		form = CommentForm(initial={'fk_game': game, 'fk_comment_poster': 0})
+		form.fields['fk_game'].widget = forms.HiddenInput()		
+		form.fields['fk_comment_poster'].widget = forms.HiddenInput()			
+		context['form'] = form		
+		
+		return render_to_response("notfirstapp/gameplay.html", context, context_instance = RequestContext(request));
+			
+>>>>>>> master
 
 class CommentListView(ListView):
     model=GameComment
@@ -370,69 +436,10 @@ class CommentCreateView(CreateView):
         return render_to_response('notfirstapp/commentcreate.html',{'form':form})
 
         
+<<<<<<< HEAD
  
 class GameView(TemplateView):
+=======
 
-	def get(self, request, gameid):
-		model=Game
-		template_name = "notfirstapp/game.html"
-		context_object_name = 'game'
-		queryset=Game.objects.order_by('-createTime')
-		gameObj =Game.objects.get(id=gameid)
-		model=GameVisit
-		
-		#obj = GameVisit.objects.get_or_create(fk_game=timep)
-		obj = GameVisit.objects.create(fk_game=gameObj)
-		
-		visted = GameVisit.objects.filter(fk_game=gameObj).count()	
-		
-		comments = GameComment.objects.filter(fk_game=gameObj)		
-		
-		p = GameRate.objects.filter(fk_game=gameObj)
-		rating = p.aggregate(Avg('rate')).values()[0]		
-		
-		
-		form = CommentForm(initial={'fk_game': gameid, 'fk_comment_poster': 0})
-		form.fields['fk_game'].widget = forms.HiddenInput()		
-		form.fields['fk_comment_poster'].widget = forms.HiddenInput()		
-		
-		
-		return render_to_response("notfirstapp/game.html", {'rating': rating, 'played': visted, 'form' : form, 'gameid' : gameid , 'comments' : comments}, context_instance = RequestContext(request));
-		
-	def post(self, request, gameid):
-			
-		model=Game
-		template_name = "notfirstapp/game.html"
-		context_object_name = 'game'
-		queryset=Game.objects.order_by('-createTime')
-		gameObj =Game.objects.get(id=gameid)
-		model=GameVisit
-		obj = GameVisit.objects.create(fk_game=gameObj)
-		
-		if(request.POST.get("rating", "").strip() != "-1" ):
-			user =User.objects.get(id=request.user.id)
-			obj = GameRate.objects.get_or_create(fk_game=gameObj, fk_comment_poster=user )
-			GameRate.objects.filter(fk_game=gameObj, fk_comment_poster=user ).update(rate=request.POST.get("rating", ""))		
-			#obj.rate = request.POST.get("rating", "")
-		#	obj = GameRate(rate = request.POST.get("rating", ""))
-			
-		
-		
-		if(request.POST.get("comment", "").strip() != ""):
-			user =User.objects.get(id=request.user.id)
-			obj = GameComment.objects.create(fk_game=gameObj, fk_comment_poster=user, comment=request.POST.get("comment", "") )
-		
-	
-		p = GameRate.objects.filter(fk_game=gameObj)
-		rating = p.aggregate(Avg('rate')).values()[0]		
-		
-		visted = GameVisit.objects.filter(fk_game=gameObj).count()				
-		
-		comments = GameComment.objects.filter(fk_game=gameObj)		
-			
-		form = CommentForm(initial={'fk_game': gameid, 'fk_comment_poster': 0})
-		form.fields['fk_game'].widget = forms.HiddenInput()		
-		form.fields['fk_comment_poster'].widget = forms.HiddenInput()		
-		return render_to_response("notfirstapp/game.html", {'rating': rating, 'played': visted, 'form' : form, 'gameid' : gameid, 'comments' : comments }, context_instance = RequestContext(request));
-			
-	
+>>>>>>> master
+

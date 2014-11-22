@@ -113,7 +113,7 @@ class UserCreateForm(UserCreationForm):
 
  
 class CommentForm(forms.ModelForm):
-	comment = forms.CharField(label='Comment', max_length=250, widget=forms.Textarea)
+	comment = forms.CharField(label='Comment', max_length=250, widget=forms.Textarea(attrs={'rows': 4, 'cols': 40}))
 	fk_game = forms.CharField(max_length=50)
 	fk_comment_poster = forms.CharField(max_length=50)	
 	class Meta:
