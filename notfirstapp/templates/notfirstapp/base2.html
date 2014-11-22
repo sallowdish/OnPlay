@@ -87,7 +87,7 @@
 						
 					<ul class="nav navbar-nav navbar-right">	
 						{%if user.is_authenticated%}
-			                 <li><a class="menu"> Hi, {{user.username}}</a></li>
+			                 <li><a class="menu" href=javascript:postProfilePage()> Hi, {{user.username}}</a></li>
 			            {%endif%}
 						
 						{%if user.is_authenticated%}
@@ -117,9 +117,16 @@
 	
 	
     <!-- Place scripts here to load faster. -->
+	<form action="{% url 'game:ProfilePage'%}" method='POST' id='ProfilePostForm'>
+		{%csrf_token%}
+		<input type="hidden" name='user_id' value='{{user.id}}'>
+	</form>
 	
-	
-	
+	<script type="text/JavaScript">
+		function postProfilePage() {
+			$('form#ProfilePostForm').submit();
+		}
+	</script>
 	
 	{%block content%}{%endblock content%}
 	

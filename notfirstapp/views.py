@@ -4,11 +4,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse,QueryDict,HttpResponseRedirect
+from django.http import *
 from django.template import RequestContext, loader
 from django.views.generic import *
 from django.views import generic
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from notfirstapp.models import *
 from .forms import *
 from .urls import *
@@ -53,15 +54,19 @@ class SignUpView(FormView):
 
         return render(self.request,'notfirstapp/signup.html',{'form':form});
 
-class ProfileView(TemplateView):
-	"""docstring for ClassName"""
-	template_name='notfirstapp/profile.html'
+class ProfileView(View):
+    model=OnPlayUser
+    template_name='notfirstapp/profile.html'
 
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+        user=OnPlayUser.objects.get(user__id=request.POST['user_id'])
+        return render_to_response(template_name,{'user':user})
 
-	def get_context_data(self,**kwargs):
-		context=super(ProfileView,self).get_context_data(**kwargs)
-		context['user']=self.request.user
-		return context
+    def get(self, request, *args, **kwargs):
+        raise PermissionDenied()
+
 		
 
 

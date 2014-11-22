@@ -13,7 +13,9 @@ urlpatterns = patterns('',
 	url(r'^logout/$','django.contrib.auth.views.logout', {'next_page':'game:indexPage'},name="LogoutPage"),
 	#signup
 	url(r'^signup/',views.SignUpView.as_view(),name='SignUpPage'),
-	url(r'^profile/$',views.ProfileView.as_view(),name='ProfilePage'),
+
+	#User
+	url(r'^onplayuser/profile/$',views.ProfileView.as_view(),name='ProfilePage'),
 
 	#index page
 	url(r'^$', views.IndexView.as_view(), name="indexPage"),
