@@ -14,7 +14,7 @@ class Game(models.Model):
 	createTime=models.DateTimeField(auto_now_add=1)
 	fk_image=models.ForeignKey('Image',null=True)
 	depolyed_path=models.TextField(max_length=200,null=1)
-	slug = AutoSlugField(populate_from='title',unique=1,null=1)
+	slug = AutoSlugField(populate_from='gamename',unique=1,null=1)
 	"""docstring for Game"""
 	def __unicode__(self):
 		return self.gamename
