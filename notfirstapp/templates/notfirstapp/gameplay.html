@@ -103,7 +103,7 @@ display:block;clear:both;
 				
 				
 				
-				<div data-role="main"  class='col-xs-20 col-xs-offset-0'>
+				<div data-role="main"  class='col-xs-12 col-xs-offset-0'>
 			    <form action="./{{game}}" method="post">
 			       {% csrf_token %}
 			       
@@ -116,13 +116,6 @@ display:block;clear:both;
 				
 					
 			    </form>
-			    
-			 <div class='col-xs- col-xs-offset- embed-responsive embed-responsive-16by9'>
-			 
-			  	{%include 'notfirstapp/commentlist.html'%}
-			  
-			  
-			</div>	
 						
 		</div>
 
