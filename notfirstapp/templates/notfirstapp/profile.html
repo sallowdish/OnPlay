@@ -1,17 +1,69 @@
 {%extends 'notfirstapp/base2.html'%}
+{% load staticfiles%}
+{% load pdbDebug %}
 
+
+{%if player%}
 {%block content%}
-<div id="userinfocontainer">
-	{%if user.is_authenticated%}}
-	<h2> Welcome</h2>
+{% with profile_image=player.profileimage nickname=player.nickname targertuser=player.user%}
 
-	<ul>{{user.username}}</ul>
-	<ul>{{user.email}}</ul>
-	{{%endif%}
-</div>
-<style type="text/css">
-	#userinfocontainer{
-		padding-top: 10em;
-	}
-</style>
+	<div class='container-fluid'>
+		<div class='row'>
+			<div class='col-xs-8 col-xs-offset-2 jumbotron'>
+				<div class='col-xs-3'>
+					<a href="#" class='thumbnail'>
+						<img class='img-circle' src="{{player.profileimage.url}}" alt="Profile Image" style='width:100px;height:auto;'>
+					</a>
+					<div class="btn-group col-xs-10 col-xs-offset-1" style='padding-left:0;padding-right:0;'>
+					  <button type="button" class="btn btn-primary dropdown-toggle col-xs-12" data-toggle="dropdown" aria-expanded="false">
+					    Action <span class="caret"></span>
+					  </button>
+						  <ul class="dropdown-menu" role="menu">
+						    <li><a href="#">Update</a></li>
+						    <li><a href="#">Add as Friend</a></li>
+						    <li><a href="#">Something</a></li>
+						    <li class="divider"></li>
+						    {%if user == player.user %}
+						    	<li><a href="#" class='btn btn-danger' role='btn'>Deactivate</a></li>
+						    {% endif %}
+						  </ul>
+					</div>
+				</div>
+				<div class='col-xs-9'>
+					<h3 style='font-size:30px'>User Profile</h3>
+					<table class='table-striped'>
+						<tbody style='border-top:1px solid rgb(221,221,221);'>
+							<tr>
+								<td class='col-xs-1'>
+									<h4>OnPlay ID:</h4>
+								</td>
+								<td class='col-xs-3'> 
+									<h4>{{player.nickname}}</h4>
+								</td>
+							</tr>
+							<tr>
+								<td class='col-xs-1'>
+									<h4>Last Login</h4>
+								</td>
+								<td class='col-xs-3'>
+									<h4>{{player.user.last_login|date:" D d M Y"}}</h4>
+								</td>
+							</tr>
+							<tr>
+								<td class='col-xs-1'>
+									<h4>Date Joined</h4>
+								</td>
+								<td class='col-xs-3'>
+									<h4>{{player.user.date_joined|date:" D d M Y"}}</h4>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+{%endwith%}
 {%endblock%}
+{%endif%}
