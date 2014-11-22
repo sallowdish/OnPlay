@@ -332,7 +332,6 @@ class GameUploadView(FormView):
 class GamePlayView(TemplateView):
 	template_name='notfirstapp/gameplay.html'
 
-<<<<<<< HEAD
 	def get_context_data(self,**kwargs):
 		context=super(GamePlayView,self).get_context_data(**kwargs);
 		game=Game.objects.get(slug=context['game_slug'])
@@ -355,7 +354,7 @@ class GamePlayView(TemplateView):
 		
 		return context
 
-
+    #should seprate
 	def post(self, request, **kwargs):
 		context=super(GamePlayView,self).get_context_data(**kwargs);
 		game=Game.objects.get(slug=context['game_slug'])
@@ -396,16 +395,6 @@ class GamePlayView(TemplateView):
 		
 		return render_to_response("notfirstapp/gameplay.html", context, context_instance = RequestContext(request));
 			
-=======
-    def get_context_data(self,**kwargs):
-        context=super(GamePlayView,self).get_context_data(**kwargs);
-        game=Game.objects.get(slug=context['game_slug'])
-        form=CommentCreateForm()
-        context['form']=form
-        context['game']=game
-        context['comment_list']=GameComment.objects.filter(fk_game=game)
-        return context
->>>>>>> rayworkingbranch
 
 class CommentListView(ListView):
     model=GameComment
@@ -424,8 +413,6 @@ class CommentListView(ListView):
         return context
 
 
-<<<<<<< HEAD
-=======
 class CommentCreateView(CreateView):
     """docstring for Comment"""
     model=GameComment
@@ -438,7 +425,5 @@ class CommentCreateView(CreateView):
         return render_to_response('notfirstapp/commentcreate.html',{'form':form})
 
         
- 
-class GameView(TemplateView):
->>>>>>> rayworkingbranch
+
 
