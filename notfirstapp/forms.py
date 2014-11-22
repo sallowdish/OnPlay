@@ -62,11 +62,12 @@ class ImageForm(forms.Form):
 class FigureForm(forms.ModelForm):
     class Meta:
         model=Figure
-        field=['name']
+        fields=['name']
 
 class PlayForm(forms.ModelForm):
     class Meta:
         model=Play
+        exclude=[]
 
 class ScoreRankForm(forms.ModelForm):
     # username=models.CharField(max_length=50)
@@ -84,6 +85,7 @@ class GameArchiveUploadForm(forms.ModelForm):
             'name': HiddenInput(),
             'fk_game': HiddenInput(),
         }
+        exclude=[]
     # name = forms.CharField(max_length=50)
     # game = forms.FileField(label='Select a .zip file containing your game')
 
@@ -112,4 +114,5 @@ class CommentForm(forms.ModelForm):
 	fk_game = forms.CharField(max_length=50)
 	fk_comment_poster = forms.CharField(max_length=50)	
 	class Meta:
-		model=GameComment       
+		model=GameComment
+        exclude=[]       
