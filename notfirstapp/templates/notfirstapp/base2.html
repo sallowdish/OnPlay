@@ -17,14 +17,16 @@
     <script type="text/JavaScript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/JavaScript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	
-	
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="{% static "notfirstapp/bootstrap/js/bootstrap.min.js"%}"></script>
+
+    <!-- Bootstrap core CSS -->
+	<link href="{% static "notfirstapp/bootstrap/css/bootstrap.min.css"%}" rel="stylesheet"/>	
 	<!-- Made it spacious, just because -->
-	<style>
-		body {
-			min-height: 2000px;
-			padding-top: 70px;
-		}  
-	</style>
+
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -40,7 +42,10 @@
 		
   	{%endblock head%}
   	<style>
-	    body { padding-top: 60px; }
+		body {
+			min-height: 2000px;
+			padding-top: 70px;
+		}  
 	</style>
 
   </head>
@@ -82,7 +87,7 @@
 						
 					<ul class="nav navbar-nav navbar-right">	
 						{%if user.is_authenticated%}
-			                 <li><a class="menu"> Hi, {{user.username}}</a></li>
+			                 <li><a class="menu" href=javascript:postProfilePage()> Hi, {{user.username}}</a></li>
 			            {%endif%}
 						
 						{%if user.is_authenticated%}
@@ -112,9 +117,16 @@
 	
 	
     <!-- Place scripts here to load faster. -->
+	<form action="{% url 'game:ProfilePage'%}" method='POST' id='ProfilePostForm'>
+		{%csrf_token%}
+		<input type="hidden" name='user_id' value='{{user.id}}'>
+	</form>
 	
-	
-	
+	<script type="text/JavaScript">
+		function postProfilePage() {
+			$('form#ProfilePostForm').submit();
+		}
+	</script>
 	
 	{%block content%}{%endblock content%}
 	
@@ -122,14 +134,7 @@
 	
 	{%block tail%}{%endblock tail%}
 	
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="{% static "notfirstapp/bootstrap/js/bootstrap.min.js"%}"></script>
-
-    <!-- Bootstrap core CSS -->
-	<link href="{% static "notfirstapp/bootstrap/css/bootstrap.min.css"%}" rel="stylesheet"/>	
   </body>
 </html>
 

@@ -1,0 +1,24 @@
+{%if comment_list%}
+<div class='container-fluid'>
+	{% for comment in comment_list%}
+	<div class='row'>
+		<div class='col-xs-8 col-xs-offset-2 media'>
+			<a href="#" class='media-left'>
+				<img src="#" alt="profile_image">
+			</a>
+			<div class='media-body'>
+				<h4 class='media-heading'>
+					{{comment.fk_comment_poster.username}}
+				</h4>
+				<p>
+					{{comment.comment}}
+				</p>
+			</div>
+			<div class='media-right'>
+				<p>{{comment.comment|date:"D d M Y"}}</p>
+			</div>
+		</div>
+	</div>
+	{%endfor%}
+</div>
+{% endif%}
