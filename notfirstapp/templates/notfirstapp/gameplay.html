@@ -17,7 +17,11 @@
 		</div>
 	</div>
 	{%include 'notfirstapp/commentlist.html'%}
-
+	{% if user.is_authenticated%}
+		{%include 'notfirstapp/commentcreate.html'%}
+	{% else%}
+		{%include 'notfirstapp/loginpopup.html' with message="to make a new comment." %}
+	{%endif%}
     {% else %}
 	    <div class='container-fluid' style='margin-top:10%;'>
             <div class='row'>
