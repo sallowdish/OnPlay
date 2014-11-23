@@ -1,10 +1,10 @@
 {%if comment_list%}
 <style type="text/css">
 img {
-	width:150px;
+	width:100px;
 	height:100px;
-    max-width: 150px;
-	max-height:100px;
+/*    max-width: 150px;
+	max-height:100px;*/
 }
 </style>
 
@@ -13,7 +13,7 @@ img {
 	<div class='row'>
 		<div class='col-xs-8 col-xs-offset-2 media' style='background-color:#F2FAFF;margin-bottom:15px;'>
 			<a href="#" class='media-left'>
-				<img src="{{comment.fk_comment_poster.onplayuser.avatar_url}}" alt="profile_image"'>
+				<img src="{{comment.fk_comment_poster.onplayuser.avatar_url}}" alt="profile_image" >
 			</a>
 			<div class='media-body'>
 				<p style="color:#3B3B3B">
