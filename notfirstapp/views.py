@@ -342,8 +342,9 @@ class GamePlayView(TemplateView):
 		
 		
 		ratings = GameRate.objects.filter(fk_game=game)
-		context['rating'] = ratings.aggregate(Avg('rate')).values()[0]	      
-		  
+		context['rating'] = ratings.aggregate(Avg('rate')).values()[0]
+        	context['ratings'] = ratings.count()
+         
 		GameVisit.objects.create(fk_game=game)
 		context['played']=GameVisit.objects.filter(fk_game=game).count()	
 		
