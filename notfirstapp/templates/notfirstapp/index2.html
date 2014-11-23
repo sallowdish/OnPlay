@@ -2,33 +2,154 @@
 {%load staticfiles%}
 
 {%block head%}
-    <script src="{% static "notfirstapp/js/jquery.cycle2.min.js"%}"></script>
-    <script src="{% static "notfirstapp/js/jquery.cycle2.carousel.min.js"%}"></script>
     <script type="text/javascript">
-        ddsmoothmenu.init({
-          mainmenuid: "templatemo_flicker", //menu DIV id
-          orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
-          classname: 'ddsmoothmenu', //class added to menu's outer DIV
-          //customtheme: ["#1c5a80", "#18374a"],
-          contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
-        })
     </script>
-    <script>$.fn.cycle.defaults.autoSelector = '.slideshow';</script>
+	
+	<style type="text/css">
+		  body {
+			padding-top: 0px;
+			padding-bottom: 0px;
+		  }
+		  
+		header{
+			padding-top:40px;
+			padding-bottom:40px;
+			margin-bottom:-110px;
+		  }
+		  
+		section {	
+				margin-bottom:40px;
+				padding-top:40px;
+				margin-top:-40px;
+				min-height:400px;
+				width:100%;
+				min-width:100%;
+				padding-bottom:40px;
+				
+			}
+		  .jumbotron{
+			color: #fff;
+			background-color: #7a62d3;
+			-webkit-border-radius:0px;
+				-moz-border-radius:0px;
+					border-radius:0px;
+				
+
+		  }
+		  
+		section .page-header{
+			margin-top: 20px;
+		}
+
+    </style>
+	
+	
 {%endblock head%}
 
 {%block content%}
-<div class='container-fluid'>
-  <div class="templatemo_caption">
-    <div class="templatemo_slidetitle">Easiness & Productivity</div>
-    <div class="clear"></div>
-    <h1>Global Ranking API</h1>
-    <div class="clear"></div>
-    <p>
-      GRAPI is free <a href= "#" target="_parent">API</a> supporting game developers. You may upload, edit and reveal your players' game result online. You could even tell the player his/her world rank.
-    </p>
-    <a class="btn btn-large btn-primary" href="#templatemo_about">Read More</a>
-  </div>
-</div>
+
+	<!-- HEADER --> 
+	 <header id="top-section">
+	  
+		 <!-- Main hero unit for a primary marketing message or call to action -->
+<!--
+		  <div class="jumbotron">
+			<div class="container">
+				<div class="row">
+					<div class="text-center col-sm-12 col-lg-12">
+						<h1 class="">WELLCOME TO BOOTSCROLLER</h1>
+						<p class="lead">
+							Here goes marketing slogan. Now Bootstrap 3.0. supported!
+						</p>
+
+					</div>
+				</div>
+			</div>
+		  </div>
+		  
+		</header>
+-->
+	<!-- / HEADER -->
+	
+<!--
+	<div class="jumbotron">
+            <h1>Hello, world!</h1>
+            <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+     </div>
+-->
+
+<!--
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+				<div id="carousel-843049" class="carousel slide">
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-843049" data-slide-to="0" class="active">
+						</li>
+						<li data-target="#carousel-843049" data-slide-to="1">
+						</li>
+						<li data-target="#carousel-843049" data-slide-to="2">
+						</li>
+					</ol>
+					
+					<div class="carousel-inner">
+						<div class="item active">
+							<img class="img-responsive" src="images/carouselthumb.jpg" alt="thumb" />
+							<div class="carousel-caption">
+								Carousel caption. Here goes slide description. Lorem ipsum dolor set amet.
+							</div>
+						</div>
+						<div class="item">
+							<img class="img-responsive" src="images/carouselthumb.jpg" alt="thumb" />
+							<div class="carousel-caption">
+								Carousel caption 2. Here goes slide description. Lorem ipsum dolor set amet.
+							</div>
+						</div>
+						<div class="item">
+							<img class="img-responsive" src="images/carouselthumb.jpg" alt="thumb" />
+							<div class="carousel-caption">
+								Carousel caption 3. Here goes slide description. Lorem ipsum dolor set amet.
+							</div>
+						</div>
+					</div>
+					 <a class="left carousel-control" href="#carousel-843049" data-slide="prev"><span class="icon-prev"></span></a> <a class="right carousel-control" href="#carousel-843049" data-slide="next"><span class="icon-next"></span></a>
+				</div>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<h2>
+					h2. Bootstrap Heading
+				</h2>
+				<p class="lead">
+					Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+				</p> <button class="btn btn-default btn-lg btn-block btn-info" type="button">SUBMIT</button>
+			</div>
+		</div><hr />
+	</div>
+-->
+
+ <!-- HEADER -->  
+ <header id="top-section">
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="jumbotron">
+		<div class="container">
+			<div class="row">
+					<!--  description-->
+				<div class="text-left col-sm-12 col-lg-12 text-center">
+					<h1 class="">We build an exceptional websites!</h1>
+					<p class="lead">
+						High-Performance Landing Pages Flat style look catchy Lead paragraph.  High-Performance Landing Pages Flat style look catchy Lead paragraph.  High-Performance Landing Pages Flat style look catchy Lead paragraph.  
+					</p>
+					<hr>
+					<p class="text-center"><a class="btn btn-default btn-lg" href="#foot-sec" title="">REQUEST A FREE QUOTE</a></p>
+
+					
+				</div>
+				<!-- / description-->
+			</div><!-- /ROW-->
+		</div>
+      </div>
+	</header>
+<!-- / HEADER -->
   
 
 <div class="clear"></div>
@@ -40,13 +161,14 @@
             <p>Here is a list of the most popular games powered by Cloud Rank API </p>
 
             <div class="container">
+			
+			
               {%if game_list%}
               <style type="text/css" scoped>
-              .gameIcon{
-                width: 100%;
-                height: 204px;
-
-              }
+					.gameIcon{
+						width: 100%;
+						height: 204px;
+					}
               </style>
               {%for game in game_list%}
               <div class="col-xs-6 col-sm-6 col-md-3 templatemo_col12" >
@@ -91,6 +213,8 @@
 
 
             </div>
+			
+			
             <div class="clear"></div>
             <div class="container">
 

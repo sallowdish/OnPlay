@@ -16,6 +16,7 @@ class GameArchiveAdmin(admin.ModelAdmin):
 		
 
 admin.site.register(Game,GameAdminConfig)
+admin.site.register(SpotlightGame)
 # admin.site.register(Account,AccountAdminConfig)
 admin.site.register(Play)
 admin.site.register(Own)
