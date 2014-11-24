@@ -38,6 +38,17 @@
 
   	
         <!-- Main hero unit for a primary marketing message or call to action -->
+  <div class='container-fluid'>
+    <div class='row coverflow'>
+      {%for game in game_list%}
+        <div class='col-xs-8 col-lg-3 col-xs-offset-2 cover'>
+          <a href="#">
+            <img src="{{game.fk_image.imagefile.url}}" alt="Game Image" style='width:100%;'>
+          </a>
+        </div>
+      {%endfor%}
+    </div>
+  </div>
   <div class="jumbotron">
   	<div class="container-fluid">
   		<div class="row">
@@ -231,7 +242,11 @@
 {%endblock content%}
 
 {%block endscript%}
-
+<script>
+    $(function() {
+        $('.coverflow').coverflow();
+    });
+</script>
 {%endblock endscript%}
 
 {%block home%}
