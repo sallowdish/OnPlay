@@ -1,3 +1,26 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="OnPlay navbar and footer" content="">
+		<meta name="Art" content="">
+		<link rel="icon" href="../../favicon.ico">
+
+		<title>OnPlay</title>
+
+		<!-- Global variables -->
+		<script  type="text/JavaScript">var STATIC_URL = "{{ STATIC_URL|escapejs }}"; var APP_NAME="notfirstapp/";</script>
+
+		<script type="text/JavaScript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/JavaScript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<script src="{% static "notfirstapp/bootstrap/js/bootstrap.min.js"%}"></script>
+		<!-- Bootstrap core CSS -->
+		<link href="{% static "notfirstapp/bootstrap/css/bootstrap.min.css"%}" rel="stylesheet"/>	
+		<!-- Made it spacious, just because -->
+	</head>
 <h1>Welcome OnPlay blog!</h1>
 
 {% block content %}
@@ -16,3 +39,6 @@
     {% endif %}
 
 {% endblock %}
+
+</body>
+</html>
