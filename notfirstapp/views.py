@@ -441,8 +441,12 @@ def view_post(request, slug):
 
 def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
+    blog = Blog.objects.filter(category=category)
+    if len(blog)>5:
+        blog=blog[:5]
     return render_to_response('notfirstapp/view_category.html', {
         'category': category,
-        'posts': Blog.objects.filter(category=category)[:5]
+        'posts': blog,
     })
+
 
