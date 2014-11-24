@@ -11,4 +11,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^game/', include('notfirstapp.urls',namespace='game')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
