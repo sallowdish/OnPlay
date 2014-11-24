@@ -428,7 +428,7 @@ class CommentCreateView(CreateView):
         return render_to_response('notfirstapp/commentcreate.html',{'form':form})
 
 #blog
-def index(request):
+def blogIndex(request):
     return render_to_response('notfirstapp/blog_index.html', {
         'categories': Category.objects.all(),
         'posts': Blog.objects.all()[:5]

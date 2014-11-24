@@ -44,7 +44,6 @@ urlpatterns = patterns('',
 
 	#Comment Part
 	url(r'comment/',views.CommentListView.as_view(),name='CommentListPage'),
-
 	url(r'comment/create',views.CommentCreateView.as_view(),name='CommentCreatePage'),
 
 	
@@ -66,7 +65,7 @@ urlpatterns = patterns('',
 	url(r'^libgdx/$',TemplateView.as_view(template_name='notfirstapp/gamelibgdx.html'),name='libgdx'),
 	
 	#blog
-	url(r'^blog/', 'notfirstapp.views.index'),
+	url(r'^blog/', 'notfirstapp.views.blogIndex', name='blog'),
 	url(
     r'^blog/view/(?P<slug>[^\.]+).html', 
 	'notfirstapp.views.view_post', 
