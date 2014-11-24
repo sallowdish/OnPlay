@@ -65,7 +65,16 @@ urlpatterns = patterns('',
 	url(r'^alien/$',TemplateView.as_view(template_name='notfirstapp/alien.html'),name='Alien'),
 	url(r'^libgdx/$',TemplateView.as_view(template_name='notfirstapp/gamelibgdx.html'),name='libgdx'),
 	
-	
+	#blog
+	url(r'^blog/', 'notfirstapp.views.index'),
+	url(
+    r'^blog/view/(?P<slug>[^\.]+).html', 
+	'notfirstapp.views.view_post', 
+    name='view_blog_post'),
+	url(
+    r'^blog/category/(?P<slug>[^\.]+).html', 
+    'notfirstapp.views.view_category', 
+    name='view_blog_category'),
 	
 	
 )

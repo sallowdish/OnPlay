@@ -427,4 +427,22 @@ class CommentCreateView(CreateView):
         form=CommentCreateForm()
         return render_to_response('notfirstapp/commentcreate.html',{'form':form})
 
+#blog
+def index(request):
+    return render_to_response('notfirstapp/blog_index.html', {
+        'categories': Category.objects.all(),
+        'posts': Blog.objects.all()[:5]
+    })
+
+def view_post(request, slug):   
+    return render_to_response('notfirstapp/view_post.html', {
+        'post': get_object_or_404(Blog, slug=slug)
+    })
+
+def view_category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    return render_to_response('notfirstapp/view_category.html', {
+        'category': category,
+        'posts': Blog.objects.filter(category=category)[:5]
+    })
 

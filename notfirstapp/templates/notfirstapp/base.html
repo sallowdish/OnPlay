@@ -93,6 +93,7 @@
                         {%block game%}
                         <li><a class="menu" href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
                         {%endblock game%}
+						<li><a class="menu" href= "{% url 'game:Blog' %}">Blog</a></li>
                         <li><a class="menu" href= "{% url 'game:GameDemoPage' %}">2048</a></li>
 						<li><a class="menu" href= "{% url 'game:Asteroids' %}">Asteroids</a></li>
 						<li><a class="menu" href= "{% url 'game:Snake' %}">Snake</a></li>
@@ -269,7 +270,7 @@
 
 {%block endscript%}{%endblock%}
 
-{%block tail%}{%endblock tail%}
+<!--{%block tail%}{%endblock tail%}-->
 </body>
 </html>
 <!--

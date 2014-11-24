@@ -13,7 +13,15 @@ class GameAdminConfig(admin.ModelAdmin):
 class GameArchiveAdmin(admin.ModelAdmin):
 	"""docstring for GameArchiveAdmin"""
 	list_display=('name','gamefile','upload_time')
-		
+
+#blog	
+class BlogAdmin(admin.ModelAdmin):
+    exclude = ['posted']
+    prepopulated_fields = {'slug': ('title',)}
+
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+	
 
 admin.site.register(Game,GameAdminConfig)
 admin.site.register(SpotlightGame)
@@ -27,3 +35,6 @@ admin.site.register(Image)
 admin.site.register(GameComment)
 admin.site.register(GameRate)
 admin.site.register(OnPlayUser)
+#blog
+admin.site.register(Blog, BlogAdmin)
+admin.site.register(Category, CategoryAdmin)
