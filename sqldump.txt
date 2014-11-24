@@ -1,0 +1,721 @@
+-- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: game_hosting_system
+-- ------------------------------------------------------
+-- Server version	5.5.40-0ubuntu0.14.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `game_hosting_system`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `game_hosting_system` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `game_hosting_system`;
+
+--
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`permission_id`),
+  KEY `auth_group_permissions_0e939a4f` (`group_id`),
+  KEY `auth_group_permissions_8373b171` (`permission_id`),
+  CONSTRAINT `auth_group_permission_group_id_689710a9a73b7457_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `auth_group__permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group_permissions`
+--
+
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
+  KEY `auth_permission_417f1b1c` (`content_type_id`),
+  CONSTRAINT `auth__content_type_id_508cf46651277a81_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+LOCK TABLES `auth_permission` WRITE;
+/*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can add permission',2,'add_permission'),(5,'Can change permission',2,'change_permission'),(6,'Can delete permission',2,'delete_permission'),(7,'Can add group',3,'add_group'),(8,'Can change group',3,'change_group'),(9,'Can delete group',3,'delete_group'),(10,'Can add user',4,'add_user'),(11,'Can change user',4,'change_user'),(12,'Can delete user',4,'delete_user'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(22,'Can add game',8,'add_game'),(23,'Can change game',8,'change_game'),(24,'Can delete game',8,'delete_game'),(25,'Can add figure',9,'add_figure'),(26,'Can change figure',9,'change_figure'),(27,'Can delete figure',9,'delete_figure'),(28,'Can add play',10,'add_play'),(29,'Can change play',10,'change_play'),(30,'Can delete play',10,'delete_play'),(31,'Can add own',11,'add_own'),(32,'Can change own',11,'change_own'),(33,'Can delete own',11,'delete_own'),(34,'Can add score rank',12,'add_scorerank'),(35,'Can change score rank',12,'change_scorerank'),(36,'Can delete score rank',12,'delete_scorerank'),(37,'Can add time rank',13,'add_timerank'),(38,'Can change time rank',13,'change_timerank'),(39,'Can delete time rank',13,'delete_timerank'),(40,'Can add image',14,'add_image'),(41,'Can change image',14,'change_image'),(42,'Can delete image',14,'delete_image'),(43,'Can add game archive',15,'add_gamearchive'),(44,'Can change game archive',15,'change_gamearchive'),(45,'Can delete game archive',15,'delete_gamearchive'),(46,'Can add game comment',16,'add_gamecomment'),(47,'Can change game comment',16,'change_gamecomment'),(48,'Can delete game comment',16,'delete_gamecomment'),(49,'Can add game rate',17,'add_gamerate'),(50,'Can change game rate',17,'change_gamerate'),(51,'Can delete game rate',17,'delete_gamerate'),(52,'Can add game visit',18,'add_gamevisit'),(53,'Can change game visit',18,'change_gamevisit'),(54,'Can delete game visit',18,'delete_gamevisit'),(55,'Can add on play user',19,'add_onplayuser'),(56,'Can change on play user',19,'change_onplayuser'),(57,'Can delete on play user',19,'delete_onplayuser'),(58,'Can add spotlight game',20,'add_spotlightgame'),(59,'Can change spotlight game',20,'change_spotlightgame'),(60,'Can delete spotlight game',20,'delete_spotlightgame');
+/*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user`
+--
+
+DROP TABLE IF EXISTS `auth_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime NOT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+LOCK TABLES `auth_user` WRITE;
+/*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$QrCTJgwcU2TL$zzjrjdqsdcOQpy3xwyay4MkAjwCH1OjL7QAxiQ3Y1B4=','2014-11-23 04:07:04',1,'ray','','','',1,1,'2014-11-07 03:18:13'),(3,'pbkdf2_sha256$12000$tNo2vlY2OD0J$sxa/wRmL8EQ5lWHA7LXXx1BOK/1+b3hNVSXfUS8gEZg=','2014-11-19 14:02:00',0,'cmpt','cmpt','cmpt','abc@hotmail.com',0,1,'2014-11-19 13:33:29'),(4,'pbkdf2_sha256$12000$8h0G8ZbiZSnF$N9kvZuMeJx+eV7mHNA/vRMY6CphQ4w14yNuVI8Hta84=','2014-11-22 21:24:48',0,'awy2','asdf','asdf','asdf@adf.as',0,1,'2014-11-22 06:10:42'),(5,'pbkdf2_sha256$12000$GLsRr7LXQC1k$8/8AfkcRZa3FvkARcFuxWJVbCfTX3UlnrB+C9VgbvNY=','2014-11-22 11:28:11',0,'rayray','rayray','rayray','rayray@hotmail.com',0,1,'2014-11-22 11:27:57'),(6,'pbkdf2_sha256$12000$zi3Nwq8GvEes$fCF1tZGQXPewsG0zALwLp2NIHuW5ttRJGrG7+00tPFI=','2014-11-22 14:44:46',0,'Jay','Jay','Chou','Jayc@gmail.com',0,1,'2014-11-22 14:44:40');
+/*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+DROP TABLE IF EXISTS `auth_user_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`group_id`),
+  KEY `auth_user_groups_e8701ad4` (`user_id`),
+  KEY `auth_user_groups_0e939a4f` (`group_id`),
+  CONSTRAINT `auth_user_groups_group_id_33ac548dcf5f8e37_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `auth_user_groups_user_id_4b5ed4ffdb8fd9b0_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_groups`
+--
+
+LOCK TABLES `auth_user_groups` WRITE;
+/*!40000 ALTER TABLE `auth_user_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_user_user_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permissions_e8701ad4` (`user_id`),
+  KEY `auth_user_user_permissions_8373b171` (`permission_id`),
+  CONSTRAINT `auth_user_user_permissi_user_id_7f0938558328534a_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `auth_user_u_permission_id_384b62483d7071f0_fk_auth_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_user_permissions`
+--
+
+LOCK TABLES `auth_user_user_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_user_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_user_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime NOT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_417f1b1c` (`content_type_id`),
+  KEY `django_admin_log_e8701ad4` (`user_id`),
+  CONSTRAINT `django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
+  CONSTRAINT `djang_content_type_id_697914295151027a_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+LOCK TABLES `django_admin_log` WRITE;
+/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+INSERT INTO `django_admin_log` VALUES (1,'2014-11-18 07:19:46','1','ray',2,'Changed password.',4,1),(2,'2014-11-19 10:06:39','1','Asteroids',2,'Changed depolyed_path.',8,1),(3,'2014-11-19 11:32:24','2','Game',3,'',8,1),(4,'2014-11-19 23:10:17','3','2048',2,'Changed gamename and depolyed_path.',8,1),(5,'2014-11-20 12:06:50','4','Snake',2,'Changed depolyed_path.',8,1),(6,'2014-11-20 12:07:58','4','Snake',3,'',8,1),(7,'2014-11-20 12:08:36','3','2048',3,'',8,1),(8,'2014-11-20 12:18:19','1','Asteroids',3,'',8,1),(9,'2014-11-20 12:18:22','5','2048',3,'',8,1),(10,'2014-11-20 12:21:47','8','Snake',3,'',8,1),(11,'2014-11-20 12:31:57','10','Snake',2,'Changed depolyed_path.',8,1),(12,'2014-11-20 12:32:12','9','Starship',2,'Changed depolyed_path.',8,1),(13,'2014-11-20 12:32:25','7','Asteroids',2,'Changed depolyed_path.',8,1),(14,'2014-11-20 12:32:33','6','2048',2,'Changed depolyed_path.',8,1),(15,'2014-11-22 03:17:49','1','OnPlayUser object',1,'',19,1),(16,'2014-11-22 03:18:03','2','OnPlayUser object',1,'',19,1),(17,'2014-11-22 14:41:08','1','GameComment object',1,'',16,1),(18,'2014-11-22 14:41:29','2','GameComment object',1,'',16,1),(19,'2014-11-22 14:42:04','3','GameComment object',1,'',16,1),(20,'2014-11-22 14:42:27','4','GameComment object',1,'',16,1),(21,'2014-11-22 14:45:21','5','GameComment object',1,'',16,1),(22,'2014-11-22 20:51:34','6','GameComment object',1,'',16,1);
+/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `django_content_type_app_label_45f3b1d93ec8c61c_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (1,'log entry','admin','logentry'),(2,'permission','auth','permission'),(3,'group','auth','group'),(4,'user','auth','user'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(8,'game','notfirstapp','game'),(9,'figure','notfirstapp','figure'),(10,'play','notfirstapp','play'),(11,'own','notfirstapp','own'),(12,'score rank','notfirstapp','scorerank'),(13,'time rank','notfirstapp','timerank'),(14,'image','notfirstapp','image'),(15,'game archive','notfirstapp','gamearchive'),(16,'game comment','notfirstapp','gamecomment'),(17,'game rate','notfirstapp','gamerate'),(18,'game visit','notfirstapp','gamevisit'),(19,'on play user','notfirstapp','onplayuser'),(20,'spotlight game','notfirstapp','spotlightgame');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_migrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2014-11-07 03:17:57'),(2,'auth','0001_initial','2014-11-07 03:17:58'),(3,'admin','0001_initial','2014-11-07 03:17:58'),(4,'sessions','0001_initial','2014-11-07 03:17:58'),(5,'notfirstapp','0001_initial','2014-11-19 09:56:41'),(6,'notfirstapp','0002_game_depolyed_path','2014-11-19 10:01:19'),(7,'notfirstapp','0003_game_slug','2014-11-21 07:04:33'),(8,'notfirstapp','0004_onplayuser','2014-11-22 03:15:57'),(9,'notfirstapp','0005_auto_20141123_0648','2014-11-23 06:48:55');
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_de54fa62` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('4znyilgnfriulgzr7mt3a083tkvylcgp','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-03 22:49:26'),('5pt0vixaqmytvvy96o28p7vfhvaemu3n','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-12-03 09:59:20'),('7m932fsk5dl93ttrjgt8n7w776kahkkl','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-03 22:48:30'),('85pcsf7j245czuun16r4gy5cbr4ywp0a','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-12-01 03:19:51'),('9tcy5rf659gbplzkor4ao037dk3k0xpd','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-12-01 04:13:18'),('a0zibox1rrd07gk0s6mnns7nf9cd2s6c','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-03 22:47:59'),('anynt3bm3ig5dg5p1qoulm7qc6c0xypx','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-12-05 21:23:41'),('bhkvo5qq2dwasu7elk7qbcbsqu515iyx','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-12-02 10:25:33'),('c41zps1zscc891x6utmt5ky76bazek4r','YjMwNmQ0MjRmODViMDhlNTlkOWMxZDU2OTVmN2Y4ODQ5YTMyY2UxOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjZiNzAyYTYwMzU2NTk5MmZlNmIyZDc1MjJmNWM3NjY0YmNiNzcwMjMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjR9','2014-12-06 06:10:47'),('gzl409bke0dv5bcw96t2rids2tis7jz2','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-06 21:25:17'),('idivgij3x10lt3odvb2xtr1i332ksrof','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-12-02 06:07:25'),('j4hvaoz3nk6vjk2ul534i2f2ixbpk5dl','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-12-02 10:25:29'),('jzdtlpo6kr5i2sgs7xwz3ngvmty5zm25','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-03 11:17:53'),('n0exdtkan6cpohszgl8xffgifgz8v412','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-05 13:45:58'),('n9gxkv8hjm6uiu46ehm1735783523rrl','ZWVkNzYzNDM3OGU2NmI2YjIyZmViNGRhZTdmMGU4YzUxNTBkNjMyNjp7Il9hdXRoX3VzZXJfaGFzaCI6IjgwZTQ1OWU4NWE1MDA4MzgzNGVmMmVjMTY3MGVkNTY1ZmVmMTU3Y2EiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjV9','2014-12-06 11:28:11'),('rfx99kyrln95u7jmjnr0b6zr7v6al29n','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-06 14:45:03'),('rhj1es9zwlbyahens6dzivcrrx7gtea3','YTUzZmNiZjdhZWU0NmFmMjAzZTQ4YTQ4NGUxZGQ2YjY5ZmQyYWQyMDp7fQ==','2014-11-24 11:27:03'),('siyp6j2y3gvbfrmlvnyigp62s0dr6xal','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-07 04:07:04'),('z2dlvpz9pnvlq7skzmz5zkqtr93z8ao7','ZmJlNWMzODliNTYwMTkxMmQzNjgyYjBlNzE4YzFiNzRlMzc1MTI0ZDp7Il9hdXRoX3VzZXJfaGFzaCI6IjYyYjNiNmY1YWM3OGFlMjBiMzcyYWU3ZjhhNDhiZTcwNjA3ODljYmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9','2014-12-03 22:31:18');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_account`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(50) DEFAULT NULL,
+  `lastname` varchar(50) DEFAULT NULL,
+  `username` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_account`
+--
+
+LOCK TABLES `notfirstapp_account` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_account` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notfirstapp_account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_figure`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_figure`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_figure` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `tag` varchar(50) NOT NULL,
+  `User_id_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_figure_591a58f2` (`User_id_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_figure`
+--
+
+LOCK TABLES `notfirstapp_figure` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_figure` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notfirstapp_figure` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_game`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_game`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_game` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gamename` varchar(100) NOT NULL,
+  `createTime` datetime NOT NULL,
+  `fk_image_id` int(11) DEFAULT NULL,
+  `depolyed_path` longtext,
+  `slug` varchar(50),
+  `game_description` longtext,
+  `game_instructions` longtext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `notfirstapp_game_6883c96e` (`fk_image_id`),
+  CONSTRAINT `fk_image_id_refs_id_9b5889f0` FOREIGN KEY (`fk_image_id`) REFERENCES `notfirstapp_image` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_game`
+--
+
+LOCK TABLES `notfirstapp_game` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_game` DISABLE KEYS */;
+INSERT INTO `notfirstapp_game` VALUES (6,'2048','2014-11-20 12:19:40',4,'/game/2048','2048',NULL,NULL),(7,'Asteroids','2014-11-20 12:20:03',5,'/game/asteroids','asteroids',NULL,NULL),(9,'Starship','2014-11-20 12:20:57',7,'/game/starship','starship',NULL,NULL),(10,'Snake','2014-11-20 12:23:37',8,'/game/snake','snake',NULL,NULL);
+/*!40000 ALTER TABLE `notfirstapp_game` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_gamearchive`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_gamearchive`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_gamearchive` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `gamefile` varchar(100) NOT NULL,
+  `fk_game_id` int(11) NOT NULL,
+  `upload_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_gamearchive_344d5a4e` (`fk_game_id`),
+  CONSTRAINT `fk_game_id_refs_id_98e33bc8` FOREIGN KEY (`fk_game_id`) REFERENCES `notfirstapp_game` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_gamearchive`
+--
+
+LOCK TABLES `notfirstapp_gamearchive` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_gamearchive` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notfirstapp_gamearchive` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_gamecomment`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_gamecomment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_gamecomment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_game_id` int(11) NOT NULL,
+  `fk_comment_poster_id` int(11) NOT NULL,
+  `comment` varchar(250) NOT NULL,
+  `comment_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_gamecomment_344d5a4e` (`fk_game_id`),
+  KEY `notfirstapp_gamecomment_75a415f5` (`fk_comment_poster_id`),
+  CONSTRAINT `fk_game_id_refs_id_cbe02bf4` FOREIGN KEY (`fk_game_id`) REFERENCES `notfirstapp_game` (`id`),
+  CONSTRAINT `fk_comment_poster_id_refs_id_66f612b3` FOREIGN KEY (`fk_comment_poster_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_gamecomment`
+--
+
+LOCK TABLES `notfirstapp_gamecomment` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_gamecomment` DISABLE KEYS */;
+INSERT INTO `notfirstapp_gamecomment` VALUES (1,6,1,'Hahahahahah','2014-11-22 14:41:08'),(2,7,1,'This one is so hard','2014-11-22 14:41:29'),(3,9,1,'Failed @ Wave 18. Challenge Me','2014-11-22 14:42:04'),(4,10,1,'Not fun','2014-11-22 14:42:27'),(5,9,6,'I will','2014-11-22 14:45:21'),(6,10,1,'degrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm,zdgn ,sdfhngkdegrsgsefm','2014-11-22 20:51:34');
+/*!40000 ALTER TABLE `notfirstapp_gamecomment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_gamerate`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_gamerate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_gamerate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_game_id` int(11) NOT NULL,
+  `fk_comment_poster_id` int(11) NOT NULL,
+  `rate` int(11) NOT NULL,
+  `rate_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_gamerate_344d5a4e` (`fk_game_id`),
+  KEY `notfirstapp_gamerate_75a415f5` (`fk_comment_poster_id`),
+  CONSTRAINT `fk_game_id_refs_id_c6333801` FOREIGN KEY (`fk_game_id`) REFERENCES `notfirstapp_game` (`id`),
+  CONSTRAINT `fk_comment_poster_id_refs_id_1805c28e` FOREIGN KEY (`fk_comment_poster_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_gamerate`
+--
+
+LOCK TABLES `notfirstapp_gamerate` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_gamerate` DISABLE KEYS */;
+INSERT INTO `notfirstapp_gamerate` VALUES (1,6,4,7,'2014-11-22 06:10:57'),(2,6,1,8,'2014-11-22 06:21:30'),(3,6,5,4,'2014-11-22 12:00:08'),(4,9,5,4,'2014-11-22 15:36:01'),(5,7,1,10,'2014-11-22 16:47:02'),(6,10,1,5,'2014-11-22 21:23:54');
+/*!40000 ALTER TABLE `notfirstapp_gamerate` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_gamevisit`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_gamevisit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_gamevisit` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_game_id` int(11) NOT NULL,
+  `fk_visiter_id` int(11) DEFAULT NULL,
+  `visit_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_gamevisit_344d5a4e` (`fk_game_id`),
+  KEY `notfirstapp_gamevisit_585058dd` (`fk_visiter_id`),
+  CONSTRAINT `fk_game_id_refs_id_b6359a3b` FOREIGN KEY (`fk_game_id`) REFERENCES `notfirstapp_game` (`id`),
+  CONSTRAINT `fk_visiter_id_refs_id_b51f991c` FOREIGN KEY (`fk_visiter_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_gamevisit`
+--
+
+LOCK TABLES `notfirstapp_gamevisit` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_gamevisit` DISABLE KEYS */;
+INSERT INTO `notfirstapp_gamevisit` VALUES (1,6,NULL,'2014-11-22 06:08:17'),(2,6,NULL,'2014-11-22 06:09:55'),(3,6,NULL,'2014-11-22 06:09:55'),(4,6,NULL,'2014-11-22 06:09:57'),(5,6,NULL,'2014-11-22 06:10:50'),(6,6,NULL,'2014-11-22 06:10:57'),(7,6,NULL,'2014-11-22 06:11:09'),(8,6,NULL,'2014-11-22 06:11:12'),(9,6,NULL,'2014-11-22 06:21:19'),(10,6,NULL,'2014-11-22 06:21:30'),(11,6,NULL,'2014-11-22 06:21:31'),(12,6,NULL,'2014-11-22 06:21:32'),(13,6,NULL,'2014-11-22 06:21:32'),(14,6,NULL,'2014-11-22 06:21:36'),(15,6,NULL,'2014-11-22 06:21:40'),(16,6,NULL,'2014-11-22 06:21:43'),(17,6,NULL,'2014-11-22 06:21:48'),(18,6,NULL,'2014-11-22 09:31:03'),(19,6,NULL,'2014-11-22 11:59:57'),(20,6,NULL,'2014-11-22 12:00:00'),(21,6,NULL,'2014-11-22 12:00:08'),(22,6,NULL,'2014-11-22 12:00:09'),(23,6,NULL,'2014-11-22 12:00:10'),(24,6,NULL,'2014-11-22 12:00:11'),(25,6,NULL,'2014-11-22 12:00:11'),(26,6,NULL,'2014-11-22 12:00:12'),(27,6,NULL,'2014-11-22 12:00:15'),(28,6,NULL,'2014-11-22 12:00:16'),(29,6,NULL,'2014-11-22 12:00:20'),(30,6,NULL,'2014-11-22 12:00:28'),(31,6,NULL,'2014-11-22 12:00:28'),(32,6,NULL,'2014-11-22 12:00:28'),(33,6,NULL,'2014-11-22 12:00:32'),(34,10,NULL,'2014-11-22 12:23:52'),(35,10,NULL,'2014-11-22 12:24:08'),(36,9,NULL,'2014-11-22 12:24:14'),(37,9,NULL,'2014-11-22 12:24:55'),(38,10,NULL,'2014-11-22 14:07:11'),(39,6,NULL,'2014-11-22 14:07:32'),(40,7,NULL,'2014-11-22 14:07:47'),(41,10,NULL,'2014-11-22 14:08:13'),(42,10,NULL,'2014-11-22 14:40:29'),(43,9,NULL,'2014-11-22 14:43:23'),(44,9,NULL,'2014-11-22 14:43:50'),(45,9,NULL,'2014-11-22 14:45:31'),(46,9,NULL,'2014-11-22 15:03:21'),(47,10,NULL,'2014-11-22 15:16:56'),(48,10,NULL,'2014-11-22 15:34:03'),(49,10,NULL,'2014-11-22 15:34:07'),(50,10,NULL,'2014-11-22 15:34:08'),(51,10,NULL,'2014-11-22 15:34:08'),(52,10,NULL,'2014-11-22 15:34:25'),(53,9,NULL,'2014-11-22 15:34:29'),(54,7,NULL,'2014-11-22 15:34:36'),(55,10,NULL,'2014-11-22 15:35:36'),(56,9,NULL,'2014-11-22 15:35:50'),(57,7,NULL,'2014-11-22 16:46:31'),(58,10,NULL,'2014-11-22 20:48:46'),(59,10,NULL,'2014-11-22 20:49:23'),(60,10,NULL,'2014-11-22 20:51:37'),(61,10,NULL,'2014-11-22 20:52:06'),(62,10,NULL,'2014-11-22 20:53:31'),(63,10,NULL,'2014-11-22 20:57:27'),(64,10,NULL,'2014-11-22 20:57:45'),(65,10,NULL,'2014-11-22 20:57:46'),(66,10,NULL,'2014-11-22 21:02:54'),(67,10,NULL,'2014-11-22 21:24:04'),(68,10,NULL,'2014-11-22 21:24:52'),(69,10,NULL,'2014-11-22 21:25:04'),(70,10,NULL,'2014-11-22 21:25:18'),(71,7,NULL,'2014-11-22 23:16:06'),(72,6,NULL,'2014-11-22 23:16:40'),(73,10,NULL,'2014-11-23 00:15:29'),(74,10,NULL,'2014-11-23 00:15:29'),(75,6,NULL,'2014-11-23 01:27:51'),(76,9,NULL,'2014-11-23 01:28:17'),(77,9,NULL,'2014-11-23 01:28:24'),(78,9,NULL,'2014-11-23 01:28:34'),(79,9,NULL,'2014-11-23 01:29:37'),(80,9,NULL,'2014-11-23 03:49:32'),(81,7,NULL,'2014-11-23 03:50:32'),(82,10,NULL,'2014-11-23 04:01:32'),(83,10,NULL,'2014-11-23 04:16:09'),(84,10,NULL,'2014-11-23 04:19:20'),(85,10,NULL,'2014-11-23 04:20:59'),(86,10,NULL,'2014-11-23 04:21:15'),(87,10,NULL,'2014-11-23 04:21:33'),(88,10,NULL,'2014-11-23 04:31:08'),(89,10,NULL,'2014-11-23 04:31:45'),(90,10,NULL,'2014-11-23 04:32:27'),(91,10,NULL,'2014-11-23 04:42:49'),(92,7,NULL,'2014-11-23 05:04:20');
+/*!40000 ALTER TABLE `notfirstapp_gamevisit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_image`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `imagefile` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_image`
+--
+
+LOCK TABLES `notfirstapp_image` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_image` DISABLE KEYS */;
+INSERT INTO `notfirstapp_image` VALUES (1,'Images/2014/11/19/Screen_Shot_2014-11-19_at_12.52.06_AM.png'),(2,'Images/2014/11/20/2048.JPG'),(3,'Images/2014/11/20/2048_UFGuvuq.JPG'),(4,'Images/2014/11/20/2048_QSckFnq.JPG'),(5,'Images/2014/11/20/Asteroids.JPG'),(6,'Images/2014/11/20/snake.JPG'),(7,'Images/2014/11/20/starship.JPG'),(8,'Images/2014/11/20/snake_AH04fFx.JPG');
+/*!40000 ALTER TABLE `notfirstapp_image` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_onplayuser`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_onplayuser`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_onplayuser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `profileimage` varchar(100) DEFAULT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  CONSTRAINT `notfirstapp_onplayuser_user_id_6a223d38ea780d36_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_onplayuser`
+--
+
+LOCK TABLES `notfirstapp_onplayuser` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_onplayuser` DISABLE KEYS */;
+INSERT INTO `notfirstapp_onplayuser` VALUES (1,'Avatar/tx_001.png','Ray From Asgard',1),(2,'Avatar/tx_007.png','CMPT_OP',3),(3,'',NULL,6);
+/*!40000 ALTER TABLE `notfirstapp_onplayuser` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_own`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_own`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_own` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Game_id_id` int(11) NOT NULL,
+  `User_id_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_own_814d4c6c` (`Game_id_id`),
+  KEY `notfirstapp_own_591a58f2` (`User_id_id`),
+  CONSTRAINT `Game_id_id_refs_id_eb6a817b` FOREIGN KEY (`Game_id_id`) REFERENCES `notfirstapp_game` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_own`
+--
+
+LOCK TABLES `notfirstapp_own` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_own` DISABLE KEYS */;
+INSERT INTO `notfirstapp_own` VALUES (6,6,1),(7,7,1),(9,9,1),(10,10,1);
+/*!40000 ALTER TABLE `notfirstapp_own` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_play`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_play`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_play` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Game_id_id` int(11) NOT NULL,
+  `Figure_id_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_play_814d4c6c` (`Game_id_id`),
+  KEY `notfirstapp_play_689f5c22` (`Figure_id_id`),
+  CONSTRAINT `Figure_id_id_refs_id_d3fa8b42` FOREIGN KEY (`Figure_id_id`) REFERENCES `notfirstapp_figure` (`id`),
+  CONSTRAINT `Game_id_id_refs_id_3d99221f` FOREIGN KEY (`Game_id_id`) REFERENCES `notfirstapp_game` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_play`
+--
+
+LOCK TABLES `notfirstapp_play` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_play` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notfirstapp_play` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_scorerank`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_scorerank`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_scorerank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Figure_id_id` int(11) NOT NULL,
+  `Game_id_id` int(11) NOT NULL,
+  `score` int(11) NOT NULL,
+  `rank` int(11) NOT NULL,
+  `achieveTime` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_scorerank_689f5c22` (`Figure_id_id`),
+  KEY `notfirstapp_scorerank_814d4c6c` (`Game_id_id`),
+  CONSTRAINT `Figure_id_id_refs_id_e8d708be` FOREIGN KEY (`Figure_id_id`) REFERENCES `notfirstapp_figure` (`id`),
+  CONSTRAINT `Game_id_id_refs_id_d7a36e93` FOREIGN KEY (`Game_id_id`) REFERENCES `notfirstapp_game` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_scorerank`
+--
+
+LOCK TABLES `notfirstapp_scorerank` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_scorerank` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notfirstapp_scorerank` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_spotlightgame`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_spotlightgame`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_spotlightgame` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_game_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_spotlightgame_92b594b6` (`fk_game_id`),
+  CONSTRAINT `notfirstapp_s_fk_game_id_284ac93a1717665f_fk_notfirstapp_game_id` FOREIGN KEY (`fk_game_id`) REFERENCES `notfirstapp_game` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_spotlightgame`
+--
+
+LOCK TABLES `notfirstapp_spotlightgame` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_spotlightgame` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notfirstapp_spotlightgame` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notfirstapp_timerank`
+--
+
+DROP TABLE IF EXISTS `notfirstapp_timerank`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notfirstapp_timerank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Figure_id_id` int(11) NOT NULL,
+  `Game_id_id` int(11) NOT NULL,
+  `finishTime` time NOT NULL,
+  `rank` int(11) NOT NULL,
+  `achieveTime` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notfirstapp_timerank_689f5c22` (`Figure_id_id`),
+  KEY `notfirstapp_timerank_814d4c6c` (`Game_id_id`),
+  CONSTRAINT `Figure_id_id_refs_id_9137c1c3` FOREIGN KEY (`Figure_id_id`) REFERENCES `notfirstapp_figure` (`id`),
+  CONSTRAINT `Game_id_id_refs_id_cd1399ac` FOREIGN KEY (`Game_id_id`) REFERENCES `notfirstapp_game` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notfirstapp_timerank`
+--
+
+LOCK TABLES `notfirstapp_timerank` WRITE;
+/*!40000 ALTER TABLE `notfirstapp_timerank` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notfirstapp_timerank` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-11-23 18:34:51
