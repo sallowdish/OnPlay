@@ -1,7 +1,9 @@
 {%extends 'notfirstapp/base2.html'%}
 {%load staticfiles%}
 
-{%block head%}	
+{%block head%}
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.js"></script>
+  <script type="text/javascript" src="{%static 'coverflow/jquery.coverflow.js'%}"></script>	
 	<style type="text/css">
 		  
 		header{
@@ -41,7 +43,7 @@
   <div class='container-fluid'>
     <div class='row coverflow'>
       {%for game in game_list%}
-        <div class='col-xs-8 col-lg-3 col-xs-offset-2 cover'>
+        <div class='col-xs-8 col-lg-3 cover'>
           <a href="#">
             <img src="{{game.fk_image.imagefile.url}}" alt="Game Image" style='width:100%;'>
           </a>
