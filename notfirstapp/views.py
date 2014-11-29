@@ -14,6 +14,8 @@ from notfirstapp.models import *
 from .forms import *
 from .urls import *
 from django.db.models import Avg
+from django.db.models import Count
+from django.db.models import Max
 import json
 # Create your views here.
 class IndexView(ListView):
@@ -64,7 +66,16 @@ class ProfileView(View):
         if not request.user.is_authenticated():
             raise PermissionDenied("You have to login to see other's profile")
         user=OnPlayUser.objects.get(user__id=request.POST['user_id'])
-        return render_to_response('notfirstapp/profile.html',{'player':user},context_instance=RequestContext(request))
+	game=GameVisit.objects.filter(fk_visiter=request.POST['user_id'])
+
+
+	lastplayed=game.latest('visit_time')
+	gameplayed=game.count()
+
+	
+
+
+        return render_to_response('notfirstapp/profile.html',{'player':user,  'last': lastplayed, 'gameplayed': gameplayed},context_instance=RequestContext(request))
 
     def get(self, request, *args, **kwargs):
         raise PermissionDenied()
@@ -345,10 +356,13 @@ class GamePlayView(TemplateView):
 		context['rating'] = ratings.aggregate(Avg('rate')).values()[0]
         	context['ratings'] = ratings.count()
          
-		GameVisit.objects.create(fk_game=game)
+		
+		if self.request.user.is_authenticated():
+			GameVisit.objects.create(fk_game=game, fk_visiter=self.request.user)
+		else:
+			GameVisit.objects.create(fk_game=game)
+
 		context['played']=GameVisit.objects.filter(fk_game=game).count()	
-		
-		
 	
 		form = CommentForm(initial={'fk_game': game, 'fk_comment_poster': 0})
 		form.fields['fk_game'].widget = forms.HiddenInput()		

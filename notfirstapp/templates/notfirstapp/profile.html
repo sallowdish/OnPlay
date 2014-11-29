@@ -57,6 +57,23 @@
 									<h4>{{player.user.date_joined|date:" D d M Y"}}</h4>
 								</td>
 							</tr>
+							<tr>
+								<td class='col-xs-1'>
+									<h4>Last Played</h4>
+								</td>
+								<td class='col-xs-3'>
+									<h4>{{last.fk_game }} at {{last.visit_time|date:" r"}}</h4>
+								</td>
+							</tr>
+
+							<tr>
+								<td class='col-xs-1'>
+									<h4>Total game played</h4>
+								</td>
+								<td class='col-xs-3'>
+									<h4>{{gameplayed}}</h4>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
