@@ -7,6 +7,35 @@
 {%block content%}
 {% with profile_image=player.profileimage nickname=player.nickname targertuser=player.user%}
 
+
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+ 	var data = google.visualization.arrayToDataTable([
+		['Date', 'Visits'],
+   	{% for visits in visit %}
+	['{{visits.visit_time |date:"d M" }}', {{visits.play_count}}],
+
+	{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Game played',
+          hAxis: { title: 'Date', titleTextStyle: {color: '#333'}, slantedText: true,  slantedTextAngle: 180 },
+          vAxis: {title: 'Game played',}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+    </script>
+
+
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-xs-8 col-xs-offset-2 jumbotron'>
@@ -72,6 +101,11 @@
 								</td>
 								<td class='col-xs-3'>
 									<h4>{{gameplayed}}</h4>
+								</td>
+							</tr>
+							<tr style="position:relative;">
+								<td colspan=2>
+									<div id="chart_div" style="width: 100%; height: 300px; position:relative;"></div>
 								</td>
 							</tr>
 						</tbody>
