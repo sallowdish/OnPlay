@@ -71,7 +71,40 @@ $(function(){
 </style>		
 
 
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
 
+ 	var data = google.visualization.arrayToDataTable([
+		['Date', 'Visits'],
+   	{% for visits in visit %}
+	['{{visits.visit_time |date:"d M" }}', {{visits.play_count}}],
+
+	{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Game played',
+          hAxis: { title: 'Date', titleTextStyle: {color: '#333'}, slantedText: true,  slantedTextAngle: 180 },
+          vAxis: {title: 'Game played',}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+	$(function(){
+	  $('#playgraph').on('hide.bs.collapse', function () {
+	    $('#button').html('<span class="glyphicon glyphicon-collapse-down"></span> Show');
+	  })
+	  $('#playgraph').on('show.bs.collapse', function () {
+	    $('#button').html('<span class="glyphicon glyphicon-collapse-up"></span> Hide');
+	  })
+	})
+    </script>
+	
 	{% if game %}
 	<div class='container-fluid'>
 		<div class='row'>
@@ -99,9 +132,7 @@ $(function(){
 			        <strong>Error!</strong> Need to be logged in to rate
 			    </div>
 				{% endif %}
-				
-				
-				
+					
 				
 				<div data-role="main"  class='col-xs-12 col-xs-offset-0'>
 			    <form action="./{{game}}" method="post">
@@ -116,7 +147,14 @@ $(function(){
 				
 					
 			    </form>
-						
+			<button id="button" type="button" class="btn btn-primary" 
+			  data-toggle="collapse" data-target="#playgraph">
+			  <span class="glyphicon glyphicon-collapse-down"></span> Show Graph
+			</button>
+
+			<div id="playgraph" class="collapse">
+				<div id="chart_div" style="width: 400px; height: 300px;"></div>
+			</div>			
 		</div>
 
 	</div>

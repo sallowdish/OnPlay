@@ -362,7 +362,9 @@ class GamePlayView(TemplateView):
 		else:
 			GameVisit.objects.create(fk_game=game)
 
-		context['played']=GameVisit.objects.filter(fk_game=game).count()	
+		context['played']=GameVisit.objects.filter(fk_game=game).count()
+		context['visit']=GameVisit.objects.filter(fk_game=game).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
+	
 	
 		form = CommentForm(initial={'fk_game': game, 'fk_comment_poster': 0})
 		form.fields['fk_game'].widget = forms.HiddenInput()		
@@ -402,7 +404,9 @@ class GamePlayView(TemplateView):
 		context['ratings'] = ratings.count()
 		context['rating'] = ratings.aggregate(Avg('rate')).values()[0]	  	
 		
-		context['played']=GameVisit.objects.filter(fk_game=game).count()	
+		context['played']=GameVisit.objects.filter(fk_game=game).count()
+		context['visit']=GameVisit.objects.filter(fk_game=game).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
+	
 		context['comment_list']=GameComment.objects.filter(fk_game=game)
 		
 		form = CommentForm(initial={'fk_game': game, 'fk_comment_poster': 0})
