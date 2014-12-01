@@ -25,12 +25,17 @@
 		{% include 'notfirstapp/base2_legacy.html' %}
 
 		<style>
-			body {
-				min-height: 100%;
-				padding-top: 50px;
+			.navbar {
+				background:#e0e0e0;
+			}
+			
+			html, body {
+				height:91.7%;
+				padding-top: 26px;
 			}  
+			
 			/* Wrapper for page content to push down footer */
-			#wrap {
+			#wrapper {
 				min-height: 100%;
 				height: auto;
 				
@@ -41,20 +46,13 @@
 				padding: 0 0 60px;
 			}
 			
-			.navbar {
-
-				background:#e0e0e0;
-			}
-			
 			footer{
 				display:inline-block;
 				width:100%;
 				min-width:100%;
-				padding-top:50px;
-				/*padding-bottom:50px;*/
-				/*min-height:300px;*/
+				padding-top:30px;
 				background:#e0e0e0;
-			  }
+			}
 		</style>
 
 
@@ -66,6 +64,8 @@
 	
 	
 	<body>
+	
+	
 
 	<!-- Fixed navbar -->
 	    <div class='container-fluid'>
@@ -133,7 +133,15 @@
 			}
 		</script>
 	
-		{%block content%}{%endblock content%}
+	
+	
+		<div id="wrapper">
+		{%block content%}
+			
+		
+		{%endblock content%}
+		</div>
+		
 		
 
 		
@@ -178,12 +186,12 @@
 					</div>
 				</div>
 			</footer>
-	
-	    <!-- load at the end for speed -->
 		{%endblock tail%}
+		
+		<!-- For subpages to override -->
 		{%block endscript%}{%endblock endscript%}
 
-	
+		
 
   </body>
 </html>
