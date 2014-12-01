@@ -27,7 +27,6 @@ function favorite()
 		{
 			document.getElementById("favoriteResponse").innerHTML="Added to favorite";
 			document.getElementById("favorite").className = "alert alert-success";
-			document.getElementById("favoriteRemove").style.display="block";
 			document.getElementById("unfavoriteButton").style.display="block";
 			document.getElementById("favoriteButton").style.display="none";
 		}
@@ -35,13 +34,11 @@ function favorite()
 		{	unfavoriteButton 
 			document.getElementById("favoriteResponse").innerHTML="Unable to favorite. Please log in"
 			document.getElementById("favorite").className = "alert alert-danger";
-			document.getElementById("favoriteRemove").style.display="block";
 		}
 		else
 		{
 			document.getElementById("favoriteResponse").innerHTML="Unable to favorite unknown error"
 			document.getElementById("favorite").className = "alert alert-danger";
-			document.getElementById("favoriteRemove").style.display="visible";
 		}
 	  }
 	xmlhttp.open("POST","../favorite/",true);
@@ -71,7 +68,6 @@ function unfavorite()
 		{
 			document.getElementById("favoriteResponse").innerHTML="Removed from favorite";
 			document.getElementById("favorite").className = "alert alert-success";
-			document.getElementById("favoriteRemove").style.display="block";
 			document.getElementById("favoriteButton").style.display="block";
 			document.getElementById("unfavoriteButton").style.display="none";
 
@@ -80,13 +76,11 @@ function unfavorite()
 		{
 			document.getElementById("favoriteResponse").innerHTML="Unable to favorite. Please log in"
 			document.getElementById("favorite").className = "alert alert-danger";
-			document.getElementById("favoriteRemove").style.display="block";
 		}
 		else
 		{
 			document.getElementById("favoriteResponse").innerHTML="Unable to favorite unknown error"
 			document.getElementById("favorite").className = "alert alert-danger";
-			document.getElementById("favoriteRemove").style.display="visible";
 		}
 	  }
 	xmlhttp.open("POST","../unfavorite/",true);

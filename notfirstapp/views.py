@@ -74,8 +74,12 @@ class ProfileView(View):
 
 	game_list=Favorite.objects.filter(fk_visiter=request.POST['user_id'])
 
-	lastplayed=game.latest('visit_time')
 	gameplayed=game.count()
+
+	lastplayed= "none"
+	if gameplayed > 0:
+		lastplayed=game.latest('visit_time')
+
 
 	visit=GameVisit.objects.filter(fk_visiter=request.POST['user_id']).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
 
