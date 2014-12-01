@@ -40,10 +40,12 @@ class Game(models.Model):
 		count = len(ratings)
 		
 		sum = 0
-		for rating in ratings:
-			sum += rating.rate
-
-		return (sum/count)
+		if count > 0:
+			for rating in ratings:
+				sum += rating.rate
+			return (sum/count)
+		else:
+			return "None"
 
 		
 """ All the games that are being put in the spotlight by the admins. 
