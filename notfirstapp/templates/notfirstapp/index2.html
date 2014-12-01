@@ -13,7 +13,7 @@
             padding-bottom:40px;
             background:#e0e0e0;
         }
-        .popGames {
+        .largeFont {
             font-size : 300%;
             font-weight : bold;
             color : black;
@@ -37,7 +37,6 @@
             border-radius: 23px 23px 23px 23px;
             margin-top: 90px;
         }
-
         .carousel-control.right {
             right: -12px;
         }
@@ -54,7 +53,6 @@
         .carousel-indicators li {
             background: #cecece;
         }
-
         .carousel-indicators .active {
             background: #428bca;
         }
@@ -70,12 +68,10 @@
         .topGamesBackgroundContainer {
             background: #e0e0e0;
         }
-
         img.spotlight {
             max-height: 500px;
             max-width: 500px;
         }
-
         img.topGame {
             max-height: 330px;
             max-width: 330px;
@@ -165,7 +161,7 @@
 
     <div class='container-fluid'
          style="background-image:url({% static 'notfirstapp/images/top_background_image.jpg' %});padding-top:1px;padding-bottom:150px;">
-        <h3 class='popGames' style='text-align:center'>SPOTLIGHT GAMES</h3>
+        <h3 class='largeFont' style='text-align:center'>SPOTLIGHT GAMES</h3>
         <br><br>
         <div class='row coverflow'>
             {% for game in game_list %}
@@ -197,7 +193,7 @@
     <div class="topGamesBackgroundContainer">
         <br><br>
         <div class="topGameContainer">
-            <h3 class='popGames' style='text-align:center'>Most Popular Games</h3>
+            <h3 class='largeFont' style='text-align:center'>Most Popular Games</h3>
 
             <div class="col-md-12">
                 <div class="row">
@@ -290,7 +286,7 @@
 
     <div class="developersInfoBackgroundContainer">
         <br><br>
-        <h3 class='popGames' style='text-align:center'>About The Developers</h3>
+        <h3 class='largeFont' style='text-align:center'>About The Developers</h3>
         <div class="container devInfo">
             <div class="row">
                 <div class="col-md-12" data-wow-delay="0.2s">

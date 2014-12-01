@@ -45,7 +45,7 @@ class Game(models.Model):
 				sum += rating.rate
 			return (sum/count)
 		else:
-			return "None"
+			return "0"
 
 		
 """ All the games that are being put in the spotlight by the admins. 

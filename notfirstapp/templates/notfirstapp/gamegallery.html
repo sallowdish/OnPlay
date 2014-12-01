@@ -1,52 +1,198 @@
 {%extends 'notfirstapp/base2.html'%}
 {%load staticfiles%}
-    <!-- List of uploaded documents -->
+
+
+{% block head %}
+    <!-- CSS for the gallery -->
+    <style type="text/css">
+        .largeFont {
+            font-size : 300%;
+            font-weight : bold;
+            color : black;
+        }
+        .im-centered { margin: auto; max-width: 350px;}
+
+        body {
+            background: #eee;;
+        }
+
+        .title {
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .divider-title {
+            border: 1px solid #dddddd;
+        }
+
+        .project {
+            margin-bottom: 30px;
+            vertical-align: top;
+            margin-right: 30px;
+            float: left;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .project figure {
+            position: relative;
+            display: inline-block;
+            width: 283px;
+            -moz-box-shadow: 0 3px 0 #e2e2e2, transparent 0 0 0;
+            -webkit-box-shadow: 0 3px 0 #e2e2e2, transparent 0 0 0;
+            box-shadow: 0 3px 0 #e2e2e2, transparent 0 0 0;
+            -webkit-box-shadow: 0 3px 0 #e2e2e2;
+            -moz-box-shadow: 0 3px 0 #e2e2e2;
+            box-shadow: 0 3px 0 #e2e2e2;
+        }
+
+        .project figure figcaption {
+            position: relative;
+            z-index: 10;
+            padding: 8px 18px 11px;
+            background: #fff;
+            -ms-transition: all .2s ease-out;
+            -webkit-transition: all .2s ease-out;
+            -moz-transition: all .2s ease-out;
+            -o-transition: all .2s ease-out;
+            transition: all .2s ease-out;
+            text-align: left;
+            color: #555;
+        }
+
+        .project figure:hover .actions {
+            opacity: 1;
+        }
+
+        .project figure .actions {
+            display: block;
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-color: rgba(29, 29, 29, .7);
+            -ms-transition: all .2s ease-out;
+            -webkit-transition: all .2s ease-out;
+            -moz-transition: all .2s ease-out;
+            -o-transition: all .2s ease-out;
+            transition: all .2s ease-out;
+        }
+
+        .project figure img {
+            border: 0;
+            width: 100%;
+        }
+
+        .btn-warning bnt-action {
+            margin: 0% 0% auto;
+        }
+
+        figcaption .project-details {
+            display: block;
+            font-size: 16px;
+            line-height: 33px;
+            color: #0093d0;
+            height: 27px;
+            width: 85%;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+
+        figcaption .project-price {
+            position: absolute;
+            right: 15px;
+            top: 12px;
+            font-size: 22px;
+            text-align: right;
+            margin-top: 8px;
+            letter-spacing: -1px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        figcaption .project-creator {
+            font-size: 13px;
+            color: #545454;
+            display: block;
+        }
+
+        figcaption .project-creator {
+            font-size: 13px;
+            color: #545454;
+            display: block;
+        }
+
+        .project figure .actions button {
+            padding: 13px 20px;
+            font-size: 16px;
+            top: 32%;
+            position: absolute;
+            left: 50%;
+            width: 90%;
+            margin-left: -45%;
+            line-height: 18px;
+            letter-spacing: 1px;
+        }
+
+        img {
+            max-height: 280px;
+            max-width: 280px;
+        }
+    </style>
+{% endblock head %}
+
+
+
+
+
+
+
+
+
 
 
 {%block content%}
-<div class="templatemo_portfolio" id="templatemo_portfolio" style="padding-top:0">
-        <h2>Our Game Library</h2>
-        <p>Here is a list of the most popular games powered by Cloud Game Ranking System.<API class=""></API> </p>
+
+
+
+
+
 
         <div class="container">
+            <h5 class="largeFont im-centered ">Our Game Library</h5>
+            <br><br>
             {% if game_list %}
                 {% for game in game_list %}
                     {% if game %}
-                        <div class="col-xs-6 col-sm-6 col-md-3 templatemo_col12" style="height:400px;width:300px;">
-                            <div class="portfolio-item">
-                                    <div class="portfolio-thumb">
-                                        {%if game.fk_image%}
-                                            <img id='gameicon' src="{{game.fk_image.imagefile.url}}" alt="portfolio 1">
-                                        {%else%}
-                                            <img src={% static "notfirstapp/images/portfolio/1.jpg"%} alt="portfolio 1">
-                                        {%endif%}
-                                        <div class="overlay-p" >
-                                            {%if game.depolyed_path%}
-                                            <a href={% url 'game:GamePlayPage' game.slug%} >
-                                            {%else%}
-                                            <a href="javascript:alert('This game is not ready yet');">
-                                            {%endif%}
-                                                <ul>
-                                                    <li>{{game.gamename}}</li>
-                                                    <li class="fa fa-circle"></li>
-                                                    <li class="fa fa-circle fsmall"></li>
-                                                    <li class="fa fa-circle"></li>
-                                                    <li class="fa fa-circle fsmall"></li>
-                                                    <li class="fa fa-search fa-2x"></li>
-                                                </ul>
-                                            </a>
-                                        </div>
-					<p>{{game.get_avg_rating}}/10 rating</p>
-                                    </div> <!-- /.portfolio-thumb -->
-                                </div>
-                          </div>
+                        <div class="col-ms-10 col-md-4">
+                            <div class="project">
+                                <figure class="img-responsive">
+                                    {%if game.fk_image %}
+                                        <img id='gameicon' src="{{ game.fk_image.imagefile.url }}" alt="portfolio 1">
+                                    {% else %}
+                                        <img src={% static "notfirstapp/images/portfolio/1.jpg" %} alt="portfolio 1">
+                                    {% endif %}
+
+                                    <figcaption>
+                                        <span class="project-details">{{game.gamename}}</span>
+                                        <span class="project-price"><strong>$100</strong></span>
+                                        <span class="project-creator">{{game.get_avg_rating}}/10 rating</span>
+                                    </figcaption>
+
+                                    <span class="actions">
+                                        <button class="btn btn-warning bnt-action" type="submit">Play</button>
+                                    </span>
+                                </figure>
+                            </div>
+                        </div>
                     {%endif%}
                 {% endfor %}
             {% else %}
             <div class='container-fluid'>
                 <div class='row'>
                     <div class='col-xs-8 col-xs-offset-2'>
-                        <p>Sorry, no game in this list.</p>
+                        <br><br>
+                        <p>Sorry, no games in this list.</p>
                     </div>
                 </div>
             </div>
@@ -54,17 +200,10 @@
             {% endif %}
 
         </div>
-<!--         <div>
-            <a href="{{game.depolyed_path}}">Let's Play</a>
-        </div> -->
-  </div>
 
 <style type="text/css">
     #gameicon{
         max-width:100%;
-        /*width: auto;*/
-        /*width: 65px;*/
-
     }
 </style>
 
@@ -81,8 +220,3 @@
         </form> -->
 {%endblock content%}
 
-{%block endscript%}
-
-{%endblock endscript%}
-
-{%block about%}{%endblock about%}
