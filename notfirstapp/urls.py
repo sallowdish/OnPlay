@@ -43,7 +43,7 @@ urlpatterns = patterns('',
 	#PlayGame part
 	url(r'^favorite/', views.favorite),
 	url(r'^unfavorite/', views.unfavorite),	
-	url(r'^playgame/(?P<game_slug>\w+)$',views.GamePlayView.as_view(),name='GamePlayPage'),
+	url(r'^playgame/(?P<game_slug>[a-zA-Z0-9_.-]+)$',views.GamePlayView.as_view(),name='GamePlayPage'),
 
 
 	#Comment Part
