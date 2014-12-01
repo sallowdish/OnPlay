@@ -3,7 +3,7 @@
 {%block content%}
 
 
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 $(function(){
 
     var currentValue = $('#currentValue');
@@ -19,7 +19,7 @@ $(function(){
 </script> 
 
 		
-<style>
+<style scope>
     input[type='range'] {
     -webkit-appearance: none;
     border-radius: 5px;
@@ -109,7 +109,7 @@ $(function(){
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-xs-8 col-xs-offset-2 embed-responsive embed-responsive-16by9'>
-				<iframe class='embed-responsive-item' src={{game.depolyed_path}} scrolling="no" frameborder="0"></iframe>
+				<iframe class='embed-responsive-item' src={{game.depolyed_path}} style="overflow:hidden"></iframe>
 			</div>
 			
 		</div>
