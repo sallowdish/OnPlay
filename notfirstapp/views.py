@@ -435,6 +435,7 @@ class CommentListView(ListView):
             context['comment_list']=GameComment.objects.all();
         # pdb.set_trace()
         return context
+    
 
 class CommentCreateView(FormView):
     """docstring for Comment"""

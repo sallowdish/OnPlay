@@ -1,37 +1,38 @@
 {% load bootstrap3 %}
+	{% if form%}
 		<div class='media' style='background-color:#F2FAFF; padding:0.5em; margin-bottom:0.5em;'>
 			<div class='media-left'>
 				<a href="#" class='media-left'>
-						<img src="{{user.onplayuser.avatar_url}}" alt="profile_image" style="width:100px;height:100px;">
+						<img src="{{user.onplayuser.avatar_url}}" alt="profile_image" >
 						<p>{{user.onplayuser.nickname}}</p>
 				</a>
 			</div>
-			<div class='media-body' >
-				{% if form%}
-				<form action="{%url 'game:CommentCreatePage'%}" method='POST' id="new_comment_form">
+			<div class='media-body' onSubmit="return submitComment()">
+				<form action="{%url 'game:CommentCreatePage'%}" method='POST' id="new_comment_form" onsubmit="submitComment()">
 					{% csrf_token %}
 					{% bootstrap_form form %}	
 					{% buttons %}
-				        <button formaction=javascript:submitComment class="btn btn-primary" style='float:right'>
+				        <button type='submit' class="btn btn-primary" style='float:right'>
 				            {% bootstrap_icon "star" %} Submit
 				        </button>
 				    {% endbuttons %}
 				</form>
-				{%endif%}
 			</div>
 		</div>
 		<script type="text/javascript">
 			function submitComment(){
-				$('form#new_comment_form').submit(function() { // catch the form's submit event
-				    $.ajax({ // create an AJAX call...
-				        data: $(this).serialize(), // get the form data
-				        type: $(this).attr('method'), // GET or POST
-				        url: $(this).attr('action'), // the file to call
-				        success: function(response) { // on success..
-				            $('#div_commnet_list').html(response); // update the DIV
-			        }
+				 // catch the form's submit event
+				var form=$('form#new_comment_form');
+			    $.ajax({ // create an AJAX call...
+			        data: form.serialize(), // get the form data
+			        type: form.attr('method'), // GET or POST
+			        url: form.attr('action'), // the file to call
+			        success: function(response) { // on success..
+			            $('#div_commnet_list').html(response);// update the DIV
+			            $('#div_commnet_list').children().unwrap();
+		        	}
 			    });
 			    return false; // cancel original event to prevent form submitting
-			});
 			}
 		</script>
+	{%endif%}
