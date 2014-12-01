@@ -93,17 +93,30 @@ class ProfileUpdateView(UpdateView):
     model=OnPlayUser
     template_name="notfirstapp/profileupdate.html"
     form_class=OnPlayUserForm
+    # http_method_names
 
     def get_form(self, form_class):
         form=form_class(instance=OnPlayUser.objects.get(id=self.kwargs.get('pk')))
-        # pdb.set_trace()
         return form
 
-    def patch(self, request, *args, **kwargs):
-        form=form_class(self.request.PUT)
-        pdb.set_trace()
-        form.save()
-        return HttpResponse('PATCHed')	
+    def post(self, request, *args, **kwargs):
+        try:
+            
+            form=self.form_class(self.request.POST)
+            user=OnPlayUser.objects.get(user=form.data['user'])
+            user.nickname=form.data['nickname']
+            pdb.set_trace()
+            if u'profileimage' in form.data.keys():
+                img=Image(imagefile=form.data['profileimage'])
+                img.save()
+                user.profileimage=img
+            
+            user.save()
+            return HttpResponse('PATCHed')  
+        except Exception, e:
+            pdb.set_trace()
+            return HttpResponse(e,status=400)
+        
 
 
 class FigureFormView(CreateView):
@@ -477,16 +490,18 @@ def unfavorite(request):
 class CommentListView(ListView):
     model=GameComment
     template_name='notfirstapp/commentlist.html'
+    paginate_by = 5
 
     def get_context_data(self,**kwargs):
         # import pdb
         context=super(CommentListView,self).get_context_data(**kwargs);
-        if 'game_slug' in self.kwargs.keys():
-            
-            context['comment_list']=GameComment.objects.filter(fk_game__slug=self.kwargs.get('game_slug'));
+        if 'game_slug' in self.kwargs.keys() and self.request.user.is_authenticated():
+
+            # context['comment_list']=GameComment.objects.filter(fk_game__slug=self.kwargs.get('game_slug'));
             context['form']=CommentForm(initial={'fk_game': Game.objects.get(slug=self.kwargs.get('game_slug')), 'fk_comment_poster': self.request.user.id})
         else:
-            context['comment_list']=GameComment.objects.all();
+            pass
+            # context['comment_list']=GameComment.objects.all();
         # pdb.set_trace()
         return context
 
