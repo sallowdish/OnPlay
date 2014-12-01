@@ -15,7 +15,7 @@
 							{{comment.comment}}
 						</p>
 						<h5 class='media-heading' >
-							by <a href=javascript:toProfilePage({{comment.fk_comment_poster.id}})>{{comment.fk_comment_poster.username}}</a> on {{comment.comment_time}}
+							by <a href={% url 'game:ProfilePage' comment.fk_comment_poster.id%})>{{comment.fk_comment_poster.username}}</a> on {{comment.comment_time}}
 						</h5>
 					</div>
 				</div>
@@ -48,17 +48,5 @@
 			
 		<!-- </div> -->
 	</div>
-	<form action="{% url 'game:ProfilePage'%}" hidden method='POST' id='form_to_profilepage'>
-		{%csrf_token%}
-		<input type="hidden" name="user_id" id="input_user_id">
-	</form>
-
-	<script type="text/javascript">
-		function toProfilePage(fk_comment_poster_id){
-			$("form#form_to_profilepage>input#input_user_id").attr('value',fk_comment_poster_id);
-			$("form#form_to_profilepage").submit();
-
-		}
-	</script>
 </div>
 

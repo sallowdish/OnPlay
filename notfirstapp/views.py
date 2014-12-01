@@ -66,28 +66,31 @@ class ProfileView(View):
     template_name='notfirstapp/profile.html'
 
 
-    def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated():
-            raise PermissionDenied("You have to login to see other's profile")
-        user=OnPlayUser.objects.get(user__id=request.POST['user_id'])
-	game=GameVisit.objects.filter(fk_visiter=request.POST['user_id'])
-
-	game_list=Favorite.objects.filter(fk_visiter=request.POST['user_id'])
-
-	gameplayed=game.count()
-
-	lastplayed= "none"
-	if gameplayed > 0:
-		lastplayed=game.latest('visit_time')
-
-
-	visit=GameVisit.objects.filter(fk_visiter=request.POST['user_id']).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
-
-
-        return render_to_response('notfirstapp/profile.html',{'player':user,  'last': lastplayed, 'gameplayed': gameplayed, 'visit': visit, 'favorite': game_list},context_instance=RequestContext(request))
-
     def get(self, request, *args, **kwargs):
-        raise PermissionDenied()
+        if not request.user.is_authenticated():
+            raise PermissionDenied("You have to login to see others' profile")
+        user=OnPlayUser.objects.get(user__id=self.kwargs.get('pk'))
+    	game=GameVisit.objects.filter(fk_visiter=self.kwargs.get('pk'))
+
+    	game_list=Favorite.objects.filter(fk_visiter=self.kwargs.get('pk'))
+
+    	gameplayed=game.count()
+
+    	lastplayed= "none"
+    	if gameplayed > 0:
+    		lastplayed=game.latest('visit_time')
+
+
+    	visit=GameVisit.objects.filter(fk_visiter=self.kwargs.get('pk')).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
+
+        context={'player':user,  'last': lastplayed, 'gameplayed': gameplayed, 'visit': visit, 'favorite': game_list}
+        if 'is_updated' in self.request.GET and self.request.GET.get('is_updated')==u'1':
+            context['is_updated']='1'
+
+        return render_to_response('notfirstapp/profile.html',context,context_instance=RequestContext(request))
+
+    # def get(self, request, *args, **kwargs):
+    #     raise PermissionDenied()
 
 class ProfileUpdateView(UpdateView):
     model=OnPlayUser
@@ -95,29 +98,7 @@ class ProfileUpdateView(UpdateView):
     form_class=OnPlayUserForm
     
     def get_success_url(self):
-        return reverse('game:ProfilePage')
-
-    # def get_form(self, form_class):
-    #     form=form_class(instance=OnPlayUser.objects.get(id=self.kwargs.get('pk')))
-    #     return form
-
-    # def post(self, request, *args, **kwargs):
-    #     try:           
-    #         form=form_class(instance=OnPlayUser.objects.get(user=self.request.user))
-    #         form.nickname=form.data['nickname']
-    #         # pdb.set_trace()
-    #         if u'profileimage' in form.data.keys():
-    #             img=Image(imagefile=form.data['profileimage'])
-    #             img.save()
-    #             user.profileimage=img
-    #         user.save()
-    #         return render_to_response(self.template_name,{'form':form},context_instance=RequestContext(request)) 
-    #     except Exception, e:
-    #         pdb.set_trace()
-    #         response= render_to_response(self.template_name,{'form':form},context_instance=RequestContext(request)) 
-    #         response.status=400
-    #         return response
-    #         # return HttpResponse(e,status=400)
+        return reverse('game:ProfilePage',kwargs={'pk':self.object.user.id})+"?is_updated=1"
         
 
 
