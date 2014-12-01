@@ -281,7 +281,7 @@ $(function(){
 		$(document).ready(function(){
 			$.ajax({
 				type:'GET',
-				url:'{%url 'game:CommentListPage' game.slug%}',
+				url:'{%url "game:CommentListPage" game.slug%}',
 				success:function(response){
 					$('div#comment_list_container').html(response);
 				},
