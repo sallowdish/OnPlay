@@ -160,11 +160,11 @@
     <!-- Main hero unit for a primary marketing message or call to action -->
 
     <div class='container-fluid'
-         style="background-image:url({% static 'notfirstapp/images/top_background_image.jpg' %});padding-top:1px;padding-bottom:150px;">
-        <h3 class='largeFont' style='text-align:center'>SPOTLIGHT GAMES</h3>
-        <br><br>
+         style="background-image:url({% static 'notfirstapp/images/top_background_image.jpg' %});background-size: auto 100%;padding-top:1px;padding-bottom:1em;">
+        <h3 class='popGames' style='text-align:center;color:#f7f7f7'>SPOTLIGHT GAMES</h3>
+        <br>
         <div class='row coverflow'>
-            {% for game in game_list %}
+            {% for game,rate in game_rate_list %}
                 <div class='col-xs-6 col-sm-6 col-md-3 cover'>
                     <div class='row' style='border:2px solid #DDDDDD'>
                         <a href="#">
@@ -176,10 +176,10 @@
                     <div class='row'>
                             <div class="im-centered">
                             <a href="{% url 'game:GamePlayPage' game.slug %}">
-                                <h3 id="gameName" style='color:black;font-weight:bold;'>{{ game.gamename }}</h3></a>
+                                <h3 id="gameName" style='color:#f7f7f7;font-weight:bold;'>{{ game.gamename }}</h3></a>
                              </div>
                              <div class="im-centeredToo">
-                            <div class="rateit" data-rateit-value="{{ ratings }}" data-rateit-ispreset="true"
+                            <div class="rateit" data-rateit-value="{{ rate }}" data-rateit-ispreset="true"
                                  data-rateit-readonly="true"></div>
                             </div>
 

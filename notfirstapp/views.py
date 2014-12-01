@@ -10,7 +10,7 @@ from django.template import RequestContext, loader
 from django.views.generic import *
 from django.views import generic
 from django.contrib.auth.models import User
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied,SuspiciousOperation
 from notfirstapp.models import *
 from .forms import *
 from .urls import *
@@ -30,7 +30,12 @@ class IndexView(ListView):
 	def get_context_data(self, **kwargs):
 		context=super(IndexView,self).get_context_data(**kwargs)
 		game_list=Game.objects.order_by('-createTime')[:4]
+        	game_rate_list=[]
+        	for game in game_list:
+            		ratings = GameRate.objects.filter(fk_game=game)
+            		game_rate_list.append((game,ratings.aggregate(Avg('rate')).values()[0]))
 		context['game_list']=game_list
+        	context['game_rate_list']=game_rate_list
 		context['user']=self.request.user
 		return context
 	# return HttpResponse(template.render(context))
@@ -476,17 +481,20 @@ class CommentListView(ListView):
     paginate_by = 5
 
     def get_context_data(self,**kwargs):
-        # import pdb
-        context=super(CommentListView,self).get_context_data(**kwargs);
-        # pdb.set_trace()
-        if 'game_slug' in self.kwargs.keys() and self.request.user.is_authenticated():
-            # context['comment_list']=GameComment.objects.filter(fk_game__slug=self.kwargs.get('game_slug'));
-            context['form']=CommentForm(initial={'fk_game': Game.objects.get(slug=self.kwargs.get('game_slug')), 'fk_comment_poster': self.request.user.id})
-        else:
-            pass
-            # context['comment_list']=GameComment.objects.all();
-        # pdb.set_trace()
-        return context
+        try:
+            context=super(CommentListView,self).get_context_data(**kwargs);
+            game=Game.objects.get(slug=self.kwargs.get('game_slug'))
+            if self.request.user.is_authenticated():
+                # context['comment_list']=GameComment.objects.filter(fk_game__slug=self.kwargs.get('game_slug'));
+                context['form']=CommentForm(initial={'fk_game': Game.objects.get(slug=self.kwargs.get('game_slug')), 'fk_comment_poster': self.request.user.id})
+            else:
+                pass
+                # context['comment_list']=GameComment.objects.all();
+            context['game']=game
+            return context
+        except Exception, e:
+            raise SuspiciousOperation
+        
 
 
 class CommentCreateView(FormView):
