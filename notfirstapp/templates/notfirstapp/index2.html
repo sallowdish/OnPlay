@@ -63,11 +63,27 @@
             width: 80%;
         }
 
-        .im-centered { margin: auto; max-width: 90px;}
         .im-centeredToo { margin: auto; max-width: 100px;}
         .topGamesBackgroundContainer {
             background: #e0e0e0;
         }
+
+        img.spotlight {
+            max-height: 500px;
+            max-width: 500px;
+            height: 300px;
+            min-width: 200px;
+
+            overflow:hidden;
+        }
+        img.topGame {
+            max-height: 330px;
+            max-width: 330px;
+
+            overflow:hidden;
+        }
+
+        /* Old... looked brokenish for me still - Art.
         img.spotlight {
             max-height: 500px;
             max-width: 500px;
@@ -76,6 +92,7 @@
             max-height: 330px;
             max-width: 330px;
         }
+        */
     </style>
 
     <!-- Style for the developer info -->
@@ -161,7 +178,7 @@
 
     <div class='container-fluid'
          style="background-image:url({% static 'notfirstapp/images/top_background_image.jpg' %});background-size: auto 100%;padding-top:1px;padding-bottom:1em;">
-        <h3 class='popGames' style='text-align:center;color:#f7f7f7'>SPOTLIGHT GAMES</h3>
+        <h3 class='popGames' style='text-align:center;color:#f7f7f7;font-size: 300%'>SPOTLIGHT GAMES</h3>
         <br>
         <div class='row coverflow'>
             {% for game,rate in game_rate_list %}
@@ -176,7 +193,7 @@
                     <div class='row'>
                             <div class="im-centered">
                             <a href="{% url 'game:GamePlayPage' game.slug %}">
-                                <h3 id="gameName" style='color:#f7f7f7;font-weight:bold;'>{{ game.gamename }}</h3></a>
+                                <h3 id="gameName" style='color:#f7f7f7;font-weight:bold;font-size:300%;text-align: center;'>{{ game.gamename }}</h3></a>
                              </div>
                              <div class="im-centeredToo">
                             <div class="rateit" data-rateit-value="{{ rate }}" data-rateit-ispreset="true"
