@@ -1,9 +1,41 @@
 {%extends 'notfirstapp/base2.html'%}
 {%load staticfiles%}
 
+{% block head %}
+    <style type="text/css">
+        .jumbotron {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+        .jumboHeading {
+            font-size : 300%;
+            font-weight : bold;
+            color : black;
+        }
+        .blogPosts {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+    </style>
+
+
+
+
+{% endblock head %}
+
 {% block content %}
-<h1>Welcome OnPlay blog!</h1>
-	<br><br><br>
+
+    <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h3 class="jumboHeading">Welcome OnPlay blog!</h3>
+        <p class="lead">Here is where you find what the development team is up to and where the website is heading. Also other random stuff we wish to share.</p>
+      </div>
+
+    <div class="blogPosts">
 
     {% if page.object_list %}
         {% for post in page.object_list %}
@@ -24,6 +56,8 @@
 		<br>
         <p>There are no posts.</p>
     {% endif %}
+
+    </div>
 	
 	<div align='center'>
 	{% if page.has_previous %}
