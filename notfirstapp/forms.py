@@ -117,6 +117,8 @@ class CommentForm(forms.ModelForm):
         model=GameComment
         exclude=[]
         widgets={
+            'fk_game' : HiddenInput(),
+            'fk_comment_poster': HiddenInput(),
             'comment': forms.Textarea(attrs={'rows': 2, 'cols': 240}),
         }
 
