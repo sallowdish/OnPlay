@@ -1,4 +1,5 @@
 from django.shortcuts import render,render_to_response,get_object_or_404,get_list_or_404
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
@@ -435,12 +436,12 @@ class CommentListView(ListView):
         # pdb.set_trace()
         return context
 
-
-class CommentCreateView(CreateView):
+class CommentCreateView(FormView):
     """docstring for Comment"""
-    model=GameComment
+    form_class=CommentForm
+    new_comment=""
+
     
-    @login_required
     def post(self, request, *args, **kwargs):
         form=self.form_class(request.POST)
         if form.is_valid():
@@ -449,16 +450,16 @@ class CommentCreateView(CreateView):
             return self.form_invalid(form)
 
     def get(self, request, *args, **kwargs):
-        form=CommentCreateForm()
-        return render_to_response('notfirstapp/commentcreate.html',{'form':form})
-
+        raise PermissionDenied("You shouldn't be here.")
 
     def form_valid(self,form):
-        pdb.set_trace()
-        form.save();
+        self.new_comment=form.save();
+        return HttpResponseRedirect(reverse('game:CommentListPage',kwargs={'game_slug': self.new_comment.fk_game.slug}))
 
-    def get_success_url(self):
-        return HttpResponse(reverse(self.request.POST['next']))
+    #TODO:1
+    def form_invalid(self,form):
+        raise ValidationError
+
 
 
 #blog

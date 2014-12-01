@@ -7,15 +7,31 @@
 				</a>
 			</div>
 			<div class='media-body' >
-				<form action="{%url 'game:CommentCreatePage'%}" method='POST'>
+				{% if form%}
+				<form action="{%url 'game:CommentCreatePage'%}" method='POST' id="new_comment_form">
 					{% csrf_token %}
 					{% bootstrap_form form %}	
 					{% buttons %}
-				        <button type="submit" class="btn btn-primary" style='float:right'>
+				        <button action=javascript:submitComment class="btn btn-primary" style='float:right'>
 				            {% bootstrap_icon "star" %} Submit
 				        </button>
 				    {% endbuttons %}
 				</form>
-
+				{%endif%}
 			</div>
 		</div>
+		<script text/javascript>
+			function submitComment(){
+				$('form#new_comment_form').submit(function() { // catch the form's submit event
+				    $.ajax({ // create an AJAX call...
+				        data: $(this).serialize(), // get the form data
+				        type: $(this).attr('method'), // GET or POST
+				        url: $(this).attr('action'), // the file to call
+				        success: function(response) { // on success..
+				            $('#div_commnet_list').html(response); // update the DIV
+			        }
+			    });
+			    return false; // cancel original event to prevent form submitting
+			});
+			}
+		</script>
