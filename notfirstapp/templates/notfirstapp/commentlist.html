@@ -1,11 +1,11 @@
-{%if comment_list%}
+{%if object_list%}
 <div class='panel panel-default col-xs-8 col-xs-offset-2' style='padding:0' id='div_commnet_list'>
 	<div class='panel-heading'>
 			<h3 class='panel-title'>User Comments:</h3>
 	</div>
 	<div class='panel-body'>
 		<!-- <div class='row'> -->
-			{% for comment in comment_list%}
+			{% for comment in object_list%}
 				<div class='media' style='background-color:#F2FAFF; padding:0.5em; margin-bottom:0.5em;'>
 					<a href="#" class='media-left'>
 						<img src="{{comment.fk_comment_poster.onplayuser.avatar_url}}" alt="profile_image" style="width:100px;height:100px;">

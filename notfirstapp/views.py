@@ -490,16 +490,18 @@ def unfavorite(request):
 class CommentListView(ListView):
     model=GameComment
     template_name='notfirstapp/commentlist.html'
+    paginate_by = 5
 
     def get_context_data(self,**kwargs):
         # import pdb
         context=super(CommentListView,self).get_context_data(**kwargs);
-        if 'game_slug' in self.kwargs.keys():
-            
-            context['comment_list']=GameComment.objects.filter(fk_game__slug=self.kwargs.get('game_slug'));
+        if 'game_slug' in self.kwargs.keys() and self.request.user.is_authenticated():
+
+            # context['comment_list']=GameComment.objects.filter(fk_game__slug=self.kwargs.get('game_slug'));
             context['form']=CommentForm(initial={'fk_game': Game.objects.get(slug=self.kwargs.get('game_slug')), 'fk_comment_poster': self.request.user.id})
         else:
-            context['comment_list']=GameComment.objects.all();
+            pass
+            # context['comment_list']=GameComment.objects.all();
         # pdb.set_trace()
         return context
 
