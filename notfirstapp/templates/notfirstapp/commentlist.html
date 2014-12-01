@@ -21,11 +21,31 @@
 				</div>
 			{%endfor%}
 			{% endif%}
+			<div align='center'>
+		<!-- pagination -->
+		{% if is_paginated %}
+			<div class="pagination">
+				<span class="page-links">
+					{% if page_obj.has_previous %}
+						<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+					{% endif %}
+					<span class="page-current">
+						| {{ paginator.num_pages }} | 
+					</span>
+					{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}">next</a>
+					{% endif %}
+				</span>
+			</div>
+		{% endif %}
+		<!-- pagination -->
 			{% if user.is_authenticated%}
 			{%include 'notfirstapp/commentcreate.html' with user=user%}
 			{% else%}
 				{%include 'notfirstapp/loginpopup.html' with message="to make a new comment." %}
 			{%endif%}
+			
+			
 		<!-- </div> -->
 	</div>
 	<form action="{% url 'game:ProfilePage'%}" hidden method='POST' id='form_to_profilepage'>
