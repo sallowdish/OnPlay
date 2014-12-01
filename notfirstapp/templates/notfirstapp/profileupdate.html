@@ -6,14 +6,15 @@
 	<div class='panel-heading'>
 			<h3>Update User Profile</h3>
 	</div>
-	<div clsss='row '>
+	<div clsss='row'>
 		<div class='col-xs-12 panel-body'>
-			<form action="" method="patch" class="form">
+			<div id='update_result'></div>
+			<form action="" method="POST" class="form" id="update_profile_form" onsubmit='return sumbitUpdate()'>
 			{% csrf_token %}
 			{% bootstrap_form_errors form %}
 			{% bootstrap_form form %}
 			{% buttons %}
-		    <button type="submit" class="btn btn-primary">
+		    <button type='submit' class="btn btn-primary">
 		      {% bootstrap_icon "star" %} Submit
 		    </button>
 		    {% endbuttons %}
@@ -21,7 +22,28 @@
 		</div>
 	</div>
 </div>
-
+<script type="text/javascript">
+	function sumbitUpdate(){
+		var form=$('form#update_profile_form');
+		// var result=form[0].checkValidity()
+		// if (result) {
+		$.ajax({
+			data: form.serialize(), // get the form data
+	        type: 'POST', // GET or POST
+	        url: form.attr('action'), // the file to call
+	        success: function(response) { // on success..
+	        	$('div#update_result').html('<div class="alert alert-success alert-dismissible" role="alert">Update Scucceed</div>');
+	            // $('#div_commnet_list').html(response);// update the DIV
+	            // $('#div_commnet_list').children().unwrap();
+        	},
+        	fail: function(response) {
+        		$('div#update_result').html('<div class="alert alert-danger alert-dismissible" role="alert">Oh snap! Change a few things up and try submitting again.'+response+'</div>');
+        	}
+		    });
+		// };
+		return false;
+	}
+</script>
 
 
 {%endblock content%}

@@ -93,17 +93,30 @@ class ProfileUpdateView(UpdateView):
     model=OnPlayUser
     template_name="notfirstapp/profileupdate.html"
     form_class=OnPlayUserForm
+    # http_method_names
 
     def get_form(self, form_class):
         form=form_class(instance=OnPlayUser.objects.get(id=self.kwargs.get('pk')))
-        # pdb.set_trace()
         return form
 
-    def patch(self, request, *args, **kwargs):
-        form=form_class(self.request.PUT)
-        pdb.set_trace()
-        form.save()
-        return HttpResponse('PATCHed')	
+    def post(self, request, *args, **kwargs):
+        try:
+            
+            form=self.form_class(self.request.POST)
+            user=OnPlayUser.objects.get(user=form.data['user'])
+            user.nickname=form.data['nickname']
+            pdb.set_trace()
+            if u'profileimage' in form.data.keys():
+                img=Image(imagefile=form.data['profileimage'])
+                img.save()
+                user.profileimage=img
+            
+            user.save()
+            return HttpResponse('PATCHed')  
+        except Exception, e:
+            pdb.set_trace()
+            return HttpResponse(e,status=400)
+        
 
 
 class FigureFormView(CreateView):
