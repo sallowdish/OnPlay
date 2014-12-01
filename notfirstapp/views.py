@@ -385,7 +385,7 @@ class GamePlayView(TemplateView):
 		context=super(GamePlayView,self).get_context_data(**kwargs);
 		game=Game.objects.get(slug=context['game_slug'])
 		context['game']=game
-		context['comment_list']=GameComment.objects.filter(fk_game=game)
+		# context['object_list']=GameComment.objects.filter(fk_game=game)
 		
 		
 		ratings = GameRate.objects.filter(fk_game=game)

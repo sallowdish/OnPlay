@@ -274,7 +274,20 @@ $(function(){
 
 	</div>
 
-	{%include 'notfirstapp/commentlist.html' with user=user%}
+	<div class='fluid-container' id='comment_list_container'>
+		
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.ajax({
+				type:'GET',
+				url:'{%url 'game:CommentListPage' game.slug%}',
+				success:function(response){
+					$('div#comment_list_container').html(response);
+				},
+			});
+		});
+	</script>
 
     {% else %}
 	    <div class='container-fluid' style='margin-top:10%;'>
