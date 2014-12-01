@@ -1,11 +1,21 @@
-<div class='container-fluid' id='comment_create_form'>
-	<div class='row'>
-		<div class='col-xs-8 col-xs-offset-2'>
-			<form action="{%url 'game:CommentCreatePage'%}" method='POST'>
-				<table class='table'>
-					{{form.as_table}}
-				</table>
-			</form>
+{% load bootstrap3 %}
+		<div class='media' style='background-color:#F2FAFF; padding:0.5em; margin-bottom:0.5em;'>
+			<div class='media-left'>
+				<a href="#" class='media-left'>
+						<img src="{{user.onplayuser.avatar_url}}" alt="profile_image" >
+						<p>{{user.onplayuser.nickname}}</p>
+				</a>
+			</div>
+			<div class='media-body' >
+				<form action="{%url 'game:CommentCreatePage'%}" method='POST'>
+					{% csrf_token %}
+					{% bootstrap_form form %}	
+					{% buttons %}
+				        <button type="submit" class="btn btn-primary" style='float:right'>
+				            {% bootstrap_icon "star" %} Submit
+				        </button>
+				    {% endbuttons %}
+				</form>
+
+			</div>
 		</div>
-	</div>
-</div>

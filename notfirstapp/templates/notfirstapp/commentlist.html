@@ -30,7 +30,7 @@ img {
 				</div>
 			{%endfor%}
 			{% if user.is_authenticated%}
-			{%include 'notfirstapp/commentcreate.html'%}
+			{%include 'notfirstapp/commentcreate.html' with user=user%}
 			{% else%}
 				{%include 'notfirstapp/loginpopup.html' with message="to make a new comment." %}
 			{%endif%}
