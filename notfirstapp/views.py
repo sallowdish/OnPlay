@@ -70,6 +70,7 @@ class ProfileView(View):
         user=OnPlayUser.objects.get(user__id=request.POST['user_id'])
 	game=GameVisit.objects.filter(fk_visiter=request.POST['user_id'])
 
+	game_list=Favorite.objects.filter(fk_visiter=request.POST['user_id'])
 
 	lastplayed=game.latest('visit_time')
 	gameplayed=game.count()
@@ -77,7 +78,7 @@ class ProfileView(View):
 	visit=GameVisit.objects.filter(fk_visiter=request.POST['user_id']).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
 
 
-        return render_to_response('notfirstapp/profile.html',{'player':user,  'last': lastplayed, 'gameplayed': gameplayed, 'visit': visit},context_instance=RequestContext(request))
+        return render_to_response('notfirstapp/profile.html',{'player':user,  'last': lastplayed, 'gameplayed': gameplayed, 'visit': visit, 'favorite': game_list},context_instance=RequestContext(request))
 
     def get(self, request, *args, **kwargs):
         raise PermissionDenied()
