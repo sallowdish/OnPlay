@@ -1,3 +1,5 @@
+{% if game%}
+<!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
 <div class='panel panel-default col-xs-8 col-xs-offset-2' style='padding:0' id='div_commnet_list'>
 	<div class='panel-heading'>
 			<h3 class='panel-title'>User Comments:</h3>
@@ -27,13 +29,13 @@
 			<div class="pagination">
 				<span class="page-links">
 					{% if page_obj.has_previous %}
-						<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+						<a href="javascript:jumpToPage({{ page_obj.previous_page_number }})">previous</a>
 					{% endif %}
 					<span class="page-current">
 						| {{ paginator.num_pages }} | 
 					</span>
 					{% if page_obj.has_next %}
-						<a href="?page={{ page_obj.next_page_number }}">next</a>
+						<a href='javascript:jumpToPage({{ page_obj.next_page_number }})'>next</a>
 					{% endif %}
 				</span>
 			</div>
@@ -45,8 +47,21 @@
 				{%include 'notfirstapp/loginpopup.html' with message="to make a new comment." %}
 			{%endif%}
 			
-			
 		<!-- </div> -->
 	</div>
 </div>
+<script type='text/javascript'>
+	function jumpToPage(nextPage){
+		$.ajax({
+			url:'{%url "game:CommentListPage" game.slug%}'+'?page='+nextPage,
+			type:'GET',
+			success:function(response){
+				var wrapper=$('div#div_commnet_list')
+				wrapper.html(response);
+				wrapper.children().unwrap();
+			},
+		});
+	}
+</script>
+{%endif%}
 
