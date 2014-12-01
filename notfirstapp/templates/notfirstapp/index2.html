@@ -75,8 +75,11 @@
 
 
     <!-- Main hero unit for a primary marketing message or call to action -->
+
     <div class='container-fluid'
-         style="background-image:url({% static 'notfirstapp/images/top_background_image.jpg' %});padding-top:50px;padding-bottom:150px;">
+         style="background-image:url({% static 'notfirstapp/images/top_background_image.jpg' %});padding-top:1px;padding-bottom:150px;">
+        <h3 class='popGames' style='text-align:center'>SPOTLIGHT GAMES</h3>
+        <br><br>
         <div class='row coverflow'>
             {% for game in game_list %}
                 <div class='col-xs-6 col-sm-6 col-md-3 cover'>
@@ -106,10 +109,7 @@
     <br><br>
 
     <div class="topGameContainer">
-
         <h3 class='popGames' style='text-align:center'>Most Popular Games</h3>
-
-
         <div class="col-md-12">
             <div class="row">
                 <div id="Carousel" class="carousel slide">
@@ -191,77 +191,6 @@
         </div>
     </div><!--.container-->
 
-
-  <!--
-  <div class='container-fluid popularGames' style='margin-bottom:20px;'>
-    <div class='row'>
-      <div class='col-xs-10 col-xs-offset-1'>
-        <div class='row'>
-          <div class='col-xs-12' style='text-align:center'>
-            <h3 class='popGames'>Most Popular Games</h3>
-          </div>
-        </div>
-        <div class='row'>
-          <div class="container-fluid">  
-            {%if game_list%}
-            <style type="text/css" scoped>
-              img.gameIcon{
-                width: 100%;
-                border: 2px solid rgb(0,172,233);
-                /*height: 204px;*/
-              }
-            </style>
-            {%for game in game_list%}
-              <div class="col-xs-6 col-sm-6 col-md-3 templatemo_col12" >
-                <div class="portfolio-item">
-                  <div class="portfolio-thumb">
-                    {%if game.fk_image%}
-                    <img class='gameIcon' src="{{game.fk_image.imagefile.url}}" alt='gameIcon'>
-                    <div class="overlay-p">
-                      <a >
-                        <ul>
-                          <li>{{game.gamename}}</li>
-                          <li class="fa fa-circle"></li>
-                          <li class="fa fa-circle fsmall"></li>
-                          <li class="fa fa-circle"></li>
-                          <li class="fa fa-circle fsmall"></li>
-                          <li class="fa fa-search fa-2x"></li>
-                        </ul>
-                      </a>
-                    </div>
-                    {%else%}
-                    <img src="{% static "notfirstapp/images/portfolio/1.jpg"%}" alt='gameIcon' >
-                    <div class="overlay-p">
-                      <a href="{% static "notfirstapp/images/portfolio/1.jpg"%}" data-rel="lightbox[portfolio]">
-                        <ul>
-                          <li>Rotary</li>
-                          <li class="fa fa-circle"></li>
-                          <li class="fa fa-circle fsmall"></li>
-                          <li class="fa fa-circle"></li>
-                          <li class="fa fa-circle fsmall"></li>
-                          <li class="fa fa-search fa-2x"></li>
-                        </ul>
-                      </a>
-                    </div>
-                    {%endif%}
-                </div>
-              </div>
-
-            {%endfor%}
-            {%endif%}
-            </div>
-        </div>
-        <div class='row'>
-          <div class='col-xs-10 col-xs-offset-1' style='text-align:center'>
-            <a class="btn btn-large btn-primary" href= "#">View More</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="clear"></div>
-  -->
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 {%endblock content%}
