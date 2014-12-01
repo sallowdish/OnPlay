@@ -49,7 +49,7 @@
 					  </button>
 						  <ul class="dropdown-menu" role="menu">
 						    {%if user == player.user %}
-							    <li><a href="#">Update</a></li>
+							    <li><a href="{%url 'game:ProfileUpdatePage' player.id%}">Update</a></li>
 							    <li class="divider"></li>
 						    	<li><a href="#" class='btn btn-danger' role='btn'>Deactivate</a></li>
 						    {%else%}
