@@ -70,6 +70,16 @@
         .topGamesBackgroundContainer {
             background: #e0e0e0;
         }
+
+        img.spotlight {
+            max-height: 500px;
+            max-width: 500px;
+        }
+
+        img.topGame {
+            max-height: 330px;
+            max-width: 330px;
+        }
     </style>
 
     <!-- Style for the developer info -->
@@ -162,7 +172,7 @@
                 <div class='col-xs-6 col-sm-6 col-md-3 cover'>
                     <div class='row' style='border:2px solid #DDDDDD'>
                         <a href="#">
-                            <img class='' src="{{ game.fk_image.imagefile.url }}" alt="Game Image">
+                            <img class='spotlight' src="{{ game.fk_image.imagefile.url }}" alt="Game Image">
                         </a>
                     </div>
 
@@ -208,8 +218,8 @@
                                             {% if game.fk_image %}
                                                 <div class="col-md-3">
                                                     <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                        <img src="{{ game.fk_image.imagefile.url }}" alt="Image"
-                                                             style="max-width:100%;" width="500" height="500">
+                                                        <img class="topGame" src="{{ game.fk_image.imagefile.url }}" alt="Image"
+                                                             style="max-width:100%;" width="300" height="300">
                                                     </a>
                                                 </div>
 
@@ -217,9 +227,8 @@
                                             {% else %}
                                                 <div class="col-md-3">
                                                     <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                        <img src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
-                                                             alt="Image" style="max-width:100%;" width="500"
-                                                             height="500">
+                                                        <img class="topGame" src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
+                                                             alt="Image" style="max-width:100%;" width="300" height="300">
                                                     </a>
                                                 </div>
 
@@ -238,8 +247,8 @@
                                             {% if game.fk_image %}
                                                 <div class="col-md-3">
                                                     <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                        <img src="{{ game.fk_image.imagefile.url }}" alt="Image"
-                                                             style="max-width:100%;" width="500" height="500">
+                                                        <img class="topGame" src="{{ game.fk_image.imagefile.url }}" alt="Image"
+                                                             style="max-width:100%;" width="300" height="300">
                                                     </a>
                                                 </div>
 
@@ -247,9 +256,9 @@
                                             {% else %}
                                                 <div class="col-md-3">
                                                     <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                        <img src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
-                                                             alt="Image" style="max-width:100%;" width="500"
-                                                             height="500">
+                                                        <img class="topGame" src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
+                                                             alt="Image" style="max-width:100%;" width="300"
+                                                             height="300">
                                                     </a>
                                                 </div>
 
