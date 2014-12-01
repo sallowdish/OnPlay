@@ -168,3 +168,7 @@ class Favorite(models.Model):
 	"""docstring for favorite"""
 	fk_game= models.ForeignKey('Game')
 	fk_visiter=models.ForeignKey(User, null=True)
+
+	def get_play_count(self):
+		visit=GameVisit.objects.filter(fk_game=self.fk_game, fk_visiter=self.fk_visiter)
+		return len(visit)
