@@ -1,6 +1,6 @@
 		<div class='col-xs-offset-8'>
 			<p style='text-align:left'>
-				<a class='btn btn-primary' role='btn' href="#">Login</a> {{message}}
+				<a class='btn btn-primary' role='btn' href="{% url 'game:LoginPage'%}?next={{request.path}}">Login</a> {{message}}
 			</p>
 		</div>
 

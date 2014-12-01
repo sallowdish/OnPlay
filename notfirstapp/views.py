@@ -370,6 +370,7 @@ class GamePlayView(TemplateView):
 		form.fields['fk_game'].widget = forms.HiddenInput()		
 		form.fields['fk_comment_poster'].widget = forms.HiddenInput()			
 		context['form'] = form
+        	context['request']=self.request
 		
 		return context
 
