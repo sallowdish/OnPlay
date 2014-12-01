@@ -32,6 +32,19 @@ class Game(models.Model):
 	"""docstring for Game"""
 	def __unicode__(self):
 		return self.gamename
+
+
+	def get_avg_rating(self):
+
+		ratings = GameRate.objects.filter(fk_game=self)
+		count = len(ratings)
+		
+		sum = 0
+		for rating in ratings:
+			sum += rating.rate
+
+		return (sum/count)
+
 		
 """ All the games that are being put in the spotlight by the admins. 
 	 It is up to the Admins to not have duplicate games in this table."""
