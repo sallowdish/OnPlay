@@ -17,6 +17,7 @@ from .urls import *
 from django.db.models import Avg
 from django.db.models import Count
 from django.db.models import Max
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 import pdb
 # Create your views here.
@@ -514,10 +515,23 @@ class CommentCreateView(FormView):
 
 #blog
 def blogIndex(request):
-    return render_to_response('notfirstapp/blog_index.html', {
-        'categories': Category.objects.all(),
-        'posts': Blog.objects.all()[:5]
-    })
+	entries = Blog.objects.filter().order_by('-id')
+	
+	paginator = Paginator(entries,5 )
+	
+	page_num = request.GET.get('page', 1)
+	
+	try:
+		page = paginator.page(page_num)
+	except EmptyPage:
+		page = paginator.page(paginator.num_pages)
+	except PageNotAnInteger:
+		page = paginator.page(1)
+		
+	ctx = {
+		'page': page
+	}
+	return render_to_response('notfirstapp/blog_index.html', ctx, context_instance=RequestContext(request))
 
 def view_post(request, slug):   
     return render_to_response('notfirstapp/view_post.html', {
