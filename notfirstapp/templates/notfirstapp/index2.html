@@ -164,7 +164,7 @@
         <h3 class='popGames' style='text-align:center;color:#f7f7f7'>SPOTLIGHT GAMES</h3>
         <br>
         <div class='row coverflow'>
-            {% for game in game_list %}
+            {% for game,rate in game_rate_list %}
                 <div class='col-xs-6 col-sm-6 col-md-3 cover'>
                     <div class='row' style='border:2px solid #DDDDDD'>
                         <a href="#">
@@ -179,7 +179,7 @@
                                 <h3 id="gameName" style='color:#f7f7f7;font-weight:bold;'>{{ game.gamename }}</h3></a>
                              </div>
                              <div class="im-centeredToo">
-                            <div class="rateit" data-rateit-value="{{ ratings }}" data-rateit-ispreset="true"
+                            <div class="rateit" data-rateit-value="{{ rate }}" data-rateit-ispreset="true"
                                  data-rateit-readonly="true"></div>
                             </div>
 

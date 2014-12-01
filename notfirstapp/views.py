@@ -30,7 +30,12 @@ class IndexView(ListView):
 	def get_context_data(self, **kwargs):
 		context=super(IndexView,self).get_context_data(**kwargs)
 		game_list=Game.objects.order_by('-createTime')[:4]
+        	game_rate_list=[]
+        	for game in game_list:
+            		ratings = GameRate.objects.filter(fk_game=game)
+            		game_rate_list.append((game,ratings.aggregate(Avg('rate')).values()[0]))
 		context['game_list']=game_list
+        	context['game_rate_list']=game_rate_list
 		context['user']=self.request.user
 		return context
 	# return HttpResponse(template.render(context))
