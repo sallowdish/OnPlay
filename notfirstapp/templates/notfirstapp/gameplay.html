@@ -113,9 +113,8 @@ $(function(){
 			</div>
 			
 		</div>
-		<div  class='row'>
+		<div class='row'>
 			<div class='col-xs-8 col-xs-offset-2'>
-			
 				<br>
 				<p style="float:right;"><b>Number of times played:</b> {{played }}</p>
 				
@@ -125,45 +124,41 @@ $(function(){
 				{% else  %}
 				<p>Currently not rated yet</p>	
 				{% endif %}
-				
-				{% if rate_warning %}
-			    <div class="alert alert-danger">
-			        <a href="#" class="close" data-dismiss="alert">&times;</a>
-			        <strong>Error!</strong> Need to be logged in to rate
-			    </div>
-				{% endif %}
+			</div>
+			{% if rate_warning %}
+		    <div class="alert alert-danger">
+		        <a href="#" class="close" data-dismiss="alert">&times;</a>
+		        <strong>Error!</strong> Need to be logged in to rate
+		    </div>
+			{% endif %}
 					
 				
-				<div data-role="main"  class='col-xs-12 col-xs-offset-0'>
+			<div data-role="main"  class='col-xs-8 col-xs-offset-2'>
 			    <form action="./{{game}}" method="post">
 			       {% csrf_token %}
-			       
-			    
 			      <label for="points">Rating: <span id="currentValue">0</span></label>
 					<input class="slider" id="defaultSlider" type="range" min="0" max="10" />
 					<input type="hidden" id="rating" name="rating" value="-3">
 					<input style="margin-top:6px;margin-bottom:15px;" type="submit" data-inline="true" name="action"  value="Rate">
-				
-				
-					
 			    </form>
-			<button id="button" type="button" class="btn btn-primary" 
-			  data-toggle="collapse" data-target="#playgraph">
-			  <span class="glyphicon glyphicon-collapse-down"></span> Show Graph
-			</button>
-
-			<div id="playgraph" class="collapse">
-				<div id="chart_div" style="width: 400px; height: 300px;"></div>
-			</div>			
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-xs-8 col-xs-offset-2'>
+				<button id="button" type="button" class="btn btn-primary" 
+				  data-toggle="collapse" data-target="#playgraph">
+				  <span class="glyphicon glyphicon-collapse-down"></span> Show Graph
+				</button>
+				<div id="playgraph" class="collapse">
+					<div id="chart_div" style="width: 400px; height: 300px;"></div>
+				</div>	
+			</div>
 		</div>
 
 	</div>
-	{%include 'notfirstapp/commentlist.html'%}
-	{% if user.is_authenticated%}
-		{%include 'notfirstapp/commentcreate.html'%}
-	{% else%}
-		{%include 'notfirstapp/loginpopup.html' with message="to make a new comment." %}
-	{%endif%}
+
+	{%include 'notfirstapp/commentlist.html' with user=user%}
+
     {% else %}
 	    <div class='container-fluid' style='margin-top:10%;'>
             <div class='row'>
