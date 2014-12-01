@@ -17,6 +17,7 @@ from .urls import *
 from django.db.models import Avg
 from django.db.models import Count
 from django.db.models import Max
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 import pdb
 # Create your views here.
@@ -64,25 +65,45 @@ class ProfileView(View):
     model=OnPlayUser
     template_name='notfirstapp/profile.html'
 
+
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
             raise PermissionDenied("You have to login to see other's profile")
         user=OnPlayUser.objects.get(user__id=request.POST['user_id'])
 	game=GameVisit.objects.filter(fk_visiter=request.POST['user_id'])
 
+	game_list=Favorite.objects.filter(fk_visiter=request.POST['user_id'])
 
-	lastplayed=game.latest('visit_time')
 	gameplayed=game.count()
+
+	lastplayed= "none"
+	if gameplayed > 0:
+		lastplayed=game.latest('visit_time')
+
 
 	visit=GameVisit.objects.filter(fk_visiter=request.POST['user_id']).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
 
 
-        return render_to_response('notfirstapp/profile.html',{'player':user,  'last': lastplayed, 'gameplayed': gameplayed, 'visit': visit},context_instance=RequestContext(request))
+        return render_to_response('notfirstapp/profile.html',{'player':user,  'last': lastplayed, 'gameplayed': gameplayed, 'visit': visit, 'favorite': game_list},context_instance=RequestContext(request))
 
     def get(self, request, *args, **kwargs):
         raise PermissionDenied()
 
-		
+class ProfileUpdateView(UpdateView):
+    model=OnPlayUser
+    template_name="notfirstapp/profileupdate.html"
+    form_class=OnPlayUserForm
+
+    def get_form(self, form_class):
+        form=form_class(instance=OnPlayUser.objects.get(id=self.kwargs.get('pk')))
+        # pdb.set_trace()
+        return form
+
+    def patch(self, request, *args, **kwargs):
+        form=form_class(self.request.PUT)
+        pdb.set_trace()
+        form.save()
+        return HttpResponse('PATCHed')	
 
 
 class FigureFormView(CreateView):
@@ -498,10 +519,23 @@ class CommentCreateView(FormView):
 
 #blog
 def blogIndex(request):
-    return render_to_response('notfirstapp/blog_index.html', {
-        'categories': Category.objects.all(),
-        'posts': Blog.objects.all()[:5]
-    })
+	entries = Blog.objects.filter().order_by('-id')
+	
+	paginator = Paginator(entries,5 )
+	
+	page_num = request.GET.get('page', 1)
+	
+	try:
+		page = paginator.page(page_num)
+	except EmptyPage:
+		page = paginator.page(paginator.num_pages)
+	except PageNotAnInteger:
+		page = paginator.page(1)
+		
+	ctx = {
+		'page': page
+	}
+	return render_to_response('notfirstapp/blog_index.html', ctx, context_instance=RequestContext(request))
 
 def view_post(request, slug):   
     return render_to_response('notfirstapp/view_post.html', {

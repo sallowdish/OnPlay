@@ -16,7 +16,7 @@
       function drawChart() {
 
  	var data = google.visualization.arrayToDataTable([
-		['Date', 'Visits'],
+		['Date', 'Games'],
    	{% for visits in visit %}
 	['{{visits.visit_time |date:"d M" }}', {{visits.play_count}}],
 
@@ -26,12 +26,22 @@
         var options = {
           title: 'Game played',
           hAxis: { title: 'Date', titleTextStyle: {color: '#333'}, slantedText: true,  slantedTextAngle: 180 },
-          vAxis: {title: 'Game played',}
-        };
+          vAxis: {title: 'Game played', slantedText: true,  slantedTextAngle: 180},
+	'width':450,
+	'height':200
+	        };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
+
+
+
+
+
+	  $(function () {
+	    $('#myTab a:first').tab('show')
+	  })
 
     </script>
 
@@ -49,7 +59,7 @@
 					  </button>
 						  <ul class="dropdown-menu" role="menu">
 						    {%if user == player.user %}
-							    <li><a href="#">Update</a></li>
+							    <li><a href="{%url 'game:ProfileUpdatePage' player.id%}">Update</a></li>
 							    <li class="divider"></li>
 						    	<li><a href="#" class='btn btn-danger' role='btn'>Deactivate</a></li>
 						    {%else%}
@@ -60,6 +70,17 @@
 				</div>
 				<div class='col-xs-9'>
 					<h3 style='font-size:30px'>User Profile</h3>
+
+
+				<ul class="nav nav-tabs" role="tablist" id="myTab">
+				  <li role="presentation" class="active"><a href="#Overview" aria-controls="Overview" role="tab" data-toggle="tab">Overview</a></li>
+				  <li role="presentation"><a href="#play" aria-controls="play" role="tab" data-toggle="tab">Play Data</a></li>
+				  <li role="presentation"><a href="#favorite" aria-controls="favorite" role="tab" data-toggle="tab">Favorite</a></li>
+				</ul>
+
+				<div class="tab-content">
+				  <div role="tabpanel" class="tab-pane active" id="Overview">
+				
 					<table class='table-striped'>
 						<tbody style='border-top:1px solid rgb(221,221,221);'>
 							<tr>
@@ -103,13 +124,34 @@
 									<h4>{{gameplayed}}</h4>
 								</td>
 							</tr>
-							<tr style="position:relative;">
-								<td colspan=2>
-									<div id="chart_div" style="width: 100%; height: 300px; position:relative;"></div>
-								</td>
-							</tr>
 						</tbody>
 					</table>
+
+				</div>
+				  <div role="tabpanel" class="tab-pane" id="play">
+					<div id="chart_div" style="width: inherit; height: 100%;"></div>
+				</div>
+				  <div role="tabpanel" class="tab-pane" id="favorite">
+					<table class='table-striped'>
+						<tbody style='border-top:1px solid rgb(221,221,221);'>
+						{% for favorites in favorite %}
+							<tr>
+								<td class='col-xs-1'>
+									<p>{{favorites.fk_game}}</p>
+								</td>
+								<td class='col-xs-3'> 
+									
+
+<a href="../playgame/{{favorites.fk_game.slug}}" ><img class="" src="{{favorites.fk_game.fk_image}}" alt="Game Image"  width="128" height="128"> </a>
+								</td>
+							</tr>
+							
+						{% endfor %}	
+						</tbody>
+					</table>			
+				</div>
+				</div>
+
 				</div>
 				
 			</div>

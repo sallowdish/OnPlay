@@ -5,8 +5,8 @@
 <h1>Welcome OnPlay blog!</h1>
 	<br><br><br>
 
-    {% if posts %}
-        {% for post in posts %}
+    {% if page.object_list %}
+        {% for post in page.object_list %}
 			<div style='background-color:#F2FAFF;margin-bottom:15px;'>
             <!-- <li><a href="{{ BASE_URL }}{{ post.get_absolute_url }}">{{ post.title }}</a></li> -->
 			<h3>{{ post.title }}</h3>
@@ -21,21 +21,23 @@
 			</div>
         {% endfor %}
     {% else %}
+		<br>
         <p>There are no posts.</p>
     {% endif %}
-	<nav>
-	<div align="center">
-  <ul class="pagination">
-    <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
-  </ul>
-  </div>
-</nav>
+	
+	<div align='center'>
+	{% if page.has_previous %}
+		<a href = "?page={{ page.previous_page_number }}">Newer</a>
+	{% endif %}
+	
+	| {{ page.number }} |
+
+	{% if page.has_next %}
+		<a href = "?page={{ page.next_page_number }}">Older</a>
+	{% endif %}
+	</div>
+	<br>
+
 	
 {%endblock content%}
 

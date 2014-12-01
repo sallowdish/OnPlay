@@ -16,6 +16,7 @@ urlpatterns = patterns('',
 
 	#User
 	url(r'^profile/$',views.ProfileView.as_view(),name='ProfilePage'),
+	url(r'^profile/(?P<pk>\d+)/update/$',views.ProfileUpdateView.as_view(),name='ProfileUpdatePage'),
 
 	#index page
 	url(r'^$', views.IndexView.as_view(), name="indexPage"),
@@ -42,7 +43,8 @@ urlpatterns = patterns('',
 	#PlayGame part
 	url(r'^favorite/', views.favorite),
 	url(r'^unfavorite/', views.unfavorite),	
-	url(r'^playgame/(?P<game_slug>\w+)$',views.GamePlayView.as_view(),name='GamePlayPage'),
+	url(r'^playgame/(?P<game_slug>[a-zA-Z0-9_.-]+)$',views.GamePlayView.as_view(),name='GamePlayPage'),
+
 
 	#Comment Part
 	url(r'^comment/(?P<game_slug>\w+)$',views.CommentListView.as_view(),name='CommentListPage'),
