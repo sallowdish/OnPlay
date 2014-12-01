@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
 from django.contrib.auth.models import User
-from django.forms.widgets import HiddenInput
+from django.forms.widgets import *
 from django.contrib.auth.forms import UserCreationForm
 
 # class AccountForm(forms.ModelForm):
@@ -113,14 +113,17 @@ class UserCreateForm(UserCreationForm):
 
  
 class CommentForm(forms.ModelForm):
-	comment = forms.CharField(label='Comment', max_length=400, widget=forms.Textarea(attrs={'rows': 3, 'cols': 140}))
-	class Meta:
-		model=GameComment
+    class Meta:
+        model=GameComment
         exclude=[]
+        widgets={
+            'comment': forms.Textarea(attrs={'rows': 2, 'cols': 240}),
+        }
 
-class CommentCreateForm(forms.Form):
-    """docstring for CommentCreateForm"""
-    comment=forms.CharField(max_length=300,widget=forms.Textarea)
-    def __init__(self):
-        super(CommentCreateForm, self).__init__()
+
+# class CommentCreateForm(forms.Form):
+#     """docstring for CommentCreateForm"""
+#     comment=forms.CharField(max_length=300,widget=forms.Textarea)
+#     def __init__(self):
+#         super(CommentCreateForm, self).__init__()
         

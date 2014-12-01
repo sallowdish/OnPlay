@@ -17,6 +17,7 @@ from django.db.models import Avg
 from django.db.models import Count
 from django.db.models import Max
 import json
+import pdb
 # Create your views here.
 class IndexView(ListView):
 	# current_game=Game.objects.all()
@@ -441,10 +442,24 @@ class CommentCreateView(CreateView):
     
     @login_required
     def post(self, request, *args, **kwargs):
-        return HttpResponseForbidden
+        form=self.form_class(request.POST)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
     def get(self, request, *args, **kwargs):
         form=CommentCreateForm()
         return render_to_response('notfirstapp/commentcreate.html',{'form':form})
+
+
+    def form_valid(self,form):
+        pdb.set_trace()
+        form.save();
+
+    def get_success_url(self):
+        return HttpResponse(reverse(self.request.POST['next']))
+
 
 #blog
 def blogIndex(request):
