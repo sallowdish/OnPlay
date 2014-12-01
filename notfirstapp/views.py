@@ -82,7 +82,12 @@ class ProfileView(View):
     def get(self, request, *args, **kwargs):
         raise PermissionDenied()
 
-		
+class ProfileUpdateView(UpdateView):
+    model=OnPlayUser
+    template_name="notfirstapp/profileupdate.html"
+
+    def put(self, request, *args, **kwargs):
+        return HttpResponse('PATCHed')	
 
 
 class FigureFormView(CreateView):

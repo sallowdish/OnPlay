@@ -16,6 +16,7 @@ urlpatterns = patterns('',
 
 	#User
 	url(r'^profile/$',views.ProfileView.as_view(),name='ProfilePage'),
+	url(r'^profile/(?P<pk>\d+)/update/$',views.ProfileUpdateView.as_view(),name='ProfileUpdatePage'),
 
 	#index page
 	url(r'^$', views.IndexView.as_view(), name="indexPage"),
