@@ -4,6 +4,98 @@
 
 
 <script type="text/javascript">
+
+
+function favorite()
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+
+	var params =  new FormData();
+	params.append('user', 'person');
+
+	xmlhttp.onreadystatechange=function()
+	  {
+		if (xmlhttp.readyState==4 && xmlhttp.status==200 && xmlhttp.responseText == "Success")
+		{
+			document.getElementById("favoriteResponse").innerHTML="Added to favorite";
+			document.getElementById("favorite").className = "alert alert-success";
+			document.getElementById("favoriteRemove").style.display="block";
+			document.getElementById("unfavoriteButton").style.display="block";
+			document.getElementById("favoriteButton").style.display="none";
+		}
+		else if (xmlhttp.readyState==4 && xmlhttp.status==200 && xmlhttp.responseText == "Login")
+		{	unfavoriteButton 
+			document.getElementById("favoriteResponse").innerHTML="Unable to favorite. Please log in"
+			document.getElementById("favorite").className = "alert alert-danger";
+			document.getElementById("favoriteRemove").style.display="block";
+		}
+		else
+		{
+			document.getElementById("favoriteResponse").innerHTML="Unable to favorite unknown error"
+			document.getElementById("favorite").className = "alert alert-danger";
+			document.getElementById("favoriteRemove").style.display="visible";
+		}
+	  }
+	xmlhttp.open("POST","../favorite/",true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send("game={{game_slug}}&user={{user.id}}&csrfmiddlewaretoken={{ csrf_token }}");
+}
+
+
+function unfavorite()
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+
+	var params =  new FormData();
+	params.append('user', 'person');
+
+	xmlhttp.onreadystatechange=function()
+	  {
+		if (xmlhttp.readyState==4 && xmlhttp.status==200 && xmlhttp.responseText == "Success")
+		{
+			document.getElementById("favoriteResponse").innerHTML="Removed from favorite";
+			document.getElementById("favorite").className = "alert alert-success";
+			document.getElementById("favoriteRemove").style.display="block";
+			document.getElementById("favoriteButton").style.display="block";
+			document.getElementById("unfavoriteButton").style.display="none";
+
+		}
+		else if (xmlhttp.readyState==4 && xmlhttp.status==200 && xmlhttp.responseText == "Login")
+		{
+			document.getElementById("favoriteResponse").innerHTML="Unable to favorite. Please log in"
+			document.getElementById("favorite").className = "alert alert-danger";
+			document.getElementById("favoriteRemove").style.display="block";
+		}
+		else
+		{
+			document.getElementById("favoriteResponse").innerHTML="Unable to favorite unknown error"
+			document.getElementById("favorite").className = "alert alert-danger";
+			document.getElementById("favoriteRemove").style.display="visible";
+		}
+	  }
+	xmlhttp.open("POST","../unfavorite/",true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send("game={{game_slug}}&user={{user.id}}&csrfmiddlewaretoken={{ csrf_token }}");
+}
+
+
+
 $(function(){
 
     var currentValue = $('#currentValue');
@@ -113,18 +205,49 @@ $(function(){
 			</div>
 			
 		</div>
-		<div class='row'>
+
+		<div class="row">
 			<div class='col-xs-8 col-xs-offset-2'>
-				<br>
-				<p style="float:right;"><b>Number of times played:</b> {{played }}</p>
-				
+			  <div class="col-xs-6 col-md-4">
 				{% if ratings %}
-				<p><b>Current Rating:</b> {{rating}} by ratings {{ ratings }} users</p>	
+					<p><b>Current Rating:</b> </br>{{rating}} by ratings {{ ratings }} users</p>	
 				
 				{% else  %}
-				<p>Currently not rated yet</p>	
+					<b>Currently not rated yet</b>	
 				{% endif %}
 			</div>
+
+			  <div class="col-xs-6 col-md-4">
+					<div id="favorite" class="col-xs-6 col-md-4">
+						<a id="favoriteRemove" href="#" class="close" data-dismiss="alert" style="display:none;"  >&times;</a>
+						<p id="favoriteResponse"></p>
+					</div>
+				{% if favorite %}
+					<button id="favoriteButton" type="button" onclick="favorite()" style="display:none;"> <i class="glyphicon glyphicon-heart"></i> Favorite</button>
+					<button id="unfavoriteButton" type="button" onclick="unfavorite()" > <i class="glyphicon glyphicon-heart"></i> unFavorite</button>
+				
+				{% else  %}
+					<button id="favoriteButton" type="button" onclick="favorite()"> <i class="glyphicon glyphicon-heart"></i> Favorite</button>
+					<button id="unfavoriteButton" type="button" onclick="unfavorite()" style="display:none;"> <i class="glyphicon glyphicon-heart"></i> unFavorite</button>
+				{% endif %}	
+
+
+					
+			</div>
+				<div class="col-xs-6 col-md-4">
+					<p style="float:right;">
+						<b>Number of times played:</b> {{played }}
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div class='row'>
+			
 			{% if rate_warning %}
 		    <div class="alert alert-danger">
 		        <a href="#" class="close" data-dismiss="alert">&times;</a>

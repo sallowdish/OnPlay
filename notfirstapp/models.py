@@ -147,3 +147,9 @@ class Category(models.Model):
     @permalink
     def get_absolute_url(self):
         return ('game:view_blog_category', None, { 'slug': self.slug })
+
+#favorite
+class Favorite(models.Model):
+	"""docstring for favorite"""
+	fk_game= models.ForeignKey('Game')
+	fk_visiter=models.ForeignKey(User, null=True)

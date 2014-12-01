@@ -40,6 +40,8 @@ urlpatterns = patterns('',
 	url(r'^gallery/$',views.GameGalleryView.as_view(),name='GameGalleryPage'),
 
 	#PlayGame part
+	url(r'^favorite/', views.favorite),
+	url(r'^unfavorite/', views.unfavorite),	
 	url(r'^playgame/(?P<game_slug>\w+)$',views.GamePlayView.as_view(),name='GamePlayPage'),
 
 	#Comment Part

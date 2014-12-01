@@ -360,6 +360,10 @@ class GamePlayView(TemplateView):
          
 		
 		if self.request.user.is_authenticated():
+
+			if Favorite.objects.filter(fk_game=game, fk_visiter=self.request.user ).count()	 > 0: 
+				context['favorite'] = 1
+
 			GameVisit.objects.create(fk_game=game, fk_visiter=self.request.user)
 		else:
 			GameVisit.objects.create(fk_game=game)
@@ -385,7 +389,8 @@ class GamePlayView(TemplateView):
 		
 		model=OnPlayUser
 		if request.user.is_authenticated():
-				
+			if Favorite.objects.filter(fk_game=game, fk_visiter=self.request.user ).count()	 > 0: 
+				context['favorite'] = 1	
 				
 			if request.POST['action'] == 'Rate':
 				user =User.objects.get(id=request.user.id)
@@ -419,6 +424,34 @@ class GamePlayView(TemplateView):
 		
 		return render_to_response("notfirstapp/gameplay.html", context, context_instance = RequestContext(request));
 			
+			
+def favorite(request):
+	if (request.POST.get("user", "") != "None"):
+		user =User.objects.get(id=request.POST.get("user", ""))
+		game=Game.objects.get(slug=request.POST.get("game", ""))
+
+		obj = Favorite.objects.get_or_create(fk_game=game, fk_visiter=user )
+
+		return HttpResponse('Success')
+	else:
+	    return HttpResponse('Login')
+
+ 
+def unfavorite(request):
+	if (request.POST.get("user", "") != "None"):
+		user =User.objects.get(id=request.POST.get("user", ""))
+		game=Game.objects.get(slug=request.POST.get("game", ""))
+
+		Favorite.objects.filter(fk_game=game, fk_visiter=user ).delete()
+
+		return HttpResponse('Success')
+	else:
+	    return HttpResponse('Login')
+
+
+
+
+
 
 class CommentListView(ListView):
     model=GameComment
