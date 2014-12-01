@@ -15,7 +15,7 @@ urlpatterns = patterns('',
 	url(r'^signup/',views.SignUpView.as_view(),name='SignUpPage'),
 
 	#User
-	url(r'^profile/$',views.ProfileView.as_view(),name='ProfilePage'),
+	url(r'^profile/(?P<pk>\d+)/$',views.ProfileView.as_view(),name='ProfilePage'),
 	url(r'^profile/(?P<pk>\d+)/update/$',views.ProfileUpdateView.as_view(),name='ProfileUpdatePage'),
 
 	#index page
