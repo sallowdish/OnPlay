@@ -7,12 +7,12 @@
 						<p>{{user.onplayuser.nickname}}</p>
 				</a>
 			</div>
-			<div class='media-body' onSubmit="return submitComment()">
-				<form action="{%url 'game:CommentCreatePage'%}" method='POST' id="new_comment_form" onsubmit="submitComment()">
+			<div class='media-body'>
+				<form action="{%url 'game:CommentCreatePage'%}" method='POST' id="new_comment_form">
 					{% csrf_token %}
 					{% bootstrap_form form %}	
 					{% buttons %}
-				        <button type='submit' class="btn btn-primary" style='float:right'>
+				        <button onclick="return submitComment()" class="btn btn-primary" style='float:right'>
 				            {% bootstrap_icon "star" %} Submit
 				        </button>
 				    {% endbuttons %}
@@ -35,4 +35,8 @@
 			    return false; // cancel original event to prevent form submitting
 			}
 		</script>
+	{%else%}
+	<div class='jumbotron'>
+		<h3> no form</h3>
+	</div>
 	{%endif%}
