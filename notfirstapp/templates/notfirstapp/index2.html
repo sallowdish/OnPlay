@@ -153,14 +153,28 @@
 
                         <div class="item">
                             <div class="row">
-                                <div class="col-md-3"><a href="#" class="thumbnail"><img
-                                        src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
-                                <div class="col-md-3"><a href="#" class="thumbnail"><img
-                                        src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
-                                <div class="col-md-3"><a href="#" class="thumbnail"><img
-                                        src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
-                                <div class="col-md-3"><a href="#" class="thumbnail"><img
-                                        src="http://placehold.it/250x250" alt="Image" style="max-width:100%;"></a></div>
+                                {% if game_list %}
+                                    {% for game in game_list %}
+                                        {% if game.fk_image %}
+                                            <div class="col-md-3">
+                                                <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
+                                                    <img src="{{ game.fk_image.imagefile.url }}" alt="Image"
+                                                         style="max-width:100%;" width="500" height="500">
+                                                </a>
+                                            </div>
+
+
+                                        {% else %}
+                                            <div class="col-md-3">
+                                                <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
+                                                    <img src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
+                                                         alt="Image" style="max-width:100%;" width="500" height="500">
+                                                </a>
+                                            </div>
+
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                             <!--.row-->
                         </div>
