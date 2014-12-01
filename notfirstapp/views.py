@@ -366,7 +366,7 @@ class GamePlayView(TemplateView):
 		context['visit']=GameVisit.objects.filter(fk_game=game).extra({'visit_time' : "date(visit_time)"}).values('visit_time').annotate(play_count=Count('visit_time'))
 	
 	
-		form = CommentForm(initial={'fk_game': game, 'fk_comment_poster': 0})
+		form = CommentForm(initial={'fk_game': game, 'fk_comment_poster': self.request.user.id})
 		form.fields['fk_game'].widget = forms.HiddenInput()		
 		form.fields['fk_comment_poster'].widget = forms.HiddenInput()			
 		context['form'] = form
