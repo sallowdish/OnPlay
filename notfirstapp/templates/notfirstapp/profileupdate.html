@@ -9,7 +9,7 @@
 	<div clsss='row'>
 		<div class='col-xs-12 panel-body'>
 			<div id='update_result'></div>
-			<form action="" method="POST" class="form" id="update_profile_form" onsubmit='return sumbitUpdate()'>
+			<form enctype="multipart/form-data" action="" method="POST" class="form" id="update_profile_form" onsubmit='return sumbitUpdate()'>
 			{% csrf_token %}
 			{% bootstrap_form_errors form %}
 			{% bootstrap_form form %}
@@ -24,8 +24,8 @@
 </div>
 <script type="text/javascript">
 	function sumbitUpdate(){
-		var form=$('form#update_profile_form');
-		var result=form.submit();
+		// var form=$('form#update_profile_form');
+		// var result=form.submit();
 		// $.ajax({
 		// 	data: form.serialize(), // get the form data
 	 //        type: 'POST', // GET or POST
@@ -40,7 +40,7 @@
   //       	}
 		//     });
 		// };
-		return false;
+		// return false;
 	}
 </script>
 

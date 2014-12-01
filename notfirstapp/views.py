@@ -93,29 +93,31 @@ class ProfileUpdateView(UpdateView):
     model=OnPlayUser
     template_name="notfirstapp/profileupdate.html"
     form_class=OnPlayUserForm
-    # http_method_names
+    
+    def get_success_url(self):
+        return reverse('game:ProfilePage')
 
-    def get_form(self, form_class):
-        form=form_class(instance=OnPlayUser.objects.get(id=self.kwargs.get('pk')))
-        return form
+    # def get_form(self, form_class):
+    #     form=form_class(instance=OnPlayUser.objects.get(id=self.kwargs.get('pk')))
+    #     return form
 
-    def post(self, request, *args, **kwargs):
-        try:
-            
-            form=self.form_class(self.request.POST)
-            user=OnPlayUser.objects.get(user=form.data['user'])
-            user.nickname=form.data['nickname']
-            pdb.set_trace()
-            if u'profileimage' in form.data.keys():
-                img=Image(imagefile=form.data['profileimage'])
-                img.save()
-                user.profileimage=img
-            
-            user.save()
-            return HttpResponse('PATCHed')  
-        except Exception, e:
-            pdb.set_trace()
-            return HttpResponse(e,status=400)
+    # def post(self, request, *args, **kwargs):
+    #     try:           
+    #         form=form_class(instance=OnPlayUser.objects.get(user=self.request.user))
+    #         form.nickname=form.data['nickname']
+    #         # pdb.set_trace()
+    #         if u'profileimage' in form.data.keys():
+    #             img=Image(imagefile=form.data['profileimage'])
+    #             img.save()
+    #             user.profileimage=img
+    #         user.save()
+    #         return render_to_response(self.template_name,{'form':form},context_instance=RequestContext(request)) 
+    #     except Exception, e:
+    #         pdb.set_trace()
+    #         response= render_to_response(self.template_name,{'form':form},context_instance=RequestContext(request)) 
+    #         response.status=400
+    #         return response
+    #         # return HttpResponse(e,status=400)
         
 
 
