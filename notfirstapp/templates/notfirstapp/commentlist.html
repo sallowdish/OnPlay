@@ -17,7 +17,7 @@
 							{{comment.comment}}
 						</p>
 						<h5 class='media-heading' >
-							by <a href={% url 'game:ProfilePage' comment.fk_comment_poster.id%})>{{comment.fk_comment_poster.username}}</a> on {{comment.comment_time}}
+							by <a href="{% url 'game:ProfilePage' comment.fk_comment_poster.id%}">{{comment.fk_comment_poster.username}}</a> on {{comment.comment_time}}
 						</h5>
 					</div>
 				</div>
