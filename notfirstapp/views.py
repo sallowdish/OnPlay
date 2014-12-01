@@ -64,6 +64,7 @@ class ProfileView(View):
     model=OnPlayUser
     template_name='notfirstapp/profile.html'
 
+
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
             raise PermissionDenied("You have to login to see other's profile")
@@ -86,8 +87,17 @@ class ProfileView(View):
 class ProfileUpdateView(UpdateView):
     model=OnPlayUser
     template_name="notfirstapp/profileupdate.html"
+    form_class=OnPlayUserForm
 
-    def put(self, request, *args, **kwargs):
+    def get_form(self, form_class):
+        form=form_class(instance=OnPlayUser.objects.get(id=self.kwargs.get('pk')))
+        # pdb.set_trace()
+        return form
+
+    def patch(self, request, *args, **kwargs):
+        form=form_class(self.request.PUT)
+        pdb.set_trace()
+        form.save()
         return HttpResponse('PATCHed')	
 
 
