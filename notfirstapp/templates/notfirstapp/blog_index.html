@@ -21,18 +21,19 @@
 			</div>
         {% endfor %}
     {% else %}
+		<br>
         <p>There are no posts.</p>
     {% endif %}
 	
 	<div align='center'>
 	{% if page.has_previous %}
-		<a href = "?page={{ page.previous_page_number }}">Prev</a>
+		<a href = "?page={{ page.previous_page_number }}">Newer</a>
 	{% endif %}
 	
 	| {{ page.number }} |
 
 	{% if page.has_next %}
-		<a href = "?page={{ page.next_page_number }}">Next</a>
+		<a href = "?page={{ page.next_page_number }}">Older</a>
 	{% endif %}
 	</div>
 	<br>
