@@ -10,7 +10,7 @@
             font-weight : bold;
             color : black;
         }
-        .im-centered { margin: auto; max-width: 350px;}
+        .im-centered { margin: auto; max-width: 370px;}
 
         body {
             background: #eee;;
@@ -159,12 +159,13 @@
 
 
         <div class="container">
-            <h5 class="largeFont im-centered ">Our Game Library</h5>
+            <h5 class="largeFont im-centered ">Our Games Library</h5>
             <br><br>
+            <div class="row">
             {% if game_list %}
                 {% for game in game_list %}
                     {% if game %}
-                        <div class="col-ms-10 col-md-4">
+                        <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="project">
                                 <figure class="img-responsive">
                                     {%if game.fk_image %}
@@ -187,6 +188,7 @@
                     {%endif%}
                 {% endfor %}
             {% else %}
+            </div>
             <div class='container-fluid'>
                 <div class='row'>
                     <div class='col-xs-8 col-xs-offset-2'>
