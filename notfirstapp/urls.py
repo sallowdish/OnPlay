@@ -44,6 +44,7 @@ urlpatterns = patterns('',
 	url(r'^unfavorite/', views.unfavorite),	
 	url(r'^playgame/(?P<game_slug>\w+)$',views.GamePlayView.as_view(),name='GamePlayPage'),
 
+
 	#Comment Part
 	url(r'^comment/(?P<game_slug>\w+)$',views.CommentListView.as_view(),name='CommentListPage'),
 	url(r'^comment/create/$',views.CommentCreateView.as_view(),name='CommentCreatePage'),
