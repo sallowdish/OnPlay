@@ -43,18 +43,11 @@ urlpatterns = patterns('',
 	url(r'^playgame/(?P<game_slug>\w+)',views.GamePlayView.as_view(),name='GamePlayPage'),
 
 	#Comment Part
-	url(r'comment/',views.CommentListView.as_view(),name='CommentListPage'),
-	url(r'comment/create',views.CommentCreateView.as_view(),name='CommentCreatePage'),
-
-	
+	url(r'^comment/(?P<game_slug>\w+)$',views.CommentListView.as_view(),name='CommentListPage'),
+	url(r'^comment/create/$',views.CommentCreateView.as_view(),name='CommentCreatePage'),
 
 	#api part ScoreRankApiView
 	url(r'^rank/(?P<pk>\d+)/$',views.ScoreRankApiView,name='ScoreRankApi'),
-
-	# url(r'^(?P<contact_id>\d+)/edit/$', views.EditPageController, name='EditPage'),
-	# url(r'^(?P<contact_id>\d+)/edit/done$', views.EditDoneController, name='EditDone'),
-	# url(r'^create/$', views.CreatePageController, name='CreatePage'),
-	# url(r'^create/done$', views.CreateDoneController, name='CreateDone'),
 	
 	#Games html files.
 	url(r'^2048/$',TemplateView.as_view(template_name='notfirstapp/2048.html'),name='GameDemoPage'),
