@@ -3,7 +3,8 @@
 
 {%block head%}
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.js"></script>
-  <script type="text/javascript" src="{%static 'coverflow/jquery.coverflow.js'%}"></script>	
+  <script type="text/javascript" src="{%static 'coverflow/jquery.coverflow.js'%}"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
     <!-- Style for the popular games container and heading. -->
 	<style type="text/css">
@@ -66,6 +67,82 @@
 
         .im-centered { margin: auto; max-width: 90px;}
         .im-centeredToo { margin: auto; max-width: 100px;}
+        .topGamesBackgroundContainer {
+            background: #e0e0e0;
+        }
+    </style>
+
+    <!-- Style for the developer info -->
+    <style type="text/css">
+        #quote-carousel {
+            padding: 0 10px 30px 10px;
+            margin-top: 30px;
+            /* Control buttons  */
+            /* Previous button  */
+            /* Next button  */
+            /* Changes the position of the indicators */
+            /* Changes the color of the indicators */
+        }
+        #quote-carousel .carousel-control {
+            background: none;
+            color: #CACACA;
+            font-size: 2.3em;
+            text-shadow: none;
+            margin-top: 30px;
+        }
+        #quote-carousel .carousel-control.left {
+            left: -60px;
+        }
+        #quote-carousel .carousel-control.right {
+            right: -60px;
+        }
+        #quote-carousel .carousel-indicators {
+            right: 50%;
+            top: auto;
+            bottom: 0px;
+            margin-right: -19px;
+        }
+        #quote-carousel .carousel-indicators li {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            cursor: pointer;
+            border: 4px solid #CCC;
+            border-radius: 50px;
+            opacity: 0.4;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+        #quote-carousel .carousel-indicators .active {
+            background: #333333;
+            width: 128px;
+            height: 128px;
+            border-radius: 100px;
+            border-color: #f33;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .carousel-inner {
+            min-height: 300px;
+        }
+        .item blockquote {
+            border-left: none;
+            margin: 0;
+        }
+        .item blockquote p:before {
+            content: "\f10d";
+            font-family: 'Fontawesome';
+            float: left;
+            margin-right: 10px;
+        }
+        .devInfo {
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+        .developersInfoBackgroundContainer {
+            background: burlywood;
+        }
     </style>
 
     <link rel="stylesheet" href="{% static 'rateit/rateit.css'%}">
@@ -106,92 +183,233 @@
         </div>
     </div>
 
-    <br><br>
 
-    <div class="topGameContainer">
-        <h3 class='popGames' style='text-align:center'>Most Popular Games</h3>
-        <div class="col-md-12">
-            <div class="row">
-                <div id="Carousel" class="carousel slide">
+    <div class="topGamesBackgroundContainer">
+        <br><br>
+        <div class="topGameContainer">
+            <h3 class='popGames' style='text-align:center'>Most Popular Games</h3>
 
-                    <ol class="carousel-indicators">
-                        <li data-target="#Carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#Carousel" data-slide-to="1"></li>
-                    </ol>
+            <div class="col-md-12">
+                <div class="row">
+                    <div id="Carousel" class="carousel slide">
 
-                    <!-- Carousel items -->
-                    <div class="carousel-inner">
+                        <ol class="carousel-indicators">
+                            <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#Carousel" data-slide-to="1"></li>
+                        </ol>
 
-                        <div class="item active">
-                            <div class="row">
-                                {% if game_list %}
-                                    {% for game in game_list %}
-                                        {% if game.fk_image %}
-                                            <div class="col-md-3">
-                                                <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                    <img src="{{ game.fk_image.imagefile.url }}" alt="Image"
-                                                         style="max-width:100%;" width="500" height="500">
-                                                </a>
-                                            </div>
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+
+                            <div class="item active">
+                                <div class="row">
+                                    {% if game_list %}
+                                        {% for game in game_list %}
+                                            {% if game.fk_image %}
+                                                <div class="col-md-3">
+                                                    <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
+                                                        <img src="{{ game.fk_image.imagefile.url }}" alt="Image"
+                                                             style="max-width:100%;" width="500" height="500">
+                                                    </a>
+                                                </div>
 
 
-                                        {% else %}
-                                            <div class="col-md-3">
-                                                <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                    <img src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
-                                                         alt="Image" style="max-width:100%;" width="500" height="500">
-                                                </a>
-                                            </div>
+                                            {% else %}
+                                                <div class="col-md-3">
+                                                    <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
+                                                        <img src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
+                                                             alt="Image" style="max-width:100%;" width="500"
+                                                             height="500">
+                                                    </a>
+                                                </div>
 
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <!--.row-->
                             </div>
-                            <!--.row-->
-                        </div>
-                        <!--.item-->
+                            <!--.item-->
 
-                        <div class="item">
-                            <div class="row">
-                                {% if game_list %}
-                                    {% for game in game_list %}
-                                        {% if game.fk_image %}
-                                            <div class="col-md-3">
-                                                <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                    <img src="{{ game.fk_image.imagefile.url }}" alt="Image"
-                                                         style="max-width:100%;" width="500" height="500">
-                                                </a>
-                                            </div>
+                            <div class="item">
+                                <div class="row">
+                                    {% if game_list %}
+                                        {% for game in game_list %}
+                                            {% if game.fk_image %}
+                                                <div class="col-md-3">
+                                                    <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
+                                                        <img src="{{ game.fk_image.imagefile.url }}" alt="Image"
+                                                             style="max-width:100%;" width="500" height="500">
+                                                    </a>
+                                                </div>
 
 
-                                        {% else %}
-                                            <div class="col-md-3">
-                                                <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
-                                                    <img src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
-                                                         alt="Image" style="max-width:100%;" width="500" height="500">
-                                                </a>
-                                            </div>
+                                            {% else %}
+                                                <div class="col-md-3">
+                                                    <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
+                                                        <img src="{% static "notfirstapp/images/portfolio/1.jpg" %}"
+                                                             alt="Image" style="max-width:100%;" width="500"
+                                                             height="500">
+                                                    </a>
+                                                </div>
 
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <!--.row-->
                             </div>
-                            <!--.row-->
-                        </div>
-                        <!--.item-->
+                            <!--.item-->
 
+                        </div>
+                        <!--.carousel-inner-->
+                        <a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
+                        <a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
                     </div>
-                    <!--.carousel-inner-->
-                    <a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
-                    <a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
-                </div>
-                <!--.Carousel-->
+                    <!--.Carousel-->
 
+                </div>
             </div>
         </div>
-    </div><!--.container-->
+        <!--.container-->
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+
+
+
+    <div class="developersInfoBackgroundContainer">
+        <br><br>
+        <h3 class='popGames' style='text-align:center'>About The Developers</h3>
+        <div class="container devInfo">
+            <div class="row">
+                <div class="col-md-12" data-wow-delay="0.2s">
+                    <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                        <!-- Bottom Carousel Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#quote-carousel" data-slide-to="0" class="active">
+                                <img class="img-responsive "
+                                     src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="">
+                            </li>
+                            <li data-target="#quote-carousel" data-slide-to="1">
+                                <img class="img-responsive"
+                                     src="https://s3.amazonaws.com/uifaces/faces/twitter/rssems/128.jpg" alt="">
+                            </li>
+                            <li data-target="#quote-carousel" data-slide-to="2">
+                                <img class="img-responsive"
+                                     src="https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg" alt="">
+                            </li>
+                            <li data-target="#quote-carousel" data-slide-to="3">
+                                <img class="img-responsive"
+                                     src="https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg" alt="">
+                            </li>
+                        </ol>
+
+                        <!-- Carousel Slides / Quotes -->
+                        <div class="carousel-inner text-center">
+
+                            <!-- Quote 1 -->
+                            <div class="item active">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam,
+                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse
+                                                cillum dolore eu fugiat nulla pariatur. !</p>
+                                            <small>Someone famous</small>
+                                            <br><br><br><br><br>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <!-- Quote 2 -->
+                            <div class="item">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam,
+                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse
+                                                cillum dolore eu fugiat nulla pariatur. </p>
+                                            <small>Someone famous</small>
+                                            <br><br><br><br><br>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <!-- Quote 3 -->
+                            <div class="item">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam,
+                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse
+                                                cillum dolore eu fugiat nulla pariatur. .</p>
+                                            <small>Someone famous</small>
+                                            <br><br><br><br><br>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <!-- Quote 3 -->
+                            <div class="item">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                veniam,
+                                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                                esse
+                                                cillum dolore eu fugiat nulla pariatur. .</p>
+                                            <small>Someone famous</small>
+                                            <br><br><br><br><br>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <!-- Carousel Buttons Next/Prev -->
+                        <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i
+                                class="fa fa-chevron-left"></i></a>
+                        <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i
+                                class="fa fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br><br>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
 
 {%endblock content%}
 
