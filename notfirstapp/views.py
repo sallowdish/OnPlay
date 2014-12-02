@@ -29,7 +29,7 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        game_list = Game.objects.order_by('-createTime')[:4]
+        game_list = Game.objects.order_by('-createTime')
         game_rate_list = []
         for game in game_list:
             ratings = GameRate.objects.filter(fk_game=game)
@@ -45,8 +45,13 @@ class IndexView(ListView):
             spotlight_ratings = GameRate.objects.filter(fk_game=game)
             spotlight_games_rate_list.append((game, spotlight_ratings.aggregate(Avg('rate')).values()[0]))
 
+        top_games_list_one = game_list[0:4]
+        top_games_list_two = game_list[5:8]
+
         context['spotlight_games_rate_list'] = spotlight_games_rate_list
         context['game_list'] = game_list
+        context['top_games_list_one'] = top_games_list_one
+        context['top_games_list_two'] = top_games_list_two
         context['game_rate_list'] = game_rate_list
         context['user'] = self.request.user
         return context

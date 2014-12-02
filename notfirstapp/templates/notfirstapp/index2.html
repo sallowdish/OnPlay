@@ -224,7 +224,7 @@
                             <div class="item active">
                                 <div class="row">
                                     {% if game_list %}
-                                        {% for game in game_list %}
+                                        {% for game in top_games_list_one %}
                                             {% if game.fk_image %}
                                                 <div class="col-md-3">
                                                     <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">
@@ -253,7 +253,7 @@
                             <div class="item">
                                 <div class="row">
                                     {% if game_list %}
-                                        {% for game in game_list %}
+                                        {% for game in top_games_list_two %}
                                             {% if game.fk_image %}
                                                 <div class="col-md-3">
                                                     <a href="{% url 'game:GamePlayPage' game.slug %}" class="thumbnail">

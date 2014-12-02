@@ -12,10 +12,6 @@
         }
         .im-centered { margin: auto; max-width: 370px;}
 
-        body {
-            background: #eee;;
-        }
-
         .project {
             margin-bottom: 30px;
             vertical-align: top;
@@ -175,18 +171,6 @@
         max-width:100%;
     }
 </style>
-
-        <!-- Upload form. Note enctype attribute! -->
-        <!-- <form action="{% url 'game:ImageListPage' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <p>{{ form.non_field_errors }}</p>
-            <p>{{ form.imagefile.label_tag }} {{ form.imagefile.help_text }}</p>
-            <p>
-                {{ form.imagefile.errors }}
-                {{ form.imagefile }}
-            </p>
-            <p><input type="submit" value="Upload" /></p>
-        </form> -->
 {%endblock content%}
 
 
