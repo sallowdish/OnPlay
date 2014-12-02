@@ -38,20 +38,19 @@
         })
     </script>
 
-        <!-- Style for the game image -->
+    <!-- Style for the game image -->
     <style type="text/css">
         .gameImage {
-            
-
             max-height: 330px;
             max-width: 330px;
 
             overflow: hidden;
         }
-
+        .gameTableEntry {
+            border:1px solid #021a40;
+        }
         #favorite {
             padding:5px;
-            border:1px solid #021a40;
         }
     </style>
 
@@ -150,10 +149,12 @@
 					<table class='table-striped'>
 						<tbody style='border-top:1px solid rgb(221,221,221);'>
 						{% for favorites in favorite %}
-                            <tr>
+                            <tr class="gameTableEntry">
                                 <td class='col-xs-1'>
-                                    <p>{{ favorites.fk_game }}</p>
-                                    <small>You Played This Game <b>{{ favorites.get_play_count }}</b> times</small>
+                                    <a href="{% url 'game:GamePlayPage' favorites.fk_game.slug %}">
+                                        <p>{{ favorites.fk_game }}</p>
+                                    </a>
+                                    <large>You played this game <b>{{ favorites.get_play_count }}</b> times!</large>
                                 </td>
 
                                 <td class='col-xs-3'>
