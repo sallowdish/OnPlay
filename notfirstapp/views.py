@@ -480,9 +480,9 @@ class CommentListView(ListView):
     template_name='notfirstapp/commentlist.html'
     paginate_by = 5
 
-    def get_object(self, queryset=None):
+    def get_queryset(self):
         queryset=GameComment.objects.filter(fk_game__slug=self.kwargs.get('game_slug'))
-        return super(CommentListView,self).get_object(queryset)
+        return queryset
 
     def get_context_data(self,**kwargs):
         try:
