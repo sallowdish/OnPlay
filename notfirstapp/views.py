@@ -22,22 +22,37 @@ import json
 import pdb
 # Create your views here.
 class IndexView(ListView):
-	# current_game=Game.objects.all()
-	model=Game
-	template_name='notfirstapp/index2.html'
-	context_object_name='game_list'
+    # current_game=Game.objects.all()
+    model = Game
+    template_name = 'notfirstapp/index2.html'
+    context_object_name = 'game_list'
 
-	def get_context_data(self, **kwargs):
-		context=super(IndexView,self).get_context_data(**kwargs)
-		game_list=Game.objects.order_by('-createTime')[:4]
-        	game_rate_list=[]
-        	for game in game_list:
-            		ratings = GameRate.objects.filter(fk_game=game)
-            		game_rate_list.append((game,ratings.aggregate(Avg('rate')).values()[0]))
-		context['game_list']=game_list
-        	context['game_rate_list']=game_rate_list
-		context['user']=self.request.user
-		return context
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        game_list = Game.objects.order_by('-createTime')[:4]
+        game_rate_list = []
+        for game in game_list:
+            ratings = GameRate.objects.filter(fk_game=game)
+            game_rate_list.append((game, ratings.aggregate(Avg('rate')).values()[0]))
+
+        spotlight_game_objects = SpotlightGame.objects.all()
+        spotlight_games = []
+        for spotlight_object in spotlight_game_objects:
+            spotlight_games.append(spotlight_object.fk_game)
+
+        spotlight_games_rate_list = []
+        for game in spotlight_games:
+            spotlight_ratings = GameRate.objects.filter(fk_game=game)
+            spotlight_games_rate_list.append((game, spotlight_ratings.aggregate(Avg('rate')).values()[0]))
+
+        context['spotlight_games_rate_list'] = spotlight_games_rate_list
+        context['game_list'] = game_list
+        context['game_rate_list'] = game_rate_list
+        context['user'] = self.request.user
+        return context
+
+
+
 	# return HttpResponse(template.render(context))
 
 class SignUpView(FormView):
