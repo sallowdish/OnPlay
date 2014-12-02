@@ -181,7 +181,7 @@
             {% for game,rate in spotlight_games_rate_list %}
                 <div class='col-xs-6 col-sm-6 col-md-3 cover'>
                     <div class='row' style='border:2px solid #DDDDDD'>
-                        <a href="{% url 'game:GamePlayPage' game.slug %}">
+                        <a href="{% url 'game:GamePlayPage' game.slug %}" onclick='return false'>
                             <img class='spotlight' src="{{ game.fk_image.imagefile.url }}" alt="Game Image">
                         </a>
                     </div>
@@ -189,8 +189,8 @@
 
                     <div class='row'>
                             <div class="im-centered">
-                            <a href="{% url 'game:GamePlayPage' game.slug %}">
-                                <h3 id="gameName" style='color:#f7f7f7;font-weight:bold;font-size:250%;text-align: center;'>{{ game.gamename }}</h3></a>
+                                <a href="{% url 'game:GamePlayPage' game.slug %}" onclick='return false'>
+                                    <h3 id="gameName" style='color:#f7f7f7;font-weight:bold;font-size:250%;text-align: center;'>{{ game.gamename }}</h3></a>
                              </div>
                              <div class="im-centeredToo">
                             <div class="rateit" data-rateit-value="{{ rate }}" data-rateit-ispreset="true"
@@ -424,7 +424,10 @@
     <!-- Script for the spotlight games slidey thing. -->
     <script>
         $(function () {
-            $('.coverflow').coverflow();
+            $('.coverflow').coverflow({confirm:function(event, cover, index){
+                        $(cover).find("a").attr('onclick','');
+                }
+            });
         });
     </script>
 
