@@ -46,7 +46,7 @@ class IndexView(ListView):
             spotlight_games_rate_list.append((game, spotlight_ratings.aggregate(Avg('rate')).values()[0]))
 
         top_games_list_one = game_list[0:4]
-        top_games_list_two = game_list[5:8]
+        top_games_list_two = game_list[4:8]
 
         context['spotlight_games_rate_list'] = spotlight_games_rate_list
         context['game_list'] = game_list
