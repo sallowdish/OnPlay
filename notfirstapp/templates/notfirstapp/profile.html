@@ -7,43 +7,53 @@
 {%block content%}
 {% with profile_image=player.profileimage nickname=player.nickname targertuser=player.user%}
 
-
-
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
 
- 	var data = google.visualization.arrayToDataTable([
-		['Date', 'Games'],
-   	{% for visits in visit %}
-	['{{visits.visit_time |date:"d M" }}', {{visits.play_count}}],
+            var data = google.visualization.arrayToDataTable([
+                ['Date', 'Games'],
+                {% for visits in visit %}
+                    ['{{visits.visit_time |date:"d M" }}', {{visits.play_count}}],
 
-	{% endfor %}
-        ]);
+                {% endfor %}
+            ]);
 
-        var options = {
-          title: 'Game played',
-          hAxis: { title: 'Date', titleTextStyle: {color: '#333'}, slantedText: true,  slantedTextAngle: 180 },
-          vAxis: {title: 'Game played', slantedText: true,  slantedTextAngle: 180},
-	'width':450,
-	'height':200
-	        };
+            var options = {
+                title: 'Game played',
+                hAxis: { title: 'Date', titleTextStyle: {color: '#333'}, slantedText: true, slantedTextAngle: 180 },
+                vAxis: {title: 'Game played', slantedText: true, slantedTextAngle: 180},
+                'width': 450,
+                'height': 200
+            };
 
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
 
-
-
-
-
-	  $(function () {
-	    $('#myTab a:first').tab('show')
-	  })
-
+        $(function () {
+            $('#myTab a:first').tab('show')
+        })
     </script>
+
+        <!-- Style for the game image -->
+    <style type="text/css">
+        .gameImage {
+            
+
+            max-height: 330px;
+            max-width: 330px;
+
+            overflow: hidden;
+        }
+
+        #favorite {
+            padding:5px;
+            border:1px solid #021a40;
+        }
+    </style>
 
 
 	<div class='container-fluid' style='margin-top:2em'>
@@ -143,12 +153,12 @@
                             <tr>
                                 <td class='col-xs-1'>
                                     <p>{{ favorites.fk_game }}</p>
-                                    <small>Played {{ favorites.get_play_count }} times</small>
+                                    <small>You Played This Game <b>{{ favorites.get_play_count }}</b> times</small>
                                 </td>
 
                                 <td class='col-xs-3'>
-                                    <a href="../../playgame/{{ favorites.fk_game.slug }}">
-                                        <img class=""  src="{{ favorites.fk_game.fk_image }}" alt="Game Image"width="128" height="128">
+                                    <a href="{% url 'game:GamePlayPage' favorites.fk_game.slug %}">
+                                        <img class="gameImage"  src="{{ favorites.fk_game.fk_image }}" alt="Game Image"width="128" height="128">
                                     </a>
                                 </td>
                             </tr>
