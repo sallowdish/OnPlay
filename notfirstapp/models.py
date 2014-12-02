@@ -47,6 +47,10 @@ class Game(models.Model):
 		else:
 			return "0"
 
+	def played(self):
+
+		gameplayed = GameVisit.objects.filter(fk_game=self)
+		return len(gameplayed)
 		
 """ All the games that are being put in the spotlight by the admins. 
 	 It is up to the Admins to not have duplicate games in this table."""
