@@ -59,6 +59,7 @@ urlpatterns = patterns('',
 	url(r'^snake/$',TemplateView.as_view(template_name='notfirstapp/snake.html'),name='Snake'),
 	url(r'^starship/$',TemplateView.as_view(template_name='notfirstapp/starship.html'),name='Starship'),
 	url(r'^alien/$',TemplateView.as_view(template_name='notfirstapp/alien.html'),name='Alien'),
+    url(r'^filler/$',TemplateView.as_view(template_name='notfirstapp/fillerGame.html'),name='Filler Game'),
 	url(r'^libgdx/$',TemplateView.as_view(template_name='notfirstapp/gamelibgdx.html'),name='libgdx'),
 	
 	#blog
