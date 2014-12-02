@@ -136,10 +136,13 @@
 						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 							<ul class="list-unstyled"> 
 								<li><strong>Popular Pages</strong><li>
-								<li><a href="http://cmpt470.csil.sfu.ca:8003/project/game/">Home</a></li>
-								<li><a href="http://cmpt470.csil.sfu.ca:8003/project/game/gallery/">Gallery</a></li>
-								<li><a href="http://cmpt470.csil.sfu.ca:8003/project/game/blog/">Blog</a></li>
-								<li><a href="http://cmpt470.csil.sfu.ca:8003/project/game/manager/">My Games</a></li>
+								<li><a href="{% url 'game:indexPage' %}">Home</a></li>
+								<li><a href= "{% url 'game:GameGalleryPage' %}">Gallery</a></li>
+								<li><a href= "{% url 'game:blog' %}">Blog</a></li>
+                                {%if user.is_authenticated %}
+                                    <li><a class="menu" href="{% url 'game:ProfilePage' user.id %}">
+                                        My Profile</a></li>
+                                {% endif %}
 							</ul>
 						</div>
 						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
