@@ -140,20 +140,21 @@
 					<table class='table-striped'>
 						<tbody style='border-top:1px solid rgb(221,221,221);'>
 						{% for favorites in favorite %}
-							<tr>
-								<td class='col-xs-1'>
-									<p>{{favorites.fk_game}}</p>
-									<small>Played {{favorites.get_play_count}} times</small>
-								</td>
-								<td class='col-xs-3'> 
-									
+                            <tr>
+                                <td class='col-xs-1'>
+                                    <p>{{ favorites.fk_game }}</p>
+                                    <small>Played {{ favorites.get_play_count }} times</small>
+                                </td>
 
-<a href="../../playgame/{{favorites.fk_game.slug}}" ><img class="" src="{{favorites.fk_game.fk_image}}" alt="Game Image"  width="128" height="128"> </a>
-								</td>
-							</tr>
-							
-						{% endfor %}	
-						</tbody>
+                                <td class='col-xs-3'>
+                                    <a href="../../playgame/{{ favorites.fk_game.slug }}">
+                                        <img class=""  src="{{ favorites.fk_game.fk_image }}" alt="Game Image"width="128" height="128">
+                                    </a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
 					</table>			
 				</div>
 				</div>
