@@ -67,8 +67,6 @@ class SignUpView(FormView):
 
     def form_valid(self,form):
         user=form.save()
-        # import pdb
-        # pdb.set_trace()
         OnPlayUser(user=user).save()
         return self.get_success_url();
 
@@ -390,7 +388,15 @@ class GameDeployView(View):
     template_name="notfirstapp/gamelist.html"
 
     def post(self, request, **kwargs):
-        return render_to_response('POSTed')
+        try:
+            # pdb.set_trace()
+            game=get_object_or_404(Game,slug=request.POST['game-slug'])
+            game.depolyed_path=request.POST['deploy-url']
+            game.save()
+            return HttpResponse('Updated.')
+        except Exception, e:
+            raise e
+        
         
 
 class GamePlayView(TemplateView):

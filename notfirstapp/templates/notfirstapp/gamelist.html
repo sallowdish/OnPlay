@@ -17,10 +17,12 @@
             </div>
             <div class="modal-body">
                 <form role="form" action="{% url 'game:GameDeployPage' %}" id="DeployForm" method='post'>
-                    {%csrf_token%}
+                    <div class="form-group">
+                        {%csrf_token%}
+                    </div>
                     <div class="form-group">
                         <!-- <label for="game-name" class="control-label">Game Name:</label> -->
-                        <input type="hidden" class="form-control" id="game-slug" readonly>
+                        <input type="hidden" class="form-control" id="game-slug" name="game-slug">
                     </div>
                     <div class="form-group">
                         <label for="game-name" class="control-label">Game Name:</label>
@@ -28,30 +30,70 @@
                     </div>
                     <div class="form-group">
                         <label for="depoly-url" class="control-label">Depoly URL:</label>
-                        <textarea class="form-control" id="depoly-url" required></textarea>
+                        <textarea class="form-control" id="deploy-url" name="deploy-url"required></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick='$(".modal form#DeployForm").submit()'>Deploy</button>
+                <button type="button" class="btn btn-primary" onclick='updateDeployURL();'>Deploy</button>
             </div>
         </div>
     </div>
 </div>
+<script type='text/javascript'>
+function updateDeployURL() {
+    var form=$(".modal form#DeployForm");
+    $.ajax({
+        type: "POST",
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function() {
+            $('.modal').modal("hide");
+            $('#feedback_messages_succeed')
+            .hide()
+            .fadeIn(1500, function() {})
+            .delay(1500)
+            .slideUp(500, function() {});
+        },
+        error: function(){
+            $('.modal').modal("hide");
+            $('#feedback_messages_error')
+            .hide()
+            .fadeIn(1500, function() {})
+            .delay(1500)
+            .slideUp(500, function() {});
+            // .fadeOut(1500,function() {});
+            // .hide();
+            // .fadeOut(1500,function() {});
+        }
+  });
+}
+</script>
 
 
 <div class="container">
-    <div class='row ' >
+    <div class='row' >
         <div class='col-xs-12 page-header' style='margin-top:0'>
                 <h2>My Game Library</h2>
                 <small>You can manage all your games here</small>
         </div>
     </div>
+    <div class='row alert alert-warning alert-dismissible fade in' id='feedback_messages_succeed'>
+        <button class="close" data-dismiss="alert" type="button">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close</span>
+        </button>
+        Deploy URL has been updated.
+    </div>
+    <div class='row alert alert-warning alert-danger fade in' id='feedback_messages_error'>
+        <button class="close" data-dismiss="alert" type="button">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Close</span>
+        </button>            
+        Deploy URL has <strong>failed</strong>. Please retry later.
+    </div>
     <div class='row'>
-        <div class="bb-alert alert alert-info" style="display:none;">
-            <span>The examples populate this alert with dummy content</span>
-        </div>
         {% if game_list %}
             <table class='table table-hover'>
                 <thead>
@@ -132,15 +174,17 @@
 <script type='text/javascript'>
     $(document).ready(
             function(){
+                $('#feedback_messages_error').hide();
+                $('#feedback_messages_succeed').hide();
                 $('#updateDepoly').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var gamename = button.data('game'); // Extract info from data-* attributes
-                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                var modal = $(this);
-                modal.find('.modal-title').text('New depoly-url ' + gamename);
-                modal.find('.modal-body input#game-name').val(gamename);
-                modal.find('.modal-body input#game-slug').val(button.data('slug'));
+                    var button = $(event.relatedTarget); // Button that triggered the modal
+                    var gamename = button.data('game'); // Extract info from data-* attributes
+                    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                    var modal = $(this);
+                    modal.find('.modal-title').text('New depoly-url ' + gamename);
+                    modal.find('.modal-body input#game-name').val(gamename);
+                    modal.find('.modal-body input#game-slug').val(button.data('slug'));
             });
         });
 </script>
