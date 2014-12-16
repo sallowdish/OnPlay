@@ -386,6 +386,13 @@ class GameUploadView(FormView):
     def get_success_url(self):
         return reverse('game:GameDetailPage', kwargs={'pk': self.request.POST['fk_game']})
 
+class GameDeployView(View):
+    template_name="notfirstapp/gamelist.html"
+
+    def post(self, request, **kwargs):
+        return render_to_response('POSTed')
+        
+
 class GamePlayView(TemplateView):
 	template_name='notfirstapp/gameplay.html'
 

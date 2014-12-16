@@ -25,6 +25,7 @@ urlpatterns = patterns('',
 	
 	#manager part
 	url(r'^manager/upload/$',login_required(views.GameCreateView.as_view()),name='GameFormPage'),
+	url(r'^manager/deploy/$',login_required(views.GameDeployView.as_view()),name='GameDeployPage'),
 	url(r'^manager/gamearchive/upload/$',login_required(views.GameUploadView.as_view()),name='GameArchiveUploadPage'),
 	url(r'^manager/(?P<pk>\d+)/$',login_required(views.GameDetailView.as_view()),name='GameDetailPage'),
 	url(r'^manager/$',login_required(views.GameListView.as_view()),name='GameManagePage'),

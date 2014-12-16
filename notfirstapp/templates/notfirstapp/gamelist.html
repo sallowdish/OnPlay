@@ -16,7 +16,7 @@
                 <h4 class="modal-title" id="exampleModalLabel">Depoly Game</h4>
             </div>
             <div class="modal-body">
-                <form role="form">
+                <form role="form" action="{% url 'game:GameDeployPage' %}" id="DeployForm" method='post'>
                     {%csrf_token%}
                     <div class="form-group">
                         <!-- <label for="game-name" class="control-label">Game Name:</label> -->
@@ -28,13 +28,13 @@
                     </div>
                     <div class="form-group">
                         <label for="depoly-url" class="control-label">Depoly URL:</label>
-                        <textarea class="form-control" id="depoly-url"></textarea>
+                        <textarea class="form-control" id="depoly-url" required></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+                <button type="button" class="btn btn-primary" onclick='$(".modal form#DeployForm").submit()'>Deploy</button>
             </div>
         </div>
     </div>
@@ -141,10 +141,6 @@
                 modal.find('.modal-title').text('New depoly-url ' + gamename);
                 modal.find('.modal-body input#game-name').val(gamename);
                 modal.find('.modal-body input#game-slug').val(button.data('slug'));
-
-                var form=modal.find('.modal-body form');
-                form.attr('action',"###");
-                form.attr('methods','post');
             });
         });
 </script>
